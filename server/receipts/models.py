@@ -6,6 +6,8 @@ class CustomerReceipt(models.Model):
     
     paid = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField(null=True, blank=True)
+    pillow = models.OneToOneField('products.Pillow', related_name='customer_receipt', blank=True,null=True, on_delete=models.CASCADE)
+    fiber_bag = models.OneToOneField('products.FiberBag', related_name='customer_receipt', blank=True,null=True, on_delete=models.CASCADE)
     def __str__(self):
         return self.customer.name
     
@@ -19,6 +21,7 @@ class CustomerReceipt(models.Model):
 
 class SuppliersReceipt(models.Model):
     supplier = models.ForeignKey('suppliers.SupplierProfile',related_name='supplier_receipt' ,on_delete=models.CASCADE)
+    material = models.ForeignKey('materials.Material', related_name='supplier_receipt', on_delete=models.CASCADE)
     date = models.DateField()
     paid = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField(null=True, blank=True)
@@ -32,3 +35,4 @@ class SuppliersReceipt(models.Model):
     @property
     def remaining(self):
         return self.paid - self.total
+

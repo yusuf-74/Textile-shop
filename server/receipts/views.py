@@ -9,4 +9,4 @@ def test(request):
     
     return HttpResponse(f"Paid: {paid}, Total: {total}, Remaining: {remaining}")
 
-# Create your views here.
+
