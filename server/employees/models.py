@@ -1,6 +1,6 @@
 from django.db import models
 
-class Employee(models.Model):
+class EmployeeProfile(models.Model):
     user = models.OneToOneField('auth.User', related_name='employee', on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     sales = models.DecimalField(max_digits=6, decimal_places=2,default=0)

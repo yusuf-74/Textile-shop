@@ -3,11 +3,11 @@ from django.db import models
 class CustomerReceipt(models.Model):
     customer = models.ForeignKey('customers.CustomerProfile', related_name='customer_receipt', on_delete=models.CASCADE)
     date = models.DateField()
-    
     paid = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField(null=True, blank=True)
     pillow = models.OneToOneField('products.Pillow', related_name='customer_receipt', blank=True,null=True, on_delete=models.CASCADE)
     fiber_bag = models.OneToOneField('products.FiberBag', related_name='customer_receipt', blank=True,null=True, on_delete=models.CASCADE)
+    employee = models.ForeignKey('employees.EmployeeProfile', related_name='customer_receipt', on_delete=models.CASCADE)
     def __str__(self):
         return self.customer.name
     
@@ -21,10 +21,13 @@ class CustomerReceipt(models.Model):
 
 class SuppliersReceipt(models.Model):
     supplier = models.ForeignKey('suppliers.SupplierProfile',related_name='supplier_receipt' ,on_delete=models.CASCADE)
-    material = models.ForeignKey('materials.Material', related_name='supplier_receipt', on_delete=models.CASCADE)
     date = models.DateField()
     paid = models.DecimalField(max_digits=6, decimal_places=2)
     description = models.TextField(null=True, blank=True)
+    bag = models.OneToOneField('materials.Bag', related_name='supplier_receipt', blank=True,null=True, on_delete=models.CASCADE)
+    fiber = models.OneToOneField('materials.Fiber', related_name='supplier_receipt', blank=True,null=True, on_delete=models.CASCADE)
+    fibric = models.OneToOneField('materials.Fabric', related_name='supplier_receipt', blank=True,null=True, on_delete=models.CASCADE)
+    employee = models.ForeignKey('employees.EmployeeProfile', related_name='supplier_receipt', on_delete=models.CASCADE)
     def __str__(self):
         return self.supplier.name
     
