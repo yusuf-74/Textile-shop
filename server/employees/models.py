@@ -1,19 +1,53 @@
 from django.db import models
 
-class EmployeeProfile(models.Model):
-    user = models.OneToOneField('auth.User', related_name='employee', on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
-    sales = models.DecimalField(max_digits=6, decimal_places=2,default=0)
-    salary = models.DecimalField(max_digits=6, decimal_places=2)
-    commission_rate = models.DecimalField(max_digits=6, decimal_places=2 ,  default=0)
-    overtime_work = models.DecimalField(max_digits=6, decimal_places=2, default=0)
-    hourly_rate = models.DecimalField(max_digits=6, decimal_places=2, default=0)
-    penalty = models.DecimalField(max_digits=6, decimal_places=2, default=0)
-    loans = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+CHOICES_OF_PENALTY=[
+        ('penalty', 'penalty'),
+        ('loans', 'loans'),
+    ]
+CHOICES_OF_ROLE=[
+    ('customer', 'customer'),
+    ('employee', 'employee'),
+    ('supplier', 'supplier'),
+        ]
+class person(models.Model):
+    name = models.CharField(max_length=100)
+    role=models.CharField(choices=CHOICES_OF_ROLE, max_length=255 , default='employee')
+    phone_number = models.CharField(max_length=20)
+    address = models.CharField(max_length=200)
+    city = models.CharField(max_length=50)
+    government = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+class PenaltyOrLoans(models.Model):
+    type_of_debt=models.CharField(choices=CHOICES_OF_PENALTY, max_length=255)
+    amount=models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+
+class salary(models.Model):
+    user = models.OneToOneField(person, related_name='employee', on_delete=models.CASCADE)
+    num_of_hours = models.DecimalField(max_digits=6, decimal_places=2,default=0)
+    num_of_days = models.IntegerField()
+    salry_per_hour = models.DecimalField(max_digits=6, decimal_places=2,default=0)
+    penalty = models.OneToOneField("employees.PenaltyOrLoans",related_name='penalty', on_delete=models.CASCADE)
+    loans = models.OneToOneField("employees.PenaltyOrLoans",related_name='loan', on_delete=models.CASCADE)
+
+
     def __str__(self):
         return self.name
 
     @property
     def total_salary(self):
-        return self.salary + (self.commission_rate*self.sales) + (self.overtime_work * self.hourly_rate) - self.penalty - self.loans
-    
+        total_salary=self.salry_per_hour*self.num_of_hours*self.num_of_days
+        if self.penalty:
+            total_salary -=self.penalty.amount
+        if self.loans:
+            total_salary -=self.loans.amount
+
+        return total_salary
+
+
