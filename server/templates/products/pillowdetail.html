@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<section class="section-content padding-y bg">
+    <div class="container">
+
+    <!-- ============================ COMPONENT 1 ================================= -->
+    <div class="card">
+        <div class="row no-gutters">
+            <aside class="col-md-6">
+    <article class="gallery-wrap">
+        <div class="img-big-wrap">
+           <a href="#"><img src="{{product.image_url.url}}"></a>
+        </div> <!-- img-big-wrap.// -->
+
+    </article> <!-- gallery-wrap .end// -->
+            </aside>
+            <main class="col-md-6 border-left">
+
+
+      <article class="content-body">
+        <ul class="list-group list-group-flush">
+
+            <li class="list-group-item active">details</li>
+            <li class="list-group-item">type: {{product.type}}</li>
+            <li class="list-group-item">retail_price :${{product.retail_price}}</li>
+            <li class="list-group-item">wholesale_price :${{product.wholesale_price}}</li>
+            <li class="list-group-item">qunantity: {{product.quantity}}</li>
+            </ul>
+        {% if product.description %}
+        <p>description :{{product.description}}.</p>
+        {% endif %}
+
+      
+    </div>
+
+
+
+
+
+      </article> <!-- product-info-aside .// -->
+
+            </main> <!-- col.// -->
+        </div> <!-- row.// -->
+    </div> <!-- card.// -->
+    <!-- ============================ COMPONENT 1 END .// ================================= -->
+
+    <br>
+
+    </div> <!-- container .//  -->
+    </section>
+{% endblock content %}
