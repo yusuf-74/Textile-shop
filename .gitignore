@@ -10,6 +10,8 @@ postgres_data/
 
 /static
 static/
+/media
+media/
 
 # Distribution / packaging
 .Python
