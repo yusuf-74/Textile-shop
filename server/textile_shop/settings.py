@@ -65,7 +65,7 @@ ROOT_URLCONF = 'textile_shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,6 +77,7 @@ TEMPLATES = [
         },
     },
 ]
+print(TEMPLATES[0]['DIRS'])
 
 WSGI_APPLICATION = 'textile_shop.wsgi.application'
 
