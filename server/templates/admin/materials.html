@@ -1,13 +1,8 @@
 {% extends 'admin/dashboard.html' %}
 
-{% block css %} 
-{{block.super}} 
-{% endblock %} 
-{% block sidebar %} 
-{{block.super}} 
-{% endblock %} 
 
-{% block profit %} 
+
+{% block upside %} 
 <div class='dashboard-analytics-content' style = 'display:flex ;justify-content : space-evenly; overflow:hidden;min-height:800px' >
     <a href = '#'>
 <div class="card" style="width: 18rem;margin:16px 0">
@@ -36,6 +31,3 @@
 </div>
 {% endblock %}
 
-{% block script %}
-{{block.super}}
-{% endblock%}
