@@ -1,12 +1,12 @@
 from django.shortcuts import render,redirect
 from django.views import View
-from .filters import EmployeeFilter
+from .filters import PersonFilter
 from .models import Person , Salary, PenaltyOrLoans
 
 
 class EmployeeView(View):
     def get(self,request,*args, **kwargs):
-        employees = EmployeeFilter(request.GET,queryset=Person.objects.filter(role = 'employee'))
+        employees = PersonFilter(request.GET,queryset=Person.objects.filter(role = 'employee'))
         employees_data = [{\
                         'id':employee.id \
                         ,'name':employee.name\
@@ -40,6 +40,7 @@ class EditEmployeeView(View):
                 employee = Person.objects.create(name = data['name'][0]\
                 ,phone_number = data['phone'][0]\
                 ,address = data['address'][0]\
+                ,email = data['email'][0]\
                 ,role = 'employee'\
                 ,city = data['city'][0]\
                 ,government = 'Bani suif'\
@@ -64,6 +65,7 @@ class EditEmployeeView(View):
             employee = Person.objects.get(id = data['id'][0])
             employee.name = data['name'][0]
             employee.phone_number = data['phone'][0]
+            employee.email = data['email'][0]
             employee.address = data['address'][0]
             employee.city = data['city'][0]
             employee.save()
@@ -87,3 +89,118 @@ class EditEmployeeView(View):
             print(employee)
             employee.delete()
             return redirect('all_employees')
+        
+
+class CustomerView(View):
+    def get(self,request,*args, **kwargs):
+        customers = PersonFilter(request.GET,queryset=Person.objects.filter(role = 'customer'))
+        customers_data = [{\
+                        'id':customer.id \
+                        ,'name':customer.name\
+                        ,'phone':customer.phone_number\
+                        ,'address':customer.address\
+                        ,'email': customer.email\
+                        ,'city':customer.city \
+                        ,'government':customer.government\
+                            }\
+                            for customer in customers.qs]
+    
+        return render(request,'customers/all-customers.html',{'customers_data':customers_data})    
+    
+class EditCustomerView(View):
+    def get(self,request,*args, **kwargs):
+        return render(request,'customers/create-customer.html')
+    
+    def post(self,request,*args, **kwargs):
+        
+        data = dict(request.POST)
+        
+        if data['_method'][0] == 'POST':
+            try:
+                customer = Person.objects.create(name = data['name'][0]\
+                ,phone_number = data['phone'][0]\
+                ,address = data['address'][0]\
+                ,email = data['email'][0]\
+                ,role = 'customer'\
+                ,city = data['city'][0]\
+                ,government = 'Bani suif'\
+                    )
+            except:
+                raise Exception('error')
+            
+            return redirect('all_customers')
+
+        elif data['_method'][0] == 'PUT':
+            data = dict(request.POST)
+            customer = Person.objects.get(id = data['id'][0])
+            customer.name = data['name'][0]
+            customer.phone_number = data['phone'][0]
+            customer.email = data['email'][0]
+            customer.address = data['address'][0]
+            customer.city = data['city'][0]
+            customer.save()
+            
+            return redirect('all_customers')
+        
+        elif data['_method'][0] == 'DELETE':
+            data = dict(request.POST)
+            customer = Person.objects.get(id = data['id'][0])
+            customer.delete()
+            return redirect('all_customers')
+        
+class SupplierView(View):
+    def get(self,request,*args, **kwargs):
+        suppliers = PersonFilter(request.GET,queryset=Person.objects.filter(role = 'supplier'))
+        suppliers_data = [{\
+                        'id':supplier.id \
+                        ,'name':supplier.name\
+                        ,'phone':supplier.phone_number\
+                        ,'address':supplier.address\
+                        ,'email': supplier.email\
+                        ,'city':supplier.city \
+                        ,'government':supplier.government\
+                            }\
+                            for supplier in suppliers.qs]
+    
+        return render(request,'suppliers/all-suppliers.html',{'suppliers_data':suppliers_data})
+    
+class EditSupplierView(View):
+    def get(self,request,*args, **kwargs):
+        return render(request,'suppliers/create-supplier.html')
+    
+    def post(self,request,*args, **kwargs):
+        
+        data = dict(request.POST)
+        
+        if data['_method'][0] == 'POST':
+            try:
+                supplier = Person.objects.create(name = data['name'][0]\
+                ,phone_number = data['phone'][0]\
+                ,address = data['address'][0]\
+                ,email = data['email'][0]\
+                ,role = 'supplier'\
+                ,city = data['city'][0]\
+                ,government = 'Bani suif'\
+                    )
+            except:
+                raise Exception('error')
+            
+            return redirect('all_suppliers')
+
+        elif data['_method'][0] == 'PUT':
+            data = dict(request.POST)
+            supplier = Person.objects.get(id = data['id'][0])
+            supplier.name = data['name'][0]
+            supplier.phone_number = data['phone'][0]
+            supplier.email = data['email'][0]
+            supplier.address = data['address'][0]
+            supplier.city = data['city'][0]
+            supplier.save()
+            
+            return redirect('all_suppliers')
+        
+        elif data['_method'][0] == 'DELETE':
+            data = dict(request.POST)
+            supplier = Person.objects.get(id = data['id'][0])
+            supplier.delete()
+            return redirect('all_suppliers')
