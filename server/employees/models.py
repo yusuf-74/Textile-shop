@@ -13,12 +13,16 @@ class Person(models.Model):
     name = models.CharField(max_length=100)
     role=models.CharField(choices=CHOICES_OF_ROLE, max_length=255 , default='employee')
     phone_number = models.CharField(max_length=20)
+    email = models.EmailField(max_length=254,default='not@provided.com')
     address = models.CharField(max_length=200)
     city = models.CharField(max_length=50)
     government = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        ordering = ['id']
 
 class PenaltyOrLoans(models.Model):
     type_of_debt=models.CharField(choices=CHOICES_OF_PENALTY, max_length=255)

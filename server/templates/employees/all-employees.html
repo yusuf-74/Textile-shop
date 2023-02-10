@@ -43,7 +43,12 @@
 
 {% block downside %}
 <section style="margin: 0 0 32px 0;min-height:800px;">
-  <div style="margin: 32px 0 32px 16px">Employees</div>
+  <div style = "display :flex;">
+    <div style="margin: 32px 0 32px 16px ; flex : 1">Employees</div>
+    <a href = "edit">
+      <button type="button" style="margin: 32px" class="btn btn-success">Create</button>
+    </a>
+  </div>
   <table class="table align-middle mb-0 bg-white">
     <thead class="bg-light">
       <tr>
@@ -52,26 +57,151 @@
         <th>Address</th>
         <th>phone</th>
         <th>Salary</th>
-        
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
      {% for employee in employees_data %}
      
-      <tr onclick="window.location='#';" style = 'cursor:pointer'>
-        <td>
+      <tr style = 'cursor:pointer'>
+        <td onclick="window.location='#';" >
           <div class="d-flex align-items-center">{{employee.id}}</div>
         </td>
-        <td>
+        <td onclick="window.location='#';" >
           <p class="fw-normal mb-1">{{employee.name}}</p>
         </td>
-        <td>
+        <td onclick="window.location='#';" >
             <p class="fw-normal mb-1">{{employee.address}}</p>
           </td>
-          <td>
+          <td onclick="window.location='#';" >
             <p class="fw-normal mb-1">{{employee.phone}}</p>
           </td>
-        <td>{{employee.salary}}</td>
+        <td onclick="window.location='#';" >{{employee.salary}}</td>
+        <td style="display:flex;"> 
+         
+
+            <!-- Button trigger modal -->
+            <button type="button" style="margin: 8px 4px" class="btn btn-danger" data-mdb-toggle="modal" data-mdb-target="#editdelete{{employee.id}}">
+              <i class="fa-solid fa-trash"></i></i>
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="editdelete{{employee.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form method = 'POST' action = 'edit/'>
+                      {% csrf_token %}
+                      <input type="hidden" name="_method" value="DELETE">
+                      <input type="hidden" name="id" value="{{employee.id}}">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-danger">Confirm DELETE</button>
+                        </div>
+                    </form>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+              {% comment %}  UPDATE  {% endcomment %}
+          <button type="button" style="margin: 8px 4px" class="btn btn-warning" data-mdb-toggle="modal" data-mdb-target="#update{{employee.id}}">
+            <i class="fa-regular fa-pen-to-square"></i>
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="update{{employee.id}}" tabindex="-1" aria-labelledby="editlable{{employee.id}}" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editlable{{employee.id}}">Update data</h5>
+                  <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div>
+                  <form method = 'POST' action = 'edit/'>
+                  {% csrf_token %}
+                  <input type="hidden" name="_method" value="PUT">
+                  <input type="hidden" name="id" value="{{employee.id}}">
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <label style = 'font-size:12px;' for="name">Name</label>
+                      <input style = 'border:1px solid black; margin-top:4px;' type="text" id="name" name = "name" value = '{{employee.name}}' class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-solid fa-phone fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <label style = 'font-size:12px;' for="phone">Phone</label>
+                        <input style = 'border:1px solid black; margin-top:4px;' type="text" id="phone" name = "phone" value = '{{employee.phone}}' class="form-control" />
+                      </div>
+                    </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <label style = 'font-size:12px;' for="email">Email</label>
+                      <input style = 'border:1px solid black; margin-top:4px;' type="email" id="email" name= "email" value = "{{employee.email}}" class="form-control" />
+                    </div>
+                  </div>  
+                  <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-solid fa-location-dot fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <label style = 'font-size:12px;' for="address">Address</label>
+                        <input style = 'border:1px solid black; margin-top:4px;' type="text" id="address" name = "address" value = '{{employee.address}}' class="form-control" />
+                      </div>
+                      
+                    </div>
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-solid fa-city fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <label style = 'font-size:12px;' for="city">City</label>
+                        <input style = 'border:1px solid black; margin-top:4px;' type="text" id="city" name = "city" value = '{{employee.city}}' class="form-control" />
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-regular fa-clock fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <label style = 'font-size:12px;' for="num_of_hours">Number of hours</label>
+                        <input style = 'border:1px solid black; margin-top:4px;' type="text" id="num_of_hours" name = "num_of_hours" value = '{{employee.additional.num_of_hours}}' class="form-control" />
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-regular fa-calendar fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <label style = 'font-size:12px;' for="num_of_days">Number of days</label>
+                        <input style = 'border:1px solid black; margin-top:4px;' type="text" id="num_of_days" name = "num_of_days" value = '{{employee.additional.num_of_days}}' class="form-control" />
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-solid fa-money-check-dollar fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <label style = 'font-size:12px;' for="salary_per_hour">Hourly rate</label>
+                        <input style = 'border:1px solid black; margin-top:4px;' type="text" id="salary_per_hour" name = "salary_per_hour" value = '{{employee.additional.salary_per_hour}}' class="form-control" />
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+              </div>
+              </div>
+                
+              </div>
+            </div>
+            {% comment %} end od modal {% endcomment %}
+          </div>
+        
+        </td>
       </tr>
     
       {% endfor %}
