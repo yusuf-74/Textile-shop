@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <h1 class="d-flex justify-content-center mt-1 mb-5">Fiberbag {{fiberbag.pk}}</h1>
+    <table class="table">
+        <tr>
+            <th>Retail Price</th>
+            <td>{{ fiberbag.retail_price }}</td>
+        </tr>
+        <tr>
+            <th>Wholesale Price</th>
+            <td>{{ fiberbag.wholesale_price }}</td>
+        </tr>
+        <tr>
+            <th>Quantity</th>
+            <td>{{ fiberbag.quantity }}</td>
+        </tr>
+        <tr>
+            <th>Type</th>
+            <td>{{ fiberbag.type }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ fiberbag.description }}</td>
+        </tr>
+        <tr>
+            <th>Fiber</th>
+            <td>{{ fiberbag.fiber }}</td>
+        </tr>
+        <tr>
+            <th>Bag</th>
+            <td>{{ fiberbag.bag }}</td>
+        </tr>
+        <tr>
+            <th>Fibric</th>
+            <td>{{ fiberbag.fibric }}</td>
+        </tr>
+
+    </table>
+</body>
+</html>
