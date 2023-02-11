@@ -1,0 +1,46 @@
+{% extends 'admin/dashboard.html' %}
+
+
+{% block upside %}    
+<h1 class="d-flex justify-content-center mt-1 mb-5">Fiberbag {{fiberbag.pk}}</h1>
+    {% endblock %}
+
+    {% block downside %}
+    <section style="margin: 0 0 32px 0;min-height:800px;">
+<table class="table">
+        <tr>
+            <th>Retail Price</th>
+            <td>{{ fiberbag.retail_price }}</td>
+        </tr>
+        <tr>
+            <th>Wholesale Price</th>
+            <td>{{ fiberbag.wholesale_price }}</td>
+        </tr>
+        <tr>
+            <th>Quantity</th>
+            <td>{{ fiberbag.quantity }}</td>
+        </tr>
+        <tr>
+            <th>Type</th>
+            <td>{{ fiberbag.type }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ fiberbag.description }}</td>
+        </tr>
+        <tr>
+            <th>Fiber</th>
+            <td>{{ fiberbag.fiber }}</td>
+        </tr>
+        <tr>
+            <th>Bag</th>
+            <td>{{ fiberbag.bag }}</td>
+        </tr>
+        <tr>
+            <th>Fibric</th>
+            <td>{{ fiberbag.fibric }}</td>
+        </tr>
+
+    </table>
+</section>
+{% endblock %}
