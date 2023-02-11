@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'products',
     'receipts',
     'materials',
-    # 'users',
     #third party
     'django_extensions',
 ]
@@ -62,7 +61,7 @@ ROOT_URLCONF = 'textile_shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,"templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,10 +83,10 @@ WSGI_APPLICATION = 'textile_shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST':os.environ.get('DB_HOST'),
-        'NAME':os.environ.get('DB_NAME'),
-        'USER':os.environ.get('DB_USER'),
-        'PASSWORD':os.environ.get('DB_PASS'),
+        'HOST':config('DB_HOST'),
+        'NAME':config('DB_NAME'),
+        'USER':config('DB_USER'),
+        'PASSWORD':config('DB_PASS'),
     }
 }
 
