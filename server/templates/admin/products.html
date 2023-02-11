@@ -2,7 +2,7 @@
 
 
 
-{% block upside %} 
+{% block upside %}
 <div class='dashboard-analytics-content' style = 'display:flex ;justify-content : space-evenly; overflow:hidden;min-height:800px' >
     <a href = '#'>
 <div class="card" style="width: 18rem;margin:16px 0">
@@ -12,7 +12,7 @@
     </div>
   </div>
 </a>
-  <a href = '#'>
+  <a href = "{% url 'pillow' type='pillow' %}">
   <div class="card" style="width: 18rem;margin:16px 0">
     <img src="	https://i.pinimg.com/564x/b4/ed/b4/b4edb471055a262ce914ea7d82da176a.jpg" class="card-img-top" alt="Pillow Image"/>
     <div class="card-body">
@@ -20,7 +20,7 @@
     </div>
   </div>
 </a>
-<a href = '#'>
+<a href = "{% url 'pillow' type='circular pillow' %}">
   <div class="card" style="width: 18rem;margin:16px 0">
     <img src="	https://i.pinimg.com/564x/b4/ed/b4/b4edb471055a262ce914ea7d82da176a.jpg" class="card-img-top" alt="Pillow Image"/>
     <div class="card-body">

@@ -1,0 +1,198 @@
+{% extends 'admin/dashboard.html' %}
+
+
+
+{% block upside %}
+<div style = 'display:flex; justify-content:space-around;align-items:center; margin : 32px 0 8px 0'>
+  <form  method='GET' style = 'width:60%'>
+    <div class="input-group" style = 'margin : 8px 0'>
+      <div class="form-outline">
+        <input type="text" id="name" name = 'name' class="form-control" />
+        <label class="form-label" for="name">type</label>
+      </div>
+
+    </div>
+    <div class="input-group" style = 'margin : 8px 0'>
+      <div class="form-outline">
+        <input type="text" id="address" name = 'address' class="form-control" />
+        <label class="form-label" for="address">Address</label>
+      </div>
+    </div>
+    <div class="input-group" style = 'margin : 8px 0'>
+      <div class="form-outline">
+        <input type="text" id="phone" name = 'phone' class="form-control" />
+        <label class="form-label" for="phone"> Phone</label>
+      </div>
+    </div>
+    <div class="input-group" style = 'margin : 8px 0'>
+      <div class="form-outline">
+        <input type="text" id="city" name = 'city' class="form-control" />
+        <label class="form-label" for="city"> City</label>
+      </div>
+    </div>
+
+      <div class="form-outline" style = 'display:flex ; justify-content:space-around;align-items:center;'>
+        <button type="submit" class="btn btn-primary" style='width:160px'>
+          Search
+        </button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+
+{% block downside %}
+<section style="margin: 0 0 32px 0;min-height:800px;">
+  <div style = "display :flex;">
+    <div style="margin: 32px 0 32px 16px ; flex : 1">pillow</div>
+    <a href = "edit-suppliers">
+      <button type="button" style="margin: 32px" class="btn btn-success">Create</button>
+    </a>
+  </div>
+  <table class="table align-middle mb-0 bg-white">
+    <thead class="bg-light">
+      <tr>
+        <th>Pillow ID</th>
+        <th>category</th>
+        <th>retail_price</th>
+        <th>wholesale_price</th>
+        <th>size</th>
+        <th>quantity</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+     {% for prod in prods %}
+
+      <tr style = 'cursor:pointer'>
+        <td onclick="window.location='#';" >
+          <div class="d-flex align-items-center">{{prod.id}}</div>
+        </td>
+        <td onclick="window.location='#';" >
+          <p class="fw-normal mb-1">{{prod.category}}</p>
+        </td>
+        <td onclick="window.location='#';" >
+            <p class="fw-normal mb-1">{{prod.retail_price}}</p>
+          </td>
+          <td onclick="window.location='#';" >
+            <p class="fw-normal mb-1">{{prod.wholesale_price}}</p>
+          </td>
+        {% comment %} <td onclick="window.location='#';" >
+        <div class="d-flex align-items-center">{{prod.description}}</div>
+        </td> {% endcomment %}
+        <td onclick="window.location='#';" >
+            <div class="d-flex align-items-center">{{prod.size}}</div>
+          </td>
+          <td onclick="window.location='#';" >
+            <div class="d-flex align-items-center">{{prod.quantity}}</div>
+          </td>
+        {% comment %} <td onclick="window.location='#';" >{{prod.quantity}}</td> {% endcomment %}
+        <td style="display:flex;">
+
+
+            <!-- Button trigger modal -->
+            <button type="button" style="margin: 8px 4px" class="btn btn-danger" data-mdb-toggle="modal" data-mdb-target="#editdelete{{prod.id}}">
+              <i class="fa-solid fa-trash"></i></i>
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="editdelete{{prod.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+
+                    <form method = 'POST' action = "{% url 'pillow-delete' prod.id %}">
+                      {% csrf_token %}
+                      <input type="hidden" name="_method" value="DELETE">
+                      <input type="hidden" name="id" value="{{employee.id}}">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-danger">Confirm DELETE</button>
+                        </div>
+                    </form>
+
+                        </div>
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+              {% comment %}  UPDATE  {% endcomment %}
+          <button type="button" style="margin: 8px 4px" class="btn btn-warning" data-mdb-toggle="modal" data-mdb-target="#update{{customer.id}}">
+            <i class="fa-regular fa-pen-to-square"></i>
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="update{{customer.id}}" tabindex="-1" aria-labelledby="editlable{{customer.id}}" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editlable{{customer.id}}">Update data</h5>
+                  <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div>
+                  <form method = 'POST' action = "{% url 'pillow-update' prod.id %}">
+                  {% csrf_token %}
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <label style = 'font-size:12px;' for="retail_price">retail_price</label>
+                      <input style = 'border:1px solid black; margin-top:4px;' type="text" id="retail_price" name = "retail_price" value = '{{prod.retail_price}}' class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-solid fa-phone fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <label style = 'font-size:12px;' for="wholesale_price">wholesale_price</label>
+                        <input style = 'border:1px solid black; margin-top:4px;' type="text" id="wholesale_price" name = "wholesale_price" value = '{{prod.wholesale_price}}' class="form-control" />
+                      </div>
+                    </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <label style = 'font-size:12px;' for="email">size</label>
+                      <input style = 'border:1px solid black; margin-top:4px;' type="size" id="size" name= "size" value = "{{prod.size}}" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-solid fa-location-dot fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <label style = 'font-size:12px;' for="address">quantity</label>
+                        <input style = 'border:1px solid black; margin-top:4px;' type="text" id="quantity" name = "quantity" value = '{{prod.quantity}}' class="form-control" />
+                      </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+              </div>
+              </div>
+              </div>
+            </div>
+            {% comment %} end od modal {% endcomment %}
+          </div>
+
+        </td>
+      </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+
+{% endblock %}
