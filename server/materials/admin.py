@@ -5,4 +5,3 @@ admin.site.register(Perishable)
 admin.site.register(Fabric)
 admin.site.register(Fiber)
 admin.site.register(Bag)
-# Register your models here.
