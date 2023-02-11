@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+
+{% block sidebar %}
+<section style='display:flex;'>
+    {% include 'includes/sidebar.html'%}
+
+    <div class='dashboard-main-content' style = 'display:flex ;flex-direction:column;justify-content : space-between; flex:1;overflow:hidden;'>
+        {% block upside %}
+        {% endblock %}
+        {% block downside %}
+        {% endblock %}
+    </div>
+
+</section>
+{% endblock %}
+
+
+
+

@@ -1,0 +1,240 @@
+{% extends 'admin/dashboard.html' %}
+
+
+{% block upside %}
+<section style="background-color: #eee; min-height:800px;">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                            alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                        <h5 class="my-3">{{employee.name}}</h5>
+                        <p class="text-muted mb-1">Employee</p>
+                        <p class="text-muted mb-4">{{employee.address}}</p>
+                        <div class="d-flex justify-content-center mb-2">
+
+
+                            <!-- DELETE -->
+
+
+                            <button type="button" style="margin: 8px 4px" class="btn btn-danger" data-mdb-toggle="modal"
+                                data-mdb-target="#delete{{employee.id}}">
+                                <i class="fa-solid fa-trash"></i></i>
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="delete{{employee.id}}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method='POST' action='edit-employees/'>
+                                                {% csrf_token %}
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="from" value="detail">
+                                                <input type="hidden" name="id" value="{{employee.id}}">
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-mdb-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-danger">Confirm DELETE</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            {% comment %} UPDATE {% endcomment %}
+                            <button type="button" style="margin: 8px 4px" class="btn btn-warning"
+                                data-mdb-toggle="modal" data-mdb-target="#update{{employee.id}}">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="update{{employee.id}}" tabindex="-1"
+                                aria-labelledby="editlable{{employee.id}}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editlable{{employee.id}}">Update data</h5>
+                                            <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div>
+                                                <form method='POST' action='edit-employees/'>
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="_method" value="PUT">
+                                                    <input type="hidden" name="from" value="detail">
+                                                    <input type="hidden" name="id" value="{{employee.id}}">
+                                                    <div class="d-flex flex-row align-items-center mb-4">
+                                                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                                        <div class="flex-fill mb-0">
+                                                            <label style='font-size:12px;' for="name">Name</label>
+                                                            <input style='border:1px solid black; margin-top:4px;'
+                                                                type="text" id="name" name="name"
+                                                                value='{{employee.name}}' class="form-control" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="d-flex flex-row align-items-center mb-4">
+                                                        <i class="fas fa-solid fa-phone fa-lg me-3 fa-fw"></i>
+                                                        <div class="flex-fill mb-0">
+                                                            <label style='font-size:12px;' for="phone">Phone</label>
+                                                            <input style='border:1px solid black; margin-top:4px;'
+                                                                type="text" id="phone" name="phone"
+                                                                value='{{employee.phone}}' class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row align-items-center mb-4">
+                                                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                                        <div class="flex-fill mb-0">
+                                                            <label style='font-size:12px;' for="email">Email</label>
+                                                            <input style='border:1px solid black; margin-top:4px;'
+                                                                type="email" id="email" name="email"
+                                                                value="{{employee.email}}" class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row align-items-center mb-4">
+                                                        <i class="fas fa-solid fa-location-dot fa-lg me-3 fa-fw"></i>
+                                                        <div class="flex-fill mb-0">
+                                                            <label style='font-size:12px;' for="address">Address</label>
+                                                            <input style='border:1px solid black; margin-top:4px;'
+                                                                type="text" id="address" name="address"
+                                                                value='{{employee.address}}' class="form-control" />
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="d-flex flex-row align-items-center mb-4">
+                                                        <i class="fas fa-solid fa-city fa-lg me-3 fa-fw"></i>
+                                                        <div class="flex-fill mb-0">
+                                                            <label style='font-size:12px;' for="city">City</label>
+                                                            <input style='border:1px solid black; margin-top:4px;'
+                                                                type="text" id="city" name="city"
+                                                                value='{{employee.city}}' class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row align-items-center mb-4">
+                                                        <i class="fas fa-regular fa-clock fa-lg me-3 fa-fw"></i>
+                                                        <div class="flex-fill mb-0">
+                                                            <label style='font-size:12px;' for="num_of_hours">Number of
+                                                                hours</label>
+                                                            <input style='border:1px solid black; margin-top:4px;'
+                                                                type="text" id="num_of_hours" name="num_of_hours"
+                                                                value='{{employee.additional.num_of_hours}}'
+                                                                class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row align-items-center mb-4">
+                                                        <i class="fas fa-regular fa-calendar fa-lg me-3 fa-fw"></i>
+                                                        <div class="flex-fill mb-0">
+                                                            <label style='font-size:12px;' for="num_of_days">Number of
+                                                                days</label>
+                                                            <input style='border:1px solid black; margin-top:4px;'
+                                                                type="text" id="num_of_days" name="num_of_days"
+                                                                value='{{employee.additional.num_of_days}}'
+                                                                class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row align-items-center mb-4">
+                                                        <i
+                                                            class="fas fa-solid fa-money-check-dollar fa-lg me-3 fa-fw"></i>
+                                                        <div class="flex-fill mb-0">
+                                                            <label style='font-size:12px;' for="salary_per_hour">Hourly
+                                                                rate</label>
+                                                            <input style='border:1px solid black; margin-top:4px;'
+                                                                type="text" id="salary_per_hour" name="salary_per_hour"
+                                                                value='{{employee.additional.salary_per_hour}}'
+                                                                class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-mdb-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Save
+                                                            changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body" style='min-height:500px;'>
+                        <table class="table align-middle mb-0 bg-white">
+
+                            <tbody>
+                                <tr>
+                                    <th>ID</th>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+
+
+                                            <p class="fw-bold mb-1">{{employee.id}}</p>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Name</th>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+
+
+                                            <p class="fw-bold mb-1">{{employee.name}}</p>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Address</th>
+                                    <td>
+                                        <p class="fw-normal mb-1">{{employee.address}}</p>
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Status</th>
+
+                                    <td>
+                                        <span class="badge badge-success rounded-pill d-inline">Avtive</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Phone</th>
+
+                                    <td>{{employee.phone}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Salary</th>
+
+                                    <td>{{employee.salary}}</td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+</section>
+{% endblock %}

@@ -1,12 +1,15 @@
 from django.urls import path
-from products.views import PillowView,PillowDetailView
+from .views import\
+    ProductsView,\
+    FiberbagListView,\
+    FiberBagDetailView,\
+    EditFiberBagView
 
 
-urlpatterns=[
-    path('' , PillowView.as_view() , name='store'),
-    path('types/<str:type>' , PillowView.as_view() , name='products-by-types'),
-    path('pillow/<int:pk>/' , PillowDetailView.as_view() , name='product-detail'),
-    # path('search/' , HomeView.as_view() , name='search'),
-    # path("graphql", GraphQLView.as_view(graphiql=True , schema=schema)),
+urlpatterns = [
+    path('', ProductsView.as_view(), name='products'),
+    path('fiberbags/', FiberbagListView.as_view(), name='fiberbag_list'),
+    path('fiberbags/edit/',EditFiberBagView.as_view(), name='fiberbag_edit'),
+    path('fiberbags/<int:pk>/', FiberBagDetailView.as_view(), name='fiberbag_detail'),
+    ]
 
-]

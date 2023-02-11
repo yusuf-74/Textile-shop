@@ -16,6 +16,8 @@ asgiref = "3.6.0"
 sqlparse = "0.4.3"
 django = ">=3.2.4,<3.3"
 pillow = "^9.4.0"
+django-filter = "^22.1"
+autopep8 = "^2.0.1"
 
 
 

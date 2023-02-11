@@ -1,0 +1,41 @@
+{% extends 'admin/dashboard.html' %}
+
+
+
+{% block upside %} 
+<div class='dashboard-analytics-content' style = 'display:flex ;justify-content : space-evenly; overflow:hidden;min-height:800px' >
+    <a href = "{% url 'fiberbag_list' %}">
+<div class="card" style="width: 18rem;margin:16px 0">
+    <img src="	https://lzd-img-global.slatic.net/g/p/35da8e9964c0d88f4f2e2ea0195d167b.jpg_720x720q80.jpg_.webp" class="card-img-top" alt="Fiber Image"/>
+    <div class="card-body">
+      <p class="card-text">Fiber Bags</p>
+    </div>
+  </div>
+</a>
+  <a href = '#'>
+  <div class="card" style="width: 18rem;margin:16px 0">
+    <img src="	https://i.pinimg.com/564x/b4/ed/b4/b4edb471055a262ce914ea7d82da176a.jpg" class="card-img-top" alt="Pillow Image"/>
+    <div class="card-body">
+      <p class="card-text">Pillows</p>
+    </div>
+  </div>
+</a>
+<a href = '#'>
+  <div class="card" style="width: 18rem;margin:16px 0">
+    <img src="	https://i.pinimg.com/564x/b4/ed/b4/b4edb471055a262ce914ea7d82da176a.jpg" class="card-img-top" alt="Pillow Image"/>
+    <div class="card-body">
+      <p class="card-text">Circular Pillows</p>
+    </div>
+  </div>
+</a>
+    <a href = '#'>
+  <div class="card" style="width: 18rem;margin:16px 0">
+    <img src="https://m.media-amazon.com/images/I/31RvEG2QKAL.__AC_SY300_SX300_QL70_ML2_.jpg" class="card-img-top" alt="Milton cover"/>
+    <div class="card-body">
+      <p class="card-text">Milton Covers</p>
+    </div>
+  </div>
+</a>
+</div>
+{% endblock %}
+

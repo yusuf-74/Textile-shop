@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #local
+    'custom_admin',
     'employees',
     'accounts',
     'products',
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
     'materials',
     #third party
     'django_extensions',
+    'django_filters',
+    
 ]
 
 MIDDLEWARE = [
@@ -65,7 +68,9 @@ ROOT_URLCONF = 'textile_shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+
+        'DIRS': [BASE_DIR / 'templates'],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -87,14 +92,13 @@ WSGI_APPLICATION = 'textile_shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST':os.environ.get('DB_HOST'),
-        'NAME':os.environ.get('DB_NAME'),
-        'USER':os.environ.get('DB_USER'),
-        'PASSWORD':os.environ.get('DB_PASS'),
+        'HOST':config('DB_HOST'),
+        'NAME':config('DB_NAME'),
+        'USER':config('DB_USER'),
+        'PASSWORD':config('DB_PASS'),
     }
 }
 
-print(os.environ.get('DB_HOST'),os.environ.get('DB_NAME'),os.environ.get('DB_USER'),os.environ.get('DB_PASS'))
 
 
 # Password validation
