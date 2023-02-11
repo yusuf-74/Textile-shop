@@ -80,7 +80,6 @@ TEMPLATES = [
         },
     },
 ]
-print(TEMPLATES[0]['DIRS'])
 
 WSGI_APPLICATION = 'textile_shop.wsgi.application'
 
@@ -98,7 +97,6 @@ DATABASES = {
     }
 }
 
-print(config('DB_HOST'),config('DB_NAME'),config('DB_USER'),config('DB_PASS'))
 
 
 # Password validation

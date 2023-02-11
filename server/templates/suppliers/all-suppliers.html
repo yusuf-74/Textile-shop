@@ -64,19 +64,19 @@
      {% for customer in suppliers_data %}
      
       <tr style = 'cursor:pointer'>
-        <td onclick="window.location='#';" >
+        <td onclick="window.location='{{customer.id}}';" >
           <div class="d-flex align-items-center">{{customer.id}}</div>
         </td>
-        <td onclick="window.location='#';" >
+        <td onclick="window.location='{{customer.id}}';" >
           <p class="fw-normal mb-1">{{customer.name}}</p>
         </td>
-        <td onclick="window.location='#';" >
+        <td onclick="window.location='{{customer.id}}';" >
             <p class="fw-normal mb-1">{{customer.address}}</p>
           </td>
-          <td onclick="window.location='#';" >
+          <td onclick="window.location='{{customer.id}}';" >
             <p class="fw-normal mb-1">{{customer.phone}}</p>
           </td>
-        <td onclick="window.location='#';" >{{customer.city}}</td>
+        <td onclick="window.location='{{customer.id}}';" >{{customer.city}}</td>
         <td style="display:flex;"> 
          
 

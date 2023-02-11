@@ -64,39 +64,41 @@
      {% for employee in employees_data %}
      
       <tr style = 'cursor:pointer'>
-        <td onclick="window.location='#';" >
+        <td onclick="window.location='{{employee.id}}';" >
           <div class="d-flex align-items-center">{{employee.id}}</div>
         </td>
-        <td onclick="window.location='#';" >
+        <td onclick="window.location='{{employee.id}}';" >
           <p class="fw-normal mb-1">{{employee.name}}</p>
         </td>
-        <td onclick="window.location='#';" >
+        <td onclick="window.location='{{employee.id}}';" >
             <p class="fw-normal mb-1">{{employee.address}}</p>
           </td>
-          <td onclick="window.location='#';" >
+          <td onclick="window.location='{{employee.id}}';" >
             <p class="fw-normal mb-1">{{employee.phone}}</p>
           </td>
-        <td onclick="window.location='#';" >{{employee.salary}}</td>
+        <td onclick="window.location='{{employee.id}}';" >{{employee.salary}}</td>
         <td style="display:flex;"> 
          
 
             <!-- Button trigger modal -->
-            <button type="button" style="margin: 8px 4px" class="btn btn-danger" data-mdb-toggle="modal" data-mdb-target="#editdelete{{employee.id}}">
+            <button type="button" style="margin: 8px 4px" class="btn btn-danger" data-mdb-toggle="modal" data-mdb-target="#delete{{employee.id}}">
               <i class="fa-solid fa-trash"></i></i>
             </button>
 
             <!-- Modal -->
-            <div class="modal fade" id="editdelete{{employee.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="delete{{employee.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">DELETE EMPLOYEE</h5>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     <form method = 'POST' action = 'edit-employees/'>
                       {% csrf_token %}
                       <input type="hidden" name="_method" value="DELETE">
+                      <input type="hidden" name="from" value="all">
+
                       <input type="hidden" name="id" value="{{employee.id}}">
                         </div>
                         <div class="modal-footer">

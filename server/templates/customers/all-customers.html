@@ -64,19 +64,19 @@
      {% for customer in customers_data %}
      
       <tr style = 'cursor:pointer'>
-        <td onclick="window.location='#';" >
+        <td onclick="window.location='{{customer.id}}';" >
           <div class="d-flex align-items-center">{{customer.id}}</div>
         </td>
-        <td onclick="window.location='#';" >
+        <td onclick="window.location='{{customer.id}}';" >
           <p class="fw-normal mb-1">{{customer.name}}</p>
         </td>
-        <td onclick="window.location='#';" >
+        <td onclick="window.location='{{customer.id}}';" >
             <p class="fw-normal mb-1">{{customer.address}}</p>
           </td>
-          <td onclick="window.location='#';" >
+          <td onclick="window.location='{{customer.id}}';" >
             <p class="fw-normal mb-1">{{customer.phone}}</p>
           </td>
-        <td onclick="window.location='#';" >{{customer.city}}</td>
+        <td onclick="window.location='{{customer.id}}';" >{{customer.city}}</td>
         <td style="display:flex;"> 
          
 
@@ -90,13 +90,14 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">DELETE CUSTOMER</h5>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     <form method = 'POST' action = 'edit-customers/'>
                       {% csrf_token %}
                       <input type="hidden" name="_method" value="DELETE">
+                      <input type="hidden" name="from" value="all">
                       <input type="hidden" name="id" value="{{customer.id}}">
                         </div>
                         <div class="modal-footer">
@@ -129,6 +130,7 @@
                   <form method = 'POST' action = 'edit-customers/'>
                   {% csrf_token %}
                   <input type="hidden" name="_method" value="PUT">
+                  <input type="hidden" name="from" value="all">
                   <input type="hidden" name="id" value="{{customer.id}}">
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
