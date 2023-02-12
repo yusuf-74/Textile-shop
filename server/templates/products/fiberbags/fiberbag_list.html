@@ -200,15 +200,13 @@
                     {% if page_obj.number == page_obj.paginator.num_pages %}
                     <li class="page-item active">
                         <a class="page-link"
-                            href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{
-                            page_obj.paginator.num_pages }}</a>
+                            href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{page_obj.paginator.num_pages}}</a>
                     </li>
                     {% else %}
                     <li class="page-item">
-                        <a class="page-link"
-                            href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{
-                            page_obj.paginator.num_pages }}</a>
-                    </li>
+                      <a class="page-link"
+                          href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{page_obj.paginator.num_pages}}</a>
+                  </li>
                     {% endif %}
                     {% else %}
                     {% for num in page_obj.paginator.page_range %}
@@ -246,8 +244,8 @@
                     <li class="page-item">
                         <span class="page-link jump-to-label">Jump to:</span>
                     </li>
-                    <li class="page-item">
-                        <form action="" method="get" class="form-inline">
+                    <li class="page-item ">
+                        <form action="" method="get" class="form-inline d-flex ">
                             <input type="text" name="page" class="form-control" style="width: 50px;">
                             {% if request.GET.q %}
                             <input type="hidden" name="q" value="{{ request.GET.q }}">
