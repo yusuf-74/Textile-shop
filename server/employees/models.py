@@ -34,9 +34,9 @@ class PenaltyOrLoans(models.Model):
 
 class Salary(models.Model):
     employee = models.OneToOneField(Person, related_name='salary', on_delete=models.CASCADE)
-    num_of_hours = models.DecimalField(max_digits=6, decimal_places=2,default=0)
-    num_of_days = models.IntegerField()
-    salry_per_hour = models.DecimalField(max_digits=6, decimal_places=2,default=0)
+    num_of_hours = models.DecimalField(max_digits=6, decimal_places=2,default=0 , blank = True , null=True)
+    num_of_days = models.IntegerField(blank = True , null=True)
+    salry_per_hour = models.DecimalField(max_digits=6, decimal_places=2,default=0, blank = True , null=True)
     penalty = models.OneToOneField("employees.PenaltyOrLoans",related_name='penalty',null=True,blank=True, on_delete=models.CASCADE)
     loans = models.OneToOneField("employees.PenaltyOrLoans",related_name='loan',null=True,blank=True, on_delete=models.CASCADE)
 
