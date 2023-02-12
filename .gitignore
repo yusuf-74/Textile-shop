@@ -13,6 +13,7 @@ static/
 /media
 media/
 
+migrations/
 # Distribution / packaging
 .Python
 build/
