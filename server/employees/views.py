@@ -60,8 +60,10 @@ class EditEmployeeView(View):
     def post(self,request,*args, **kwargs):
         
         data = dict(request.POST)
+        print(data['_method'])
         id = 0
-        if data['_method'][0] != 'POST':
+        if data['_method'][0] == 'PUT':
+            print(data['_method'][0])
             try : 
                 id = Person.objects.get(id = data['id'][0]).id
             except:
@@ -79,16 +81,14 @@ class EditEmployeeView(View):
                     )
             except:
                 raise Exception('error')
-            try:
-                salary = Salary.objects.create(
+        
+            salary = Salary.objects.create(
                     employee = employee\
                     ,num_of_hours = data['num_of_hours'][0]\
                     ,num_of_days = data['num_of_days'][0]\
                     ,salry_per_hour = data['salary_per_hour'][0]\
                     )
-            except:
-                employee.delete()
-                raise Exception('error')
+            
             return redirect('all_employees')
 
         elif data['_method'][0] == 'PUT':
@@ -267,10 +267,9 @@ class EditSupplierView(View):
                 raise Exception('error')
             
             
-            if data['from'][0] == 'all':
-                return redirect('all_suppliers')
-            else :
-                return redirect('_detail')
+            
+            return redirect('all_suppliers')
+            
 
         elif data['_method'][0] == 'PUT':
             data = dict(request.POST)
