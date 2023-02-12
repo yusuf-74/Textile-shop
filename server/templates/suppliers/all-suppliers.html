@@ -1,0 +1,194 @@
+{% extends 'admin/dashboard.html' %} 
+
+
+
+{% block upside %}
+<div style = 'display:flex; justify-content:space-around;align-items:center; margin : 32px 0 8px 0'>
+  <form  method='GET' style = 'width:60%'>
+    <div class="input-group" style = 'margin : 8px 0'>
+      <div class="form-outline">
+        <input type="text" id="name" name = 'name' class="form-control" />
+        <label class="form-label" for="name">Name</label>
+      </div>
+      
+    </div>
+    <div class="input-group" style = 'margin : 8px 0'>
+      <div class="form-outline">
+        <input type="text" id="address" name = 'address' class="form-control" />
+        <label class="form-label" for="address">Address</label>
+      </div>
+    </div>
+    <div class="input-group" style = 'margin : 8px 0'>
+      <div class="form-outline">
+        <input type="text" id="phone" name = 'phone' class="form-control" />
+        <label class="form-label" for="phone"> Phone</label>
+      </div>
+    </div>
+    <div class="input-group" style = 'margin : 8px 0'>
+      <div class="form-outline">
+        <input type="text" id="city" name = 'city' class="form-control" />
+        <label class="form-label" for="city"> City</label>
+      </div>
+    </div>
+   
+      <div class="form-outline" style = 'display:flex ; justify-content:space-around;align-items:center;'>
+        <button type="submit" class="btn btn-primary" style='width:160px'>
+          Search
+        </button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+
+{% block downside %}
+<section style="margin: 0 0 32px 0;min-height:800px;">
+  <div style = "display :flex;">
+    <div style="margin: 32px 0 32px 16px ; flex : 1">Suppliers</div>
+    <a href = "edit-suppliers">
+      <button type="button" style="margin: 32px" class="btn btn-success">Create</button>
+    </a>
+  </div>
+  <table class="table align-middle mb-0 bg-white">
+    <thead class="bg-light">
+      <tr>
+        <th>Customer ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>phone</th>
+        <th>city</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+     {% for customer in suppliers_data %}
+     
+      <tr style = 'cursor:pointer'>
+        <td onclick="window.location='{{customer.id}}';" >
+          <div class="d-flex align-items-center">{{customer.id}}</div>
+        </td>
+        <td onclick="window.location='{{customer.id}}';" >
+          <p class="fw-normal mb-1">{{customer.name}}</p>
+        </td>
+        <td onclick="window.location='{{customer.id}}';" >
+            <p class="fw-normal mb-1">{{customer.address}}</p>
+          </td>
+          <td onclick="window.location='{{customer.id}}';" >
+            <p class="fw-normal mb-1">{{customer.phone}}</p>
+          </td>
+        <td onclick="window.location='{{customer.id}}';" >{{customer.city}}</td>
+        <td style="display:flex;"> 
+         
+
+            <!-- Button trigger modal -->
+            <button type="button" style="margin: 8px 4px" class="btn btn-danger" data-mdb-toggle="modal" data-mdb-target="#editdelete{{customer.id}}">
+              <i class="fa-solid fa-trash"></i></i>
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="editdelete{{customer.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form method = 'POST' action = 'edit-suppliers/'>
+                      {% csrf_token %}
+                      <input type="hidden" name="_method" value="DELETE">
+                      <input type="hidden" name="from" value="detail">
+                      <input type="hidden" name="id" value="{{customer.id}}">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-danger">Confirm DELETE</button>
+                        </div>
+                    </form>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+              {% comment %}  UPDATE  {% endcomment %}
+          <button type="button" style="margin: 8px 4px" class="btn btn-warning" data-mdb-toggle="modal" data-mdb-target="#update{{customer.id}}">
+            <i class="fa-regular fa-pen-to-square"></i>
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="update{{customer.id}}" tabindex="-1" aria-labelledby="editlable{{customer.id}}" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editlable{{customer.id}}">Update data</h5>
+                  <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div>
+                  <form method = 'POST' action = 'edit-suppliers/'>
+                  {% csrf_token %}
+                  <input type="hidden" name="_method" value="PUT">
+                  <input type="hidden" name="from" value="all">
+
+                  <input type="hidden" name="id" value="{{customer.id}}">
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <label style = 'font-size:12px;' for="name">Name</label>
+                      <input style = 'border:1px solid black; margin-top:4px;' type="text" id="name" name = "name" value = '{{customer.name}}' class="form-control" />
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-solid fa-phone fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <label style = 'font-size:12px;' for="phone">Phone</label>
+                        <input style = 'border:1px solid black; margin-top:4px;' type="text" id="phone" name = "phone" value = '{{customer.phone}}' class="form-control" />
+                      </div>
+                    </div>
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                    <div class="form-outline flex-fill mb-0">
+                      <label style = 'font-size:12px;' for="email">Email</label>
+                      <input style = 'border:1px solid black; margin-top:4px;' type="email" id="email" name= "email" value = "{{customer.email}}" class="form-control" />
+                    </div>
+                  </div>  
+                  <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-solid fa-location-dot fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <label style = 'font-size:12px;' for="address">Address</label>
+                        <input style = 'border:1px solid black; margin-top:4px;' type="text" id="address" name = "address" value = '{{customer.address}}' class="form-control" />
+                      </div>
+                      
+                    </div>
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-solid fa-city fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <label style = 'font-size:12px;' for="city">City</label>
+                        <input style = 'border:1px solid black; margin-top:4px;' type="text" id="city" name = "city" value = '{{customer.city}}' class="form-control" />
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+              </div>
+              </div>
+              </div>
+            </div>
+            {% comment %} end od modal {% endcomment %}
+          </div>
+        
+        </td>
+      </tr>
+    
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+
+{% endblock %} 

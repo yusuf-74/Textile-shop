@@ -8,6 +8,11 @@ __pycache__/
 /postgres_data
 postgres_data/
 
+/static
+static/
+/media
+media/
+
 # Distribution / packaging
 .Python
 build/

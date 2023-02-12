@@ -1,39 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{% extends 'admin/dashboard.html' %}
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{% block upside %}
 
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    handleClick = (url) => {
-        window.location = url;
-    }
-</script>
-
-</head>
-<body>
-
-    <form action="{% url 'fiberbags:fiberbag_list' %}" method="get">
-        <div class="form-group d-flex justify-content-center" style = 'margin : 8px 0'>
-          <input type="text" name="q" placeholder="Search for type" style = 'width: 40%'>
-          <button type="submit" class="btn btn-outline-info ">Search</button>
+<div style = 'display:flex; justify-content:space-around;align-items:center; margin : 32px 0 8px 0'>
+    <form  method='GET' style = 'width:60%'>
+      <div class="input-group" style = 'margin : 8px 0'>
+        <div class="form-outline">
+          <input type="text" id="search" name = 'q' class="form-control" />
+          <label class="form-label" for="name">Search</label>
         </div>
-      </form>
-    </div>
+        
+      </div>     
+        <div class="form-outline" style = 'display:flex ; justify-content:space-around;align-items:center;'>
+          <button type="submit" class="btn btn-primary" style='width:160px'>
+            Search
+          </button>
+      </div>
+    </form>
+  </div>
 
-      <table class="table table-striped">
-        <thead class="thead-dark">
+{% endblock %}
+
+{% block downside %}
+<section style="margin: 0 0 32px 0;min-height:800px;">
+    <div style="display :flex;">
+        <div style="margin: 32px 0 32px 16px ; flex : 1">Fiber Bags</div>
+        <a href="{% url 'fiberbag_edit' %}">
+            <button type="button" style="margin: 32px" class="btn btn-success">Create</button>
+        </a>
+    </div>
+    <table class="table align-middle mb-0 bg-white">
+        <thead class="bg-light">
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Type</th>
@@ -45,17 +43,119 @@
         </thead>
         <tbody>
             {% for fiberbag in page_obj %}
-            <tr onclick = handleClick("{% url 'fiberbags:fiberbag_detail' fiberbag.pk %}") style = 'cursor:pointer'>
-                    <th scope="row">{{forloop.counter}}</th>
-                    <td>{{ fiberbag.type }}</td>
-                    <td>{{ fiberbag.retail_price }}</td>
-                    <td>{{ fiberbag.wholesale_price }}</td>
-                    <td>{{ fiberbag.quantity }}</td>
-                    <td>
-                        <a href="{% url 'fiberbags:fiberbag_update' fiberbag.pk %}" class="btn btn-outline-info">Edit</a>
-                        <a href="{% url 'fiberbags:fiberbag_delete' fiberbag.pk %}" class="btn btn-danger">Delete</a>
-                    </td>
-                </tr>
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td onclick=handleClick("{% url 'fiberbag_detail' fiberbag.pk %}") style='cursor:pointer'>{{ fiberbag.type }}</td>
+                <td onclick=handleClick("{% url 'fiberbag_detail' fiberbag.pk %}") style='cursor:pointer'>{{ fiberbag.retail_price }}</td>
+                <td onclick=handleClick("{% url 'fiberbag_detail' fiberbag.pk %}") style='cursor:pointer'>{{ fiberbag.wholesale_price }}</td>
+                <td onclick=handleClick("{% url 'fiberbag_detail' fiberbag.pk %}") style='cursor:pointer'>{{ fiberbag.quantity }}</td>
+                <td style="display:flex;"> 
+         
+
+                    <!-- Button trigger modal -->
+                    <button type="button" style="margin: 8px 4px" class="btn btn-danger" data-mdb-toggle="modal" data-mdb-target="#editdelete{{fiberbag.pk}}">
+                      <i class="fa-solid fa-trash"></i></i>
+                    </button>
+        
+                    <!-- Modal -->
+                    <div class="modal fade" id="editdelete{{fiberbag.pk}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">DELETE FIBER BAG</h5>
+                            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <form method = 'POST' action = "{% url 'fiberbag_edit'%}">
+                              {% csrf_token %}
+                              <input type="hidden" name="_method" value="DELETE">
+                              <input type="hidden" name="id" value="{{fiberbag.pk}}">
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                                  <button type="submit" class="btn btn-danger">Confirm DELETE</button>
+                                </div>
+                            </form>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+        
+                      {% comment %}  UPDATE  {% endcomment %}
+                  <button type="button" style="margin: 8px 4px" class="btn btn-warning" data-mdb-toggle="modal" data-mdb-target="#update{{fiberbag.pk}}">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </button>
+        
+                  <!-- Modal -->
+                  <div class="modal fade" id="update{{fiberbag.pk}}" tabindex="-1" aria-labelledby="editlable{{fiberbag.pk}}" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="editlable{{fiberbag.pk}}">Update data</h5>
+                          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <div>
+                          <form method = 'POST' action = "{% url 'fiberbag_edit'%}">
+                          {% csrf_token %}
+                          <input type="hidden" name="_method" value="PUT">
+                          <input type="hidden" name="id" value="{{fiberbag.pk}}">
+                          <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                              <label style = 'font-size:12px;' for="retail_price">Retail Price</label>
+                              <input style = 'border:1px solid black; margin-top:4px;' type="text" class="form-control" id="retail_price" name="retail_price" value="{{fiberbag.retail_price}}">
+
+                            </div>
+                          </div>
+        
+                          <div class="d-flex flex-row align-items-center mb-4">
+                              <i class="fas fa-solid fa-phone fa-lg me-3 fa-fw"></i>
+                              <div class="form-outline flex-fill mb-0">
+                                <label style = 'font-size:12px;' for="wholesale_price">Whole Sale Price</label>
+                                <input style = 'border:1px solid black; margin-top:4px;' type="text" id="wholesale_price" name = "wholesale_price" value = '{{fiberbag.wholesale_price}}' class="form-control" />
+                              </div>
+                            </div>
+                          <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                              <label style = 'font-size:12px;' for="Quantity">Quantity</label>
+                              <input style = 'border:1px solid black; margin-top:4px;' type="text" id="quantity" name= "quantity" value = "{{fiberbag.quantity}}" class="form-control" />
+                            </div>
+                          </div>  
+                          <div class="d-flex flex-row align-items-center mb-4">
+                              <i class="fas fa-solid fa-location-dot fa-lg me-3 fa-fw"></i>
+                              <div class="form-outline flex-fill mb-0">
+                                <label style = 'font-size:12px;' for="type">type</label>
+                                <input style = 'border:1px solid black; margin-top:4px;' type="text" id="type" name = "type" value = '{{fiberbag.type}}' class="form-control" />
+                              </div>
+                              
+                            </div>
+                            <div class="d-flex flex-row align-items-center mb-4">
+                              <i class="fas fa-solid fa-city fa-lg me-3 fa-fw"></i>
+                              <div class="form-outline flex-fill mb-0">
+                                <label style = 'font-size:12px;' for="discription">Discription</label>
+                                <texstyle style = 'border:1px solid black; margin-top:4px;' type="text" id="discription" name = "discription"  class="form-control" /></textarea>
+                              </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                      </div>
+                      </div>
+                        
+                      </div>
+                    </div>
+                    {% comment %} end od modal {% endcomment %}
+                  </div>
+                
+                </td>
+            </tr>
+
             {% endfor %}
         </tbody>
     </table>
@@ -64,34 +164,36 @@
         <nav aria-label="Page navigation example ">
             <ul class="pagination d-flex justify-content-around">
                 <div class="d-flex">
-                {% if page_obj.has_previous %}
+                    {% if page_obj.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Previous</a>
+                        <a class="page-link"
+                            href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Previous</a>
                     </li>
-                {% else %}
+                    {% else %}
                     <li class="page-item disabled">
                         <a class="page-link" href="#">Previous</a>
                     </li>
-                {% endif %}
+                    {% endif %}
 
-                {% if page_obj.paginator.num_pages > 3 %}
+                    {% if page_obj.paginator.num_pages > 3 %}
                     {% if page_obj.number == 1 %}
-                        <li class="page-item active">
-                            <a class="page-link" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">1</a>
-                        </li>
+                    <li class="page-item active">
+                        <a class="page-link" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">1</a>
+                    </li>
                     {% else %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">1</a>
-                        </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">1</a>
+                    </li>
                     {% endif %}
                     {% if page_obj.number == 2 %}
-                        <li class="page-item active">
-                            <a class="page-link" href="?page=2{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">2</a>
-                        </li>
+                    <li class="page-item active">
+                        <a class="page-link" href="?page=2{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">2</a>
+                    </li>
                     {% else %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page=2{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">2</a>
-                        </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page=2{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">2</a>
+                    </li>
+
                     {% endif %}
 
                     <li class="page-item disabled">
@@ -99,66 +201,73 @@
                     </li>
                     {% if page_obj.number == page_obj.paginator.num_pages %}
                     <li class="page-item active">
-                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ page_obj.paginator.num_pages }}</a>
+                        <a class="page-link"
+                            href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{page_obj.paginator.num_pages}}</a>
                     </li>
                     {% else %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ page_obj.paginator.num_pages }}</a>
+                      <a class="page-link"
+                          href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{page_obj.paginator.num_pages}}</a>
+                  </li>
+                    {% endif %}
+                    {% else %}
+                    {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active">
+                        <a class="page-link"
+                            href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a>
                     </li>
                     {% endif %}
-                {% else %}
-                    {% for num in page_obj.paginator.page_range %}
-                            {% if page_obj.number == num %}
-                                <li class="page-item active">
-                                    <a class="page-link" href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a>
-                                </li>
-                            {% else %}
-                                <li class="page-item">
-                                    <a class="page-link" href="?page={{ num }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">{{ num }}</a>
-                                </li>
-                            {% endif %}
                     {% endfor %}
-            {% endif %}
-            {% if page_obj.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Next</a>
+                    {% endif %}
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Next</a>
 
-                </li>
-            {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            {% endif %}
-            </div>
-            {% comment %} JUMP TO: {% endcomment %}
-            {% if page_obj.paginator.num_pages > 3 %}
-            <div class="d-flex">
-                <li class="page-item">&nbsp;</li>
-                <li class="page-item">
-                    <span class="page-link jump-to-label">Jump to:</span>
-                </li>
-                <li class="page-item">
-                    <form action="" method="get" class="form-inline">
-                        <input type="text" name="page" class="form-control" style="width: 50px;">
-                        {% if request.GET.q %}
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                    {% endif %}
+                </div>
+
+
+                {% comment %} JUMP TO: {% endcomment %}
+                {% if page_obj.paginator.num_pages > 3 %}
+                <div class="d-flex">
+                    <li class="page-item">&nbsp;</li>
+                    <li class="page-item">
+                        <span class="page-link jump-to-label">Jump to:</span>
+                    </li>
+                    <li class="page-item ">
+                        <form action="" method="get" class="form-inline d-flex ">
+                            <input type="text" name="page" class="form-control" style="width: 50px;">
+                            {% if request.GET.q %}
                             <input type="hidden" name="q" value="{{ request.GET.q }}">
-                        {% endif %}
-                        <button type="submit"  class="btn btn-outline-info">Go</button>
-                    </form>
-                </li>
-            </div>
-            {% endif %}
-        </ul>
+                            {% endif %}
+                            <button type="submit" class="btn btn-outline-info">Go</button>
+                        </form>
+                    </li>
+                </div>
+                {% endif %}
+            </ul>
         </nav>
     </div>
-    <div class="d-flex justify-content-center">
-        <a href="{% url 'fiberbags:fiberbag_create'%}" class="btn btn-outline-info justify-content-center">Create a new fiberbag</a>
-    </div>
-
-</body>
-</html>
+</section>
 
 
+<script>
+    handleClick = (url) => {
+        window.location = url;
+    }
+</script>
 
-
+{% endblock %}
 

@@ -1,0 +1,46 @@
+{% extends 'admin/dashboard.html' %}
+
+
+{% block upside %}
+<h1 class="d-flex justify-content-center mt-1 mb-5">{{Product.type}} {{product.pk}}</h1>
+    {% endblock %}
+
+    {% block downside %}
+    <section style="margin: 0 0 32px 0;min-height:800px;">
+<table class="table">
+        <tr>
+            <th>Retail Price</th>
+            <td>{{ product.retail_price }}</td>
+        </tr>
+        <tr>
+            <th>Wholesale Price</th>
+            <td>{{ product.wholesale_price }}</td>
+        </tr>
+        <tr>
+            <th>Quantity</th>
+            <td>{{ product.quantity }}</td>
+        </tr>
+        <tr>
+            <th>Type</th>
+            <td>{{ product.type }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ product.description }}</td>
+        </tr>
+        <tr>
+            <th>Fiber</th>
+            <td>{{ product.fiber }}</td>
+        </tr>
+        <tr>
+            <th>Bag</th>
+            <td>{{ product.bag }}</td>
+        </tr>
+        <tr>
+            <th>Fibric</th>
+            <td>{{ product.fibric }}</td>
+        </tr>
+
+    </table>
+</section>
+{% endblock %}

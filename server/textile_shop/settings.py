@@ -22,7 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
+if not SECRET_KEY:
+    SECRET_KEY = config('SECRET_KEY')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
@@ -37,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #local
+    'custom_admin',
     'employees',
     'accounts',
     'products',
@@ -44,6 +49,8 @@ INSTALLED_APPS = [
     'materials',
     #third party
     'django_extensions',
+    'django_filters',
+    
 ]
 
 MIDDLEWARE = [
@@ -61,7 +68,10 @@ ROOT_URLCONF = 'textile_shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"templates")],
+
+        'DIRS': [BASE_DIR / 'templates'],
+
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -89,6 +99,7 @@ DATABASES = {
         'PASSWORD':config('DB_PASS'),
     }
 }
+
 
 
 # Password validation
@@ -132,7 +143,7 @@ STATIC_ROOT='vol/web/static'
 MEDIA_ROOT='vol/web/media'
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",]
+    BASE_DIR / "assets",]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

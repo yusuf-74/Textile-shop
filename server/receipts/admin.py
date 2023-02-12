@@ -6,7 +6,7 @@ class CustomerReceiptAdmin(admin.ModelAdmin):
     list_display = ['customer', 'date', 'paid', 'total', 'remaining']
     
 class SuppliersReceiptAdmin(admin.ModelAdmin):
-    fields = ['supplier', 'material', 'date', 'paid', 'total', 'remaining']
+    fields = ['supplier', 'date', 'paid', 'description', 'bag', 'fiber', 'fibric']
     list_display = ['supplier', 'date', 'paid', 'total', 'remaining']
 
 admin.site.register(CustomerReceipt, CustomerReceiptAdmin)

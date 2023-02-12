@@ -7,19 +7,16 @@ from django.contrib.auth import get_user_model
 #         ]
 
 class Fabric(models.Model):
-    supplier = models.ForeignKey('employees.person', on_delete=models.CASCADE)
     type = models.CharField(max_length=50)
     quantity = models.IntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
 class Fiber(models.Model):
-    supplier = models.ForeignKey('employees.person', on_delete=models.CASCADE)
     type = models.CharField(max_length=50)
     quantity = models.IntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
 class Bag(models.Model):
-    supplier = models.ForeignKey('employees.person', on_delete=models.CASCADE)
     type = models.CharField(max_length=50)
     quantity = models.IntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)

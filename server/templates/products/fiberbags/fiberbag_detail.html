@@ -1,25 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+{% extends 'admin/dashboard.html' %}
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+{% block upside %}    
+<h1 class="d-flex justify-content-center mt-1 mb-5">Fiberbag {{fiberbag.pk}}</h1>
+    {% endblock %}
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% block downside %}
+    <section style="margin: 0 0 32px 0;min-height:800px;">
+<table class="table">
 
-</head>
-<body>
-    <h1 class="d-flex justify-content-center mt-1 mb-5">Fiberbag {{fiberbag.pk}}</h1>
-    <table class="table">
         <tr>
             <th>Retail Price</th>
             <td>{{ fiberbag.retail_price }}</td>
@@ -54,5 +43,5 @@
         </tr>
 
     </table>
-</body>
-</html>
+</section>
+{% endblock %}

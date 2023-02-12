@@ -1,12 +1,24 @@
 from django.urls import path
-from products.views import FiberbagListView, FiberBagDetailView, FiberBagCreateView, FiberBagUpdateView, FiberBagDeleteView
+from .views import\
+    ProductsView,\
+    FiberbagListView,\
+    FiberBagDetailView,\
+    EditFiberBagView,\
+    PillowDelete,PillowDetailView,\
+    PillowUpdate,PillowView,\
+    PillowCreate
 
-app_name = 'fiberbags'
 
 urlpatterns = [
+    path('', ProductsView.as_view(), name='products'),
     path('fiberbags/', FiberbagListView.as_view(), name='fiberbag_list'),
+    path('fiberbags/edit/',EditFiberBagView.as_view(), name='fiberbag_edit'),
     path('fiberbags/<int:pk>/', FiberBagDetailView.as_view(), name='fiberbag_detail'),
-    path('fiberbags/create/', FiberBagCreateView.as_view(), name='fiberbag_create'),
-    path('fiberbags/<int:pk>/update/', FiberBagUpdateView.as_view(), name='fiberbag_update'),
-    path('fiberbags/<int:pk>/delete/', FiberBagDeleteView.as_view(), name='fiberbag_delete'),
-]
+    path('types/<str:type>' , PillowView.as_view() , name='pillow'),
+    path("all_pillows" , PillowView.as_view() , name='all_pillows'),
+    path('pillow/<int:pk>/' , PillowDetailView.as_view() , name='pillow-detail'),
+    path("pillow/<int:pk>/delete",PillowDelete.as_view() , name="pillow-delete"),
+    path("pillow/<int:pk>/update" , PillowUpdate.as_view() , name="pillow-update"),
+    path("pillow/create" , PillowCreate.as_view() , name="pillow-create"),
+    path("circular pillow/create" , PillowCreate.as_view() , name="circular-pillow-create"),
+    ]
