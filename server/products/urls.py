@@ -12,3 +12,4 @@ urlpatterns = [
     path('fiberbags/edit/',EditFiberBagView.as_view(), name='fiberbag_edit'),
     path('fiberbags/<int:pk>/', FiberBagDetailView.as_view(), name='fiberbag_detail'),
     ]
+
