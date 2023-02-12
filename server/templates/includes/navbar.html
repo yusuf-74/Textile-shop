@@ -34,6 +34,7 @@
         </ul>
   
         <div class="d-flex align-items-center">
+          {% if not user.is_authenticated %}
           <button
             type="button"
             class="btn btn-link px-3 me-2 conditional-render-out"
@@ -46,12 +47,15 @@
           >
             Sign up
           </button>
+          {% endif %}
+          {% if user.is_authenticated  %}
           <button
             type="button"
             class="btn btn-primary me-3 conditional-render-in"
           >
             Log out
           </button>
+          {% endif %}
         </div>
       </div>
     </div>
