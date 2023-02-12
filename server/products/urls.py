@@ -22,4 +22,3 @@ urlpatterns = [
     path("pillow/create" , PillowCreate.as_view() , name="pillow-create"),
     path("circular pillow/create" , PillowCreate.as_view() , name="circular-pillow-create"),
     ]
-

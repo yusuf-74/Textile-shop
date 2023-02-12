@@ -155,6 +155,7 @@
                 
                 </td>
             </tr>
+
             {% endfor %}
         </tbody>
     </table>
@@ -192,6 +193,7 @@
                     <li class="page-item">
                         <a class="page-link" href="?page=2{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">2</a>
                     </li>
+
                     {% endif %}
 
                     <li class="page-item disabled">
@@ -268,3 +270,4 @@
 </script>
 
 {% endblock %}
+

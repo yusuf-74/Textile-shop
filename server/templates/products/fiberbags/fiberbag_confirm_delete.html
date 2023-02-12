@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+    <form action="{% url 'fiberbags:fiberbag_delete' pk=fiberbag.pk %}" method="post">
+      {% csrf_token %}
+      <div class="card mx-auto mt-5" style="width: 45%;">
+        <div class="card-header text-center">
+          <h3>Are you sure you want to delete the following fiberbag?</h3>
+        </div>
+        <div class="card-body">
+          <p><strong>Type:</strong><span style="font-size: larger;"> {{ fiberbag.type }}</span></p>
+          <p><strong>Retail Price:</strong><span style="font-size: larger;"> {{ fiberbag.retail_price }}</span></p>
+          <p><strong>Wholesale Price:</strong><span style="font-size: larger;"> {{ fiberbag.wholesale_price }}</span></p>
+          <p><strong>Quantity:</strong><span style="font-size: larger;"> {{ fiberbag.quantity }}</span></p>
+          <p><strong>Description:</strong><span style="font-size: larger;"> {{ fiberbag.description }}</span></p>
+        </div>
+        <div class="card-footer">
+          <input type="submit" value="Confirm" class="btn btn-danger float-right">
+        </div>
+      </div>
+    </form>
+
+</body>
+</html>

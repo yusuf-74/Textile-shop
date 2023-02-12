@@ -1,5 +1,6 @@
 from django.shortcuts import render,get_object_or_404, redirect
 from django.views import View
+
 from django.core.paginator import Paginator
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -143,7 +144,3 @@ class PillowCreate(CreateView):
         self.object.save()
         success_url=reverse_lazy("pillow" , kwargs={"type":self.object.type})
         return HttpResponseRedirect(success_url)
-
-
-
-
