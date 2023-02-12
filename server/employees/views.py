@@ -81,13 +81,15 @@ class EditEmployeeView(View):
                     )
             except:
                 raise Exception('error')
-        
-            salary = Salary.objects.create(
-                    employee = employee\
-                    ,num_of_hours = data['num_of_hours'][0]\
-                    ,num_of_days = data['num_of_days'][0]\
-                    ,salry_per_hour = data['salary_per_hour'][0]\
-                    )
+            try:
+                salary = Salary.objects.create(
+                        employee = employee\
+                        ,num_of_hours = data['num_of_hours'][0]\
+                        ,num_of_days = data['num_of_days'][0]\
+                        ,salry_per_hour = data['salary_per_hour'][0]\
+                        )
+            except:
+                raise Exception('error in salary')
             
             return redirect('all_employees')
 
