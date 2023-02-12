@@ -89,7 +89,7 @@ class EditEmployeeView(View):
                         ,salry_per_hour = data['salary_per_hour'][0]\
                         )
             except:
-                raise Exception('error in salary')
+                return redirect('all_employees')
             
             return redirect('all_employees')
 
@@ -110,13 +110,19 @@ class EditEmployeeView(View):
                 salary.salry_per_hour = data['salary_per_hour'][0]
                 salary.save()
             except:
-                salary = Salary.objects.create(
-                    employee = employee,
-                    num_of_hours = data['num_of_hours'][0],
-                    num_of_days = data['num_of_days'][0],
-                    salry_per_hour = data['salary_per_hour'][0]
-                )
-                
+                try:
+                    salary = Salary.objects.create(
+                        employee = employee,
+                        num_of_hours = data['num_of_hours'][0],
+                        num_of_days = data['num_of_days'][0],
+                        salry_per_hour = data['salary_per_hour'][0]
+                    )
+                except:
+                    if data['from'][0] == 'all':
+                        return redirect('all_employees')
+                    else :
+                        return redirect('employee_detail' , pk = employee.id)
+            
             
             
             if data['from'][0] == 'all':
