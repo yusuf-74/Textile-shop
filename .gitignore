@@ -10,6 +10,7 @@ postgres_data/
 
 /static
 static/
+/vol/web/static
 /media
 media/
 
