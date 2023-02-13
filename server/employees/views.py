@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.views import View
 from .filters import PersonFilter
 from .models import Person , Salary, PenaltyOrLoans
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+
 
 
 class EmployeeView(View):
@@ -24,8 +26,8 @@ class EmployeeView(View):
                                     ,'salary_per_hour':employee.salary.salry_per_hour})\
                             }\
                             for employee in employees.qs]
-    
-        return render(request,'employees/all-employees.html',{'employees_data':employees_data})    
+
+        return render(request,'employees/all-employees.html',{'employees_data':employees_data})
 
 class EmployeeDetailView(View):
     def get(self,request,*args, **kwargs):
@@ -56,19 +58,19 @@ class EmployeeDetailView(View):
 class EditEmployeeView(View):
     def get(self,request,*args, **kwargs):
         return render(request,'employees/create-employee.html')
-    
+
     def post(self,request,*args, **kwargs):
-        
+
         data = dict(request.POST)
         print(data['_method'])
         id = 0
         if data['_method'][0] == 'PUT':
             print(data['_method'][0])
-            try : 
+            try :
                 id = Person.objects.get(id = data['id'][0]).id
             except:
                 raise Exception('no such user')
-            
+
         if data['_method'][0] == 'POST':
             try:
                 employee = Person.objects.create(name = data['name'][0]\
@@ -90,7 +92,7 @@ class EditEmployeeView(View):
                         )
             except:
                 return redirect('all_employees')
-            
+
             return redirect('all_employees')
 
         elif data['_method'][0] == 'PUT':
@@ -102,7 +104,7 @@ class EditEmployeeView(View):
             employee.address = data['address'][0]
             employee.city = data['city'][0]
             employee.save()
-            
+
             try:
                 salary = Salary.objects.get(employee = employee)
                 salary.num_of_hours = data['num_of_hours'][0]
@@ -122,14 +124,14 @@ class EditEmployeeView(View):
                         return redirect('all_employees')
                     else :
                         return redirect('employee_detail' , pk = employee.id)
-            
-            
-            
+
+
+
             if data['from'][0] == 'all':
                 return redirect('all_employees')
             else :
                 return redirect('employee_detail' , pk = employee.id)
-        
+
         elif data['_method'][0] == 'DELETE':
             print('delete')
             data = dict(request.POST)
@@ -138,12 +140,12 @@ class EditEmployeeView(View):
             print(employee)
             employee.delete()
             return redirect('all_employees')
-        
-        
+
+
         return redirect('all_employees')
-            
-            
-        
+
+
+
 
 
 class PersonDetailView(View):
@@ -181,17 +183,17 @@ class CustomerView(View):
                         ,'government':customer.government\
                             }\
                             for customer in customers.qs]
-    
-        return render(request,'customers/all-customers.html',{'customers_data':customers_data})    
-    
+
+        return render(request,'customers/all-customers.html',{'customers_data':customers_data})
+
 class EditCustomerView(View):
     def get(self,request,*args, **kwargs):
         return render(request,'customers/create-customer.html')
-    
+
     def post(self,request,*args, **kwargs):
-        
+
         data = dict(request.POST)
-        
+
         if data['_method'][0] == 'POST':
             try:
                 customer = Person.objects.create(name = data['name'][0]\
@@ -204,8 +206,8 @@ class EditCustomerView(View):
                     )
             except:
                 raise Exception('error')
-            
-            
+
+
             if data['from'][0] == 'all':
                 return redirect('all_customers')
             else :
@@ -220,23 +222,23 @@ class EditCustomerView(View):
             customer.address = data['address'][0]
             customer.city = data['city'][0]
             customer.save()
-            
-            
+
+
             if data['from'][0] == 'all':
                 return redirect('all_customers')
             else :
                 return redirect('_detail')
-        
+
         elif data['_method'][0] == 'DELETE':
             data = dict(request.POST)
             customer = Person.objects.get(id = data['id'][0])
             customer.delete()
-            
+
             if data['from'][0] == 'all':
                 return redirect('all_customers')
             else :
                 return redirect('_detail')
-        
+
 class SupplierView(View):
     def get(self,request,*args, **kwargs):
         suppliers = PersonFilter(request.GET,queryset=Person.objects.filter(role = 'supplier'))
@@ -250,17 +252,17 @@ class SupplierView(View):
                         ,'government':supplier.government\
                             }\
                             for supplier in suppliers.qs]
-    
+
         return render(request,'suppliers/all-suppliers.html',{'suppliers_data':suppliers_data})
-    
+
 class EditSupplierView(View):
     def get(self,request,*args, **kwargs):
         return render(request,'suppliers/create-supplier.html')
-    
+
     def post(self,request,*args, **kwargs):
-        
+
         data = dict(request.POST)
-        
+
         if data['_method'][0] == 'POST':
             try:
                 supplier = Person.objects.create(name = data['name'][0]\
@@ -273,11 +275,11 @@ class EditSupplierView(View):
                     )
             except:
                 raise Exception('error')
-            
-            
-            
+
+
+
             return redirect('all_suppliers')
-            
+
 
         elif data['_method'][0] == 'PUT':
             data = dict(request.POST)
@@ -288,20 +290,26 @@ class EditSupplierView(View):
             supplier.address = data['address'][0]
             supplier.city = data['city'][0]
             supplier.save()
-            
-            
+
+
             if data['from'][0] == 'all':
                 return redirect('all_suppliers')
             else :
                 return redirect('_detail')
-        
+
         elif data['_method'][0] == 'DELETE':
             data = dict(request.POST)
             supplier = Person.objects.get(id = data['id'][0])
             supplier.delete()
-            
+
             if data['from'][0] == 'all':
                 return redirect('all_suppliers')
             else :
                 return redirect('_detail')
-        
+
+class SalaryView(ListView):
+    model=Salary
+    context_object_name="salary"
+    paginate_by=10
+    template_name="salary/salary_list.html"
+    
