@@ -88,7 +88,7 @@ class PillowView(ListView):
     template_name='products/pillow/pillow.html'
     context_object_name='prods'
     model=Pillow
-    paginate_by=2
+    paginate_by=10
     filterset_class=PillowFilter
 
 
