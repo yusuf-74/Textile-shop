@@ -2,7 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+.editorconfig
 # C extensions
 *.so
 /postgres_data
@@ -13,6 +13,7 @@ static/
 /vol/web/static
 /media
 media/
+server/vol/web/static
 
 migrations/
 # Distribution / packaging
