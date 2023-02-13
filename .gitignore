@@ -10,10 +10,12 @@ postgres_data/
 
 /static
 static/
+/vol/web/static
 /media
 media/
 server/vol/web/static
 
+migrations/
 # Distribution / packaging
 .Python
 build/
