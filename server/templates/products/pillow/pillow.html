@@ -4,33 +4,47 @@
 
 {% block upside %}
 <div style = 'display:flex; justify-content:space-around;align-items:center; margin : 32px 0 8px 0'>
-  <form  method='GET' style = 'width:60%'>
-    <div class="input-group" style = 'margin : 8px 0'>
+  <form  method='GET' style = 'width:60%' action="{% url 'pillow' type=type %}">
+     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
-        <input type="text" id="name" name = 'name' class="form-control" />
-        <label class="form-label" for="name">type</label>
+        <input type="text" id="retail_price" name = 'retail_price' class="form-control" />
+        <label class="form-label" for="retail_price">Retail_price</label>
       </div>
 
     </div>
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
-        <input type="text" id="address" name = 'address' class="form-control" />
-        <label class="form-label" for="address">Address</label>
+        <input type="text" id="retail_price__lt" name = 'retail_price__lt' class="form-control" />
+        <label class="form-label" for="retail_price__lt">Retail_price is less than</label>
       </div>
-    </div>
-    <div class="input-group" style = 'margin : 8px 0'>
-      <div class="form-outline">
-        <input type="text" id="phone" name = 'phone' class="form-control" />
-        <label class="form-label" for="phone"> Phone</label>
-      </div>
-    </div>
-    <div class="input-group" style = 'margin : 8px 0'>
-      <div class="form-outline">
-        <input type="text" id="city" name = 'city' class="form-control" />
-        <label class="form-label" for="city"> City</label>
-      </div>
-    </div>
 
+    </div>
+    <div class="input-group" style = 'margin : 8px 0'>
+      <div class="form-outline">
+        <input type="text" id="retail_price__gt" name = 'retail_price__gt' class="form-control" />
+        <label class="form-label" for="retail_price__gt"> Retail_price is greater than</label>
+      </div>
+
+    </div>
+    <div class="input-group" style = 'margin : 8px 0'>
+      <div class="form-outline">
+        <input type="text" id="wholesale_price" name = 'wholesale_price' class="form-control" />
+        <label class="form-label" for="wholesale_price">Wholesale_price </label>
+      </div>
+    </div>
+    <div class="input-group" style = 'margin : 8px 0'>
+      <div class="form-outline">
+        <input type="text" id="wholesale_price__gt" name = 'wholesale_price__gt' class="form-control" />
+        <label class="form-label" for="wholesale_price__gt"> Wholesale price is greater than</label>
+      </div>
+    </div>
+    <div class="input-group" style = 'margin : 8px 0'>
+      <div class="form-outline">
+        <input type="text" id="wholesale_price__lt" name = 'wholesale_price__lt' class="form-control" />
+        <label class="form-label" for="wholesale_price__lt"> Wholesale price is less than</label>
+      </div>
+    </div>
+    {% comment %} {{ filterset.form.as_p }} {% endcomment %}
       <div class="form-outline" style = 'display:flex ; justify-content:space-around;align-items:center;'>
         <button type="submit" class="btn btn-primary" style='width:160px'>
           Search
