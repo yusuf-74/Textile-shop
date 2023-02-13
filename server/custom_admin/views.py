@@ -12,7 +12,6 @@ class DashboardView(View):
         purchases = sum([ receipt.total for receipt in SuppliersReceipt.objects.all()])
         net_profit = sales - purchases
         
-        user = {'name': 'Admin', 'email': ''}
         
         return render(request, 'admin/analytics.html', {'data':{'orders_data': orders_data, 'sales': sales, 'purchases': purchases, 'net_profit': net_profit}})
 
