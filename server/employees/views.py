@@ -14,16 +14,10 @@ class EmployeeView(View):
                         ,'name':employee.name\
                         ,'phone':employee.phone_number\
                         ,'address':employee.address\
-                        ,'salary':\
-                            ( 'not provided' if not hasattr(employee,'salary')\
-                            else employee.salary.total_salary)\
                         ,'email': employee.email\
                         ,'city':employee.city \
                         ,'government':employee.government\
-                        ,'additional':( 'not provided' if not hasattr(employee,'salary')\
-                            else {'num_of_hours':employee.salary.num_of_hours\
-                                ,'num_of_days':employee.salary.num_of_days\
-                                    ,'salary_per_hour':employee.salary.salry_per_hour})\
+                      
                             }\
                             for employee in employees.qs]
 
@@ -39,17 +33,11 @@ class EmployeeDetailView(View):
                             ,'name':employee.name\
                             ,'phone':employee.phone_number\
                             ,'address':employee.address\
-                            ,'salary':\
-                                ( 'not provided' if not hasattr(employee,'salary')\
-                                else employee.salary.total_salary)\
                             ,'email': employee.email\
                             ,'city':employee.city \
                             ,'government':employee.government\
-                            ,'additional':( 'not provided' if not hasattr(employee,'salary')\
-                                else {'num_of_hours':employee.salary.num_of_hours\
-                                    ,'num_of_days':employee.salary.num_of_days\
-                                        ,'salary_per_hour':employee.salary.salry_per_hour})\
-                                }
+            }
+
         except:
             return render(request,'employees/detailed-employee.html',{'employee_data':employee_data})
         return render(request,'employees/detailed-employee.html',{'employee':employee_data})
@@ -87,7 +75,6 @@ class EditEmployeeView(View):
                 salary = Salary.objects.create(
                         employee = employee\
                         ,num_of_hours = data['num_of_hours'][0]\
-                        ,num_of_days = data['num_of_days'][0]\
                         ,salry_per_hour = data['salary_per_hour'][0]\
                         )
             except:
@@ -108,7 +95,6 @@ class EditEmployeeView(View):
             try:
                 salary = Salary.objects.get(employee = employee)
                 salary.num_of_hours = data['num_of_hours'][0]
-                salary.num_of_days = data['num_of_days'][0]
                 salary.salry_per_hour = data['salary_per_hour'][0]
                 salary.save()
             except:
@@ -116,7 +102,6 @@ class EditEmployeeView(View):
                     salary = Salary.objects.create(
                         employee = employee,
                         num_of_hours = data['num_of_hours'][0],
-                        num_of_days = data['num_of_days'][0],
                         salry_per_hour = data['salary_per_hour'][0]
                     )
                 except:
