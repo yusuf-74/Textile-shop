@@ -3,7 +3,8 @@ from django.views import View
 from .filters import PersonFilter
 from .models import Person , Salary, PenaltyOrLoans
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-
+from django.urls import reverse_lazy
+from employees.models import Person
 
 
 class EmployeeView(View):
@@ -17,7 +18,7 @@ class EmployeeView(View):
                         ,'email': employee.email\
                         ,'city':employee.city \
                         ,'government':employee.government\
-                      
+
                             }\
                             for employee in employees.qs]
 
@@ -297,4 +298,35 @@ class SalaryView(ListView):
     context_object_name="salary"
     paginate_by=10
     template_name="salary/salary_list.html"
-    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.order_by('-id')
+
+class SalaryUpdate(UpdateView):
+    template_name="salary/salary_list.html"
+    model=Salary
+    fields=["num_of_hours" , "salry_per_hour","status"]
+    def get_success_url(self):
+        return reverse_lazy("all_salary")
+
+class SalaryDelete(DeleteView):
+    template_name="salary/salary_list.html"
+    model=Salary
+    def get_success_url(self):
+        return reverse_lazy("all_salary")
+
+class SalaryCreate(CreateView):
+    fields=["employee",'num_of_hours' ,'salry_per_hour' , "status" ]
+    model=Salary
+    template_name='salary/salary_create.html'
+    success_url=reverse_lazy("all_salary")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["emps"] = Person.objects.filter(role="employee")
+        return context
+
+
+
+
+
