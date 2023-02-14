@@ -14,7 +14,7 @@ class Test(View):
         return render(request,'users/register-login.html')
     
     
-ACCOUNT_TYPE = {'Bank': 'Bank', 'e_wallet': 'E-Wallet','postal': 'Postal'}
+ACCOUNT_TYPE = {'Bank': 'Bank', 'e_wallet': 'E-Wallet','postal': 'Postal','bank':'Bank'}
 
 class AccountsView(View):
     def get(self,request,*args, **kwargs):
