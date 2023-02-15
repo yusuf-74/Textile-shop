@@ -11,8 +11,6 @@ class EmployeeView(View):
     def get(self,request,*args, **kwargs):
         employees = PersonFilter(request.GET,queryset=Person.objects.filter(role = 'employee'))
         
-        print(employees.qs[0].salary.all())
-        print(hasattr(employees.qs[0], 'salary'))
         employees_data = [{\
                         'id':employee.id \
                         ,'name':employee.name\
@@ -88,11 +86,8 @@ class EditEmployeeView(View):
                 return redirect('employee_detail' , pk = employee.id)
 
         elif data['_method'][0] == 'DELETE':
-            print('delete')
             data = dict(request.POST)
-            print(data['id'][0])
             employee = Person.objects.get(id = data['id'][0])
-            print(employee)
             employee.delete()
             return redirect('all_employees')
 
