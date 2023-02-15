@@ -79,4 +79,6 @@ class EditAccountView(View):
 class AccountDetailView(View):
     def get(self,request,*args, **kwargs):
         account = Account.objects.get(id=kwargs['pk'])
-        return render(request,'accounts/detailed-accounts.html',{'account':account})
+        transactions = account.transactions.all()
+        print(transactions)
+        return render(request,'accounts/detailed-account.html',{'account':account , 'transactions':transactions})
