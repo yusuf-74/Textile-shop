@@ -45,8 +45,8 @@
                 <th scope="col">Price</th>
                 <th scope="col">Created At</th>
                 <th scope="col">Created By</th>
-                <th scope="col">Last Updated At</th>
-                <th scope="col">Last Updated By</th>
+                <th scope="col">Last Update At</th>
+                <th scope="col">Last Update By</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -166,7 +166,7 @@
                     {% if page_obj.has_previous %}
                     <li class="page-item">
                         <a class="page-link"
-                            href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                            href="?{% if filter.form.startDate.value %}startDate={{ filter.form.startDate.value }}&{% endif %}{% if filter.form.type.value %}type={{ filter.form.type.value }}&{% endif %}page={{ page_obj.previous_page_number }}">Previous</a>
                     </li>
                     {% else %}
                     <li class="page-item disabled">
@@ -177,20 +177,20 @@
                     {% if page_obj.paginator.num_pages > 3 %}
                     {% if page_obj.number == 1 %}
                     <li class="page-item active">
-                        <a class="page-link" href="?page=1">1</a>
+                        <a class="page-link" href="?{% if filter.form.startDate.value %}startDate={{ filter.form.startDate.value }}&{% endif %}{% if filter.form.type.value %}type={{ filter.form.type.value }}&{% endif %}page=1">1</a>
                     </li>
                     {% else %}
                     <li class="page-item">
-                        <a class="page-link" href="?page=1">1</a>
+                        <a class="page-link" href="?{% if filter.form.startDate.value %}startDate={{ filter.form.startDate.value }}&{% endif %}{% if filter.form.type.value %}type={{ filter.form.type.value }}&{% endif %}page=1">1</a>
                     </li>
                     {% endif %}
                     {% if page_obj.number == 2 %}
                     <li class="page-item active">
-                        <a class="page-link" href="?page=2">2</a>
+                        <a class="page-link" href="?{% if filter.form.startDate.value %}startDate={{ filter.form.startDate.value }}&{% endif %}{% if filter.form.type.value %}type={{ filter.form.type.value }}&{% endif %}page=2">2</a>
                     </li>
                     {% else %}
                     <li class="page-item">
-                        <a class="page-link" href="?page=2">2</a>
+                        <a class="page-link" href="?{% if filter.form.startDate.value %}startDate={{ filter.form.startDate.value }}&{% endif %}{% if filter.form.type.value %}type={{ filter.form.type.value }}&{% endif %}page=2">2</a>
                     </li>
 
                     {% endif %}
@@ -201,33 +201,30 @@
                     {% if page_obj.number == page_obj.paginator.num_pages %}
                     <li class="page-item active">
                         <a class="page-link"
-                            href="?page={{ page_obj.paginator.num_pages }}">{{page_obj.paginator.num_pages}}</a>
+                            href="?{% if filter.form.startDate.value %}startDate={{ filter.form.startDate.value }}&{% endif %}{% if filter.form.type.value %}type={{ filter.form.type.value }}&{% endif %}page={{ page_obj.paginator.num_pages }}">{{page_obj.paginator.num_pages}}</a>
                     </li>
                     {% else %}
                     <li class="page-item">
                       <a class="page-link"
-                          href="?page={{ page_obj.paginator.num_pages }}">{{page_obj.paginator.num_pages}}</a>
+                          href="?{% if filter.form.startDate.value %}startDate={{ filter.form.startDate.value }}&{% endif %}{% if filter.form.type.value %}type={{ filter.form.type.value }}&{% endif %}page={{ page_obj.paginator.num_pages }}">{{page_obj.paginator.num_pages}}</a>
                   </li>
                     {% endif %}
                     {% else %}
                     {% for num in page_obj.paginator.page_range %}
                     {% if page_obj.number == num %}
                     <li class="page-item active">
-                        <a class="page-link"
-                            href="?page={{ num }}">{{ num }}</a>
+                        <a class="page-link" href="?{% if filter.form.startDate.value %}startDate={{ filter.form.startDate.value }}&{% endif %}{% if filter.form.type.value %}type={{ filter.form.type.value }}&{% endif %}page={{ num }}">{{ num }}</a>
                     </li>
                     {% else %}
                     <li class="page-item">
-                        <a class="page-link"
-                            href="?page={{ num }}">{{ num }}</a>
+                        <a class="page-link" href="?{% if filter.form.startDate.value %}startDate={{ filter.form.startDate.value }}&{% endif %}{% if filter.form.type.value %}type={{ filter.form.type.value }}&{% endif %}page={{ num }}">{{ num }}</a>
                     </li>
                     {% endif %}
                     {% endfor %}
                     {% endif %}
                     {% if page_obj.has_next %}
                     <li class="page-item">
-                        <a class="page-link"
-                            href="?page={{ page_obj.next_page_number }}">Next</a>
+                        <a class="page-link" href="?{% if filter.form.startDate.value %}startDate={{ filter.form.startDate.value }}&{% endif %}{% if filter.form.type.value %}type={{ filter.form.type.value }}&{% endif %}page={{ page_obj.next_page_number }}">Next</a>
 
                     </li>
                     {% else %}

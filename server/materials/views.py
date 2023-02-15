@@ -17,7 +17,7 @@ class PerishableListView(ListView):
     model = Perishable
     template_name = 'materials/perishables/perishables_list.html'
     context_object_name = 'perishables'
-    paginate_by = 5
+    paginate_by = 10
     ordering = ['id']
     filterset_class = PerishableFilter
 
