@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'receipts',
     'materials',
     #third party
+    'django_property_filter',
     'django_extensions',
     'django_filters',
     
@@ -144,6 +145,8 @@ MEDIA_ROOT='vol/web/media'
 
 STATICFILES_DIRS = [
     BASE_DIR / "assets",]
+
+LOGIN_URL = '/home/login/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

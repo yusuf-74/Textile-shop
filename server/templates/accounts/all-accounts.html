@@ -1,0 +1,217 @@
+{% extends 'admin/dashboard.html' %}
+
+
+
+{% block upside %}
+<div style='display:flex; justify-content:space-around;align-items:center; margin : 32px 0 8px 0'>
+    <form method='GET' style='width:60%'>
+        <div class="input-group" style='margin : 8px 0'>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="bank" name="Bank" id="bank" />
+                <label class="form-check-label" for="bank">Bank</label>
+            </div>
+        </div>
+
+        <div class="input-group" style='margin : 8px 0'>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="e_wallet" name="e_wallet" id="e_wallet" />
+                <label class="form-check-label" for="e_wallet">E-Wallet</label>
+            </div>
+        </div>
+
+        <div class="input-group" style='margin : 8px 0'>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="postal" name="postal" id="postal" />
+                <label class="form-check-label" for="postal">Postal</label>
+            </div>
+        </div>
+        <div class="input-group" style='margin : 8px 0'>
+            <div class="form-outline">
+                <input type="text" id="max_balance" name='max_balance' class="form-control" />
+                <label class="form-label" for="max_balance">MAX Balance</label>
+            </div>
+        </div>
+        <div class="input-group" style='margin : 8px 0'>
+            <div class="form-outline">
+                <input type="text" id="min_balance" name='min_balance' class="form-control" />
+                <label class="form-label" for="min_balance">MIN Balance</label>
+            </div>
+        </div>
+        <div class="input-group" style='margin : 8px 0'>
+            <div class="form-outline">
+                <input type="text" id="account_number" name='account_number' class="form-control" />
+                <label class="form-label" for="account_number">Account Number</label>
+            </div>
+        </div>
+        <div class="input-group" style='margin : 8px 0'>
+            <div class="form-outline">
+                <input type="text" id="service_provider" name='service_provider' class="form-control" />
+                <label class="form-label" for="service_provider">Service Provider</label>
+            </div>
+        </div>
+
+        <div class="form-outline" style='display:flex ; justify-content:space-around;align-items:center;'>
+            <button type="submit" class="btn btn-primary" style='width:160px'>
+                Search
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+
+{% block downside %}
+<section style="margin: 0 0 32px 0;min-height:800px;">
+    <div style="display :flex;">
+        <div style="margin: 32px 0 32px 16px ; flex : 1">Accounts</div>
+        <a href="{% url 'edit_account' %}">
+            <button type="button" style="margin: 32px" class="btn btn-success">Create</button>
+        </a>
+    </div>
+    <table class="table align-middle mb-0 bg-white">
+        <thead class="bg-light">
+            <tr>
+                <th>Account ID</th>
+                <th>Type</th>
+                <th>Service Provider</th>
+                <th>Account Number</th>
+                <th>Balance</th>
+                <th>Created By</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for account in accounts %}
+
+            <tr style='cursor:pointer'>
+                <td onclick="window.location='{{account.id}}';">
+                    <div class="d-flex align-items-center">{{account.id}}</div>
+                </td>
+                <td onclick="window.location='{{account.id}}';">
+                    <p class="fw-normal mb-1">{{account.type}}</p>
+                </td>
+                <td onclick="window.location='{{account.id}}';">
+                    <p class="fw-normal mb-1">{{account.service_provider}}</p>
+                </td>
+                <td onclick="window.location='{{account.id}}';">
+                    <p class="fw-normal mb-1">{{account.account_number}}</p>
+                </td>
+                <td onclick="window.location='{{account.id}}';">{{account.balance}}</td>
+                <td onclick="window.location='{{account.id}}';">{{account.created_by}}</td>
+                <td style="display:flex;">
+
+
+                    <!-- Button trigger modal -->
+                    <button type="button" style="margin: 8px 4px" class="btn btn-danger" data-mdb-toggle="modal"
+                        data-mdb-target="#delete{{account.id}}">
+                        <i class="fa-solid fa-trash"></i></i>
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="delete{{account.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">DELETE Account</h5>
+                                    <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method='POST' action="{% url 'edit_account' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="from" value="all">
+
+                                        <input type="hidden" name="id" value="{{account.id}}">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-mdb-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-danger">Confirm DELETE</button>
+                                </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+
+                    {% comment %} UPDATE {% endcomment %}
+                    <button type="button" style="margin: 8px 4px" class="btn btn-warning" data-mdb-toggle="modal"
+                        data-mdb-target="#update{{account.id}}">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="update{{account.id}}" tabindex="-1"
+                        aria-labelledby="editlable{{account.id}}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editlable{{account.id}}">Update data</h5>
+                                    <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <form method='POST' action="{% url 'edit_account' %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="_method" value="PUT">
+                                            <input type="hidden" name="from" value="all">
+
+                                            <input type="hidden" name="id" value="{{account.id}}">
+                                            <div class="d-flex flex-row align-items-center mb-4">
+                                                <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                                <div class="form-outline flex-fill mb-0">
+                                                    <label style='font-size:12px;' for="type">Type</label>
+                                                    <input style='border:1px solid black; margin-top:4px;' type="text"
+                                                        id="type" name="type" value='{{account.type}}'
+                                                        class="form-control" />
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex flex-row align-items-center mb-4">
+                                                <i class="fas fa-solid fa-phone fa-lg me-3 fa-fw"></i>
+                                                <div class="form-outline flex-fill mb-0">
+                                                    <label style='font-size:12px;' for="service_provider">Service Provider</label>
+                                                    <input style='border:1px solid black; margin-top:4px;' type="text"
+                                                        id="service_provider" name="service_provider" value='{{account.service_provider}}'
+                                                        class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-row align-items-center mb-4">
+                                                <i class="fas fa-solid fa-location-dot fa-lg me-3 fa-fw"></i>
+                                                <div class="form-outline flex-fill mb-0">
+                                                    <label style='font-size:12px;' for="account_number">Account Number</label>
+                                                    <input style='border:1px solid black; margin-top:4px;' type="text"
+                                                        id="account_number" name="account_number" value='{{account.account_number}}'
+                                                        class="form-control" />
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-mdb-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        {% comment %} end od modal {% endcomment %}
+                    </div>
+
+                </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+
+{% endblock %}

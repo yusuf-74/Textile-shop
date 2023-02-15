@@ -11,6 +11,7 @@ from products.models import Pillow
 from django.core import serializers
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
+from .filters import PillowFilter
 
 
 
@@ -24,7 +25,7 @@ class FiberbagListView(ListView):
     model = FiberBag
     template_name = 'products/fiberbags/fiberbag_list.html'
     context_object_name = 'fiberbags'
-    paginate_by = 2
+    paginate_by = 10
     ordering = ['id']
 
     def get_queryset(self):
@@ -87,16 +88,18 @@ class PillowView(ListView):
     template_name='products/pillow/pillow.html'
     context_object_name='prods'
     model=Pillow
-    paginate_by=2
+    paginate_by=10
+    filterset_class=PillowFilter
 
 
     def get_queryset(self):
         queryset = super().get_queryset()
         type=self.kwargs.get('type' , None)
         if type:
-            return queryset.filter(type=type).order_by('-id')
+            queryset=queryset.filter(type=type).order_by('-id')
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
 
-        return queryset
+        return self.filterset.qs.distinct()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

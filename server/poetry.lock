@@ -124,6 +124,22 @@ files = [
 Django = ">=3.2"
 
 [[package]]
+name = "django-property-filter"
+version = "1.1.2"
+description = "Django Filter extension to support filtering by Properties"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "django-property-filter-1.1.2.tar.gz", hash = "sha256:6df644c531b3b58d85b203e94363f8809829ec9ae79997d51a74a7cde7948379"},
+    {file = "django_property_filter-1.1.2-py2.py3-none-any.whl", hash = "sha256:95a02bbe2b7145068d29e3d423a72b7a2f6329385f8faefdea57668171f21ccd"},
+]
+
+[package.dependencies]
+Django = ">=3.2"
+django-filter = ">=2.3.0"
+
+[[package]]
 name = "pillow"
 version = "9.4.0"
 description = "Python Imaging Library (Fork)"
@@ -359,4 +375,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "b5d9f9e2e17e2a9d6fbac3cef5f894d2335c4381b53d931594bc49050a12baac"
+content-hash = "2d3736cbd501d289c4e78b598e00b60cc2d2dbb6c4c9b2c953a19aa86f822e2d"
