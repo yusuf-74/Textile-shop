@@ -5,7 +5,7 @@
 <section style="margin: 0 0 32px 0;min-height:800px;">
     <div style="display :flex;">
         <div style="margin: 32px 0 32px 16px ; flex : 1">Perishables</div>
-        <a href="{% url 'perishable_edit' %}">
+        <a href="{% url 'perishable_create' %}">
             <button type="button" style="margin: 32px" class="btn btn-success">Create</button>
         </a>
     </div>
@@ -17,6 +17,8 @@
                 <th scope="col">Price</th>
                 <th scope="col">Created At</th>
                 <th scope="col">Created By</th>
+                <th scope="col">Last Updated At</th>
+                <th scope="col">Last Updated By</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -26,8 +28,10 @@
                 <th scope="row">{{forloop.counter}}</th>
                 <td>{{ perishable.type }}</td>
                 <td>{{ perishable.price}}</td>
-                <td>{{ perishable.created_on }}</td>
+                <td>{{ perishable.created_at }}</td>
                 <td>{{ perishable.created_by }}</td>
+                <td>{{ perishable.updated_at }}</td>
+                <td>{{ perishable.updated_by }}</td>
                 <td style="display:flex;"> 
          
                     <button type="button" style="margin: 8px 4px" class="btn btn-danger" data-mdb-toggle="modal" data-mdb-target="#editdelete{{perishable.pk}}">
@@ -82,8 +86,19 @@
                             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                             <div class=" flex-fill mb-0">
                               <label style = 'font-size:12px;' for="type">Type</label>
-                              <input style = 'border:1px solid black; margin-top:4px;' type="text" id="type" name="type" value="{{perishable.type}}" class="form-control" />
-
+                              <select name="type" id="type" class="form-control">
+                                <option value="petrol" {% if perishable.type == 'petrol' %} selected {% endif %}>petrol</option>
+                                <option value="oil" {% if perishable.type == 'oil' %} selected {% endif %}>oil</option>
+                                <option value="water" {% if perishable.type == 'water' %} selected {% endif %}>water</option>
+                                <option value="electricity" {% if perishable.type == 'electricity' %} selected {% endif %}>electricity</option>
+                                <option value="food" {% if perishable.type == 'food' %} selected {% endif %}>food</option>
+                                <option value="delivery" {% if perishable.type == 'delivery' %} selected {% endif %}>delivery</option>
+                                <option value="rent" {% if perishable.type == 'rent' %} selected {% endif %}>rent</option>
+                                <option value="nails" {% if perishable.type == 'nails' %} selected {% endif %}>nails</option>
+                                <option value="string" {% if perishable.type == 'string' %} selected {% endif %}>string</option>
+                                <option value="transport" {% if perishable.type == 'transport' %} selected {% endif %}>transport</option>
+                                <option value="other" {% if perishable.type == 'other' %} selected {% endif %}>other</option>
+                              </select>                              
                             </div>
                           </div>
         
@@ -94,13 +109,6 @@
                                 <input style = 'border:1px solid black; margin-top:4px;' type="text" id="price" name = "price" value = '{{perishable.price}}' class="form-control" />
                               </div>
                             </div>
-                          <div class="d-flex flex-row align-items-center mb-4">
-                            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                            <div class=" flex-fill mb-0">
-                              <label style = 'font-size:12px;' for="created_by">created By</label>
-                              <input style = 'border:1px solid black; margin-top:4px;' type="text" id="created_by" name= "created_by" value = "{{perishable.created_by}}" class="form-control" />
-                            </div>
-                          </div>  
                           
                             
                             <div class="modal-footer">
@@ -223,6 +231,8 @@
             </ul>
         </nav>
     </div>
+    <p style="display: inline-block; margin: 32px 0 32px 16px ; flex : 1; background-color: #20c997">Total cost now is : {{total}}</p>
+
 </section>
 
 
