@@ -1,0 +1,250 @@
+{% extends 'admin/dashboard.html' %}
+
+
+{% block upside %}
+<section style="background-color: #eee; min-height:800px;">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="https://static.vecteezy.com/system/resources/previews/002/261/149/non_2x/black-icon-dollar-symbol-sign-isolate-on-white-background-illustration-eps-10-free-vector.jpg"
+                            alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                        <h5 class="my-3">{{account.name}}</h5>
+                        <p class="text-muted mb-1">{{account.service_provider}} {{account.account_number}}</p>
+                        <p class="text-muted mb-4">{{account.address}}</p>
+                        <div class="d-flex justify-content-center mb-2">
+
+
+                            <button type="button" style="margin: 8px 4px" class="btn btn-danger" data-mdb-toggle="modal"
+                                data-mdb-target="#delete{{account.id}}">
+                                <i class="fa-solid fa-trash"></i></i>
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="delete{{account.id}}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">DELETE Account</h5>
+                                            <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method='POST' action="{% url 'edit_account' %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="from" value="all">
+
+                                                <input type="hidden" name="id" value="{{account.id}}">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-mdb-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-danger">Confirm DELETE</button>
+                                        </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            {% comment %} UPDATE {% endcomment %}
+                            <button type="button" style="margin: 8px 4px" class="btn btn-warning"
+                                data-mdb-toggle="modal" data-mdb-target="#update{{account.id}}">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="update{{account.id}}" tabindex="-1"
+                                aria-labelledby="editlable{{account.id}}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="editlable{{account.id}}">Update data</h5>
+                                            <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div>
+                                                <form method='POST' action="{% url 'edit_account' %}">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="_method" value="PUT">
+                                                    <input type="hidden" name="from" value="detailed">
+
+                                                    <input type="hidden" name="id" value="{{account.id}}">
+                                                    <div class="d-flex flex-row align-items-center mb-4">
+                                                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                                        <div class="flex-fill mb-0">
+                                                            <label style='font-size:12px;' for="type">Type</label>
+                                                            <input style='border:1px solid black; margin-top:4px;'
+                                                                type="text" id="type" name="type"
+                                                                value='{{account.type}}' class="form-control" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="d-flex flex-row align-items-center mb-4">
+                                                        <i class="fas fa-solid fa-phone fa-lg me-3 fa-fw"></i>
+                                                        <div class="flex-fill mb-0">
+                                                            <label style='font-size:12px;'
+                                                                for="service_provider">Service
+                                                                Provider</label>
+                                                            <input style='border:1px solid black; margin-top:4px;'
+                                                                type="text" id="service_provider"
+                                                                name="service_provider"
+                                                                value='{{account.service_provider}}'
+                                                                class="form-control" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row align-items-center mb-4">
+                                                        <i class="fas fa-solid fa-location-dot fa-lg me-3 fa-fw"></i>
+                                                        <div class="flex-fill mb-0">
+                                                            <label style='font-size:12px;' for="account_number">Account
+                                                                Number</label>
+                                                            <input style='border:1px solid black; margin-top:4px;'
+                                                                type="text" id="account_number" name="account_number"
+                                                                value='{{account.account_number}}'
+                                                                class="form-control" />
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-mdb-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Save
+                                                            changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <form method="POST" action="{% url 'create_transaction' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="_method" value="PUT">
+                            <input type="hidden" name="from" value="detailed">
+                            <input type="hidden" name="id" value="{{account.id}}">
+                            <div class="btn-group" style='margin:12px 0'>
+                                <input type="radio" class="btn-check form-control" name="transaction_type"
+                                    value="deposit" id="deposit" />
+                                <label class="btn btn-secondary" for="deposit">Deposit</label>
+
+                                <input type="radio" class="btn-check form-control" name="transaction_type"
+                                    value="withdraw" id="withdraw" />
+                                <label class="btn btn-secondary" for="withdraw">Withdraw</label>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="text" id="amount" name='amount' class="form-control" />
+                                <label class="form-label" for="amount">Amount</label>
+                            </div>
+                            <div class="form-outline mb-4">
+                                <input type="text" id="description" name='description' class="form-control" />
+                                <label class="form-label" for="description">Note</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Confirm</button>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body" style='min-height:500px;'>
+                        <table class="table align-middle mb-0 bg-white">
+
+                            <tbody>
+                                <tr>
+                                    <th>ID</th>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+
+
+                                            <p class="fw-bold mb-1">{{account.id}}</p>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Type</th>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+
+
+                                            <p class="fw-bold mb-1">{{account.type}}</p>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Service Provider</th>
+                                    <td>
+                                        <p class="fw-normal mb-1">{{account.service_provider}}</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Balance</th>
+
+                                    <td>{{account.balance}}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div style="margin: 36px 0;">
+                <h3>
+                    Transactions
+                </h3>
+            </div>
+            <table class="table align-middle mb-0 bg-white">
+                <thead class="bg-light">
+                    <tr>
+                        <th>Transaction ID</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Created By</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for transaction in transactions %}
+                    <tr>
+                        <td>
+                            {{transaction.id}}
+                        </td>
+                        <td>
+                            {{transaction.transaction_type}}
+                        </td>
+                        <td>
+                            {{transaction.amount}}
+                        </td>
+                        <td>
+                            {{transaction.created_at}}
+                        </td>
+                        <td>
+                            {{transaction.created_by}}
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+</section>
+{% endblock %}
