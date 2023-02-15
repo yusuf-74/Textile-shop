@@ -17,6 +17,7 @@ class Account(models.Model):
         total = 0
         for transaction in self.transactions.all():
             if transaction.transaction_type == 'deposit':
+
                 total += transaction.amount
             else:
                 total -= transaction.amount

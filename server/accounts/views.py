@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views import View
-from .models import Account 
+from .models import Account ,Transaction
 from .filters import AccountFilter
 class Test(View):
     def get(self,request,*args, **kwargs):
@@ -60,11 +60,11 @@ class EditAccountView(View):
                 account.save()
                 if data['from'][0] == 'all':
                     return redirect('all_accounts')
-                return redirect('detailed_accounts',id=data['id'][0])
+                return redirect('detailed_accounts',pk=data['id'][0])
             except:
                 if data['from'][0] == 'all':
                     return redirect('all_accounts')
-                return redirect('detailed_accounts',id=data['id'][0])
+                return redirect('detailed_accounts',pk=data['id'][0])
         
         
         elif data['_method'][0] == 'DELETE':
@@ -82,3 +82,19 @@ class AccountDetailView(View):
         transactions = account.transactions.all()
         print(transactions)
         return render(request,'accounts/detailed-account.html',{'account':account , 'transactions':transactions})
+    
+class CreateTransactionView(View):
+    def post(self,request,*args, **kwargs):
+            data = dict(request.POST)
+        # try:
+            account = Account.objects.get(id=data['id'][0])
+            transaction = Transaction.objects.create(
+                account = account,
+                amount = data['amount'][0],
+                transaction_type = data['transaction_type'][0],
+                description = data['description'][0],
+                created_by = request.user)
+            transaction.save()
+            return redirect('detailed_accounts',pk=data['id'][0])
+        # except:
+            return redirect('detailed_accounts',pk=data['id'][0])
