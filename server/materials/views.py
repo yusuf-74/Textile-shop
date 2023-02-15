@@ -5,6 +5,9 @@ from .models import Perishable, choices
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
+from datetime import datetime
+from .filters import PerishableFilter
+
 
 class MaterialsView(View):
     def get(self, request):
@@ -16,10 +19,12 @@ class PerishableListView(ListView):
     context_object_name = 'perishables'
     paginate_by = 5
     ordering = ['id']
+    filterset_class = PerishableFilter
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset
+        filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        return filterset.qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -27,8 +32,14 @@ class PerishableListView(ListView):
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         context['page_obj'] = page_obj
+        # to show the total price of all the perishables
         total = Perishable.objects.aggregate(Sum('price'))['price__sum'] or 0
         context['total'] = total
+        total_filtered = self.get_queryset().aggregate(Sum('price'))['price__sum'] or 0
+        context['total_filtered'] = total_filtered
+        # end of total price
+        context['filter'] = PerishableFilter(self.request.GET, queryset=self.get_queryset())
+
         return context
     
 @login_required
