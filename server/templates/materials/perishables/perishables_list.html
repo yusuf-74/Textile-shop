@@ -1,0 +1,236 @@
+{% extends 'admin/dashboard.html' %}
+
++
+{% block downside %}
+<section style="margin: 0 0 32px 0;min-height:800px;">
+    <div style="display :flex;">
+        <div style="margin: 32px 0 32px 16px ; flex : 1">Perishables</div>
+        <a href="{% url 'perishable_edit' %}">
+            <button type="button" style="margin: 32px" class="btn btn-success">Create</button>
+        </a>
+    </div>
+    <table class="table table-striped align-middle mb-0 bg-white">
+        <thead class="bg-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Type</th>
+                <th scope="col">Price</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Created By</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for perishable in page_obj %}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td>{{ perishable.type }}</td>
+                <td>{{ perishable.price}}</td>
+                <td>{{ perishable.created_on }}</td>
+                <td>{{ perishable.created_by }}</td>
+                <td style="display:flex;"> 
+         
+                    <button type="button" style="margin: 8px 4px" class="btn btn-danger" data-mdb-toggle="modal" data-mdb-target="#editdelete{{perishable.pk}}">
+                        <i class="fa-solid fa-trash"></i></i>
+                      </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="editdelete{{perishable.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">DELETE FIBER BAG</h5>
+                              <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form method = 'POST' action = "{% url 'perishable_edit'%}">
+                                {% csrf_token %}
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="id" value="{{perishable.pk}}">
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-danger">Confirm DELETE</button>
+                                  </div>
+                              </form>
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+        
+                      {% comment %}  UPDATE  {% endcomment %}
+                  <button type="button" style="margin: 8px 4px" class="btn btn-warning" data-mdb-toggle="modal" data-mdb-target="#update{{perishable.pk}}">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                  </button>
+        
+                  <!-- Modal -->
+                  <div class="modal fade" id="update{{perishable.pk}}" tabindex="-1" aria-labelledby="editlable{{perishable.pk}}" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="editlable{{perishable.pk}}">Update data</h5>
+                          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          
+                          <form method = 'POST' action = "{% url 'perishable_edit'%}">
+                          {% csrf_token %}
+                          <input type="hidden" name="_method" value="PUT">
+                          <input type="hidden" name="id" value="{{perishable.pk}}">
+                          <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                            <div class=" flex-fill mb-0">
+                              <label style = 'font-size:12px;' for="type">Type</label>
+                              <input style = 'border:1px solid black; margin-top:4px;' type="text" id="type" name="type" value="{{perishable.type}} class="form-control" ">
+
+                            </div>
+                          </div>
+        
+                          <div class="d-flex flex-row align-items-center mb-4">
+                              <i class="fas fa-solid fa-phone fa-lg me-3 fa-fw"></i>
+                              <div class=" flex-fill mb-0">
+                                <label style = 'font-size:12px;' for="price">Price</label>
+                                <input style = 'border:1px solid black; margin-top:4px;' type="text" id="price" name = "price" value = '{{perishable.price}}' class="form-control" />
+                              </div>
+                            </div>
+                          <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                            <div class=" flex-fill mb-0">
+                              <label style = 'font-size:12px;' for="created_by">created By</label>
+                              <input style = 'border:1px solid black; margin-top:4px;' type="text" id="created_by" name= "created_by" value = "{{perishable.created_by}}" class="form-control" />
+                            </div>
+                          </div>  
+                          
+                            
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                      </div>
+                      </div>
+                        
+                      </div>
+                    </div>
+                    {% comment %} end of modal {% endcomment %}
+                  </div>
+                
+                </td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="">
+        <nav aria-label="Page navigation example ">
+            <ul class="pagination d-flex justify-content-around">
+                <div class="d-flex">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Previous</a>
+                    </li>
+                    {% endif %}
+
+                    {% if page_obj.paginator.num_pages > 3 %}
+                    {% if page_obj.number == 1 %}
+                    <li class="page-item active">
+                        <a class="page-link" href="?page=1">1</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">1</a>
+                    </li>
+                    {% endif %}
+                    {% if page_obj.number == 2 %}
+                    <li class="page-item active">
+                        <a class="page-link" href="?page=2">2</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=2">2</a>
+                    </li>
+
+                    {% endif %}
+
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">...</a>
+                    </li>
+                    {% if page_obj.number == page_obj.paginator.num_pages %}
+                    <li class="page-item active">
+                        <a class="page-link"
+                            href="?page={{ page_obj.paginator.num_pages }}">{{page_obj.paginator.num_pages}}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                      <a class="page-link"
+                          href="?page={{ page_obj.paginator.num_pages }}">{{page_obj.paginator.num_pages}}</a>
+                  </li>
+                    {% endif %}
+                    {% else %}
+                    {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active">
+                        <a class="page-link"
+                            href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="?page={{ page_obj.next_page_number }}">Next</a>
+
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                    {% endif %}
+                </div>
+
+
+                {% comment %} JUMP TO: {% endcomment %}
+                {% if page_obj.paginator.num_pages > 3 %}
+                <div class="d-flex">
+                    <li class="page-item">&nbsp;</li>
+                    <li class="page-item">
+                        <span class="page-link jump-to-label">Jump to:</span>
+                    </li>
+                    <li class="page-item ">
+                        <form action="" method="get" class="form-inline d-flex ">
+                            <input type="text" name="page" class="form-control" style="width: 50px;">
+                            {% if request.GET.q %}
+                            <input type="hidden" name="q" value="{{ request.GET.q }}">
+                            {% endif %}
+                            <button type="submit" class="btn btn-outline-info">Go</button>
+                        </form>
+                    </li>
+                </div>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</section>
+
+
+<script>
+    handleClick = (url) => {
+        window.location = url;
+    }
+</script>
+
+{% endblock %}
+
