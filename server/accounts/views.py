@@ -21,7 +21,7 @@ class AccountsView(View):
         
         accounts = AccountFilter(request.GET,queryset=Account.objects.all())
         
-        print(accounts.qs)
+        
         accounts_data = [{'id': account.id \
             ,'type':ACCOUNT_TYPE[account.type] \
             ,'service_provider':account.service_provider \
@@ -43,7 +43,6 @@ class EditAccountView(View):
             try : 
                 account = Account.objects.create(
                     type = data['type'][0],
-                    balance = data['balance'][0],
                     account_number = data['account_number'][0],
                     service_provider = data['service_provider'][0],
                     created_by = request.user)
@@ -56,7 +55,6 @@ class EditAccountView(View):
             try:
                 account = Account.objects.get(id=data['id'][0])
                 account.type = data['type'][0]
-                account.balance = data['balance'][0]
                 account.account_number = data['account_number'][0]
                 account.service_provider = data['service_provider'][0]
                 account.save()
@@ -80,5 +78,5 @@ class EditAccountView(View):
             
 class AccountDetailView(View):
     def get(self,request,*args, **kwargs):
-        account = Account.objects.get(id=kwargs['id'])
+        account = Account.objects.get(id=kwargs['pk'])
         return render(request,'accounts/detailed-accounts.html',{'account':account})
