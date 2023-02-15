@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'receipts',
     'materials',
     #third party
+    'django_property_filter',
     'django_extensions',
     'django_filters',
     

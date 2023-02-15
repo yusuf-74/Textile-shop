@@ -3,12 +3,16 @@ from django.views import View
 from .filters import PersonFilter
 from .models import Person , Salary, PenaltyOrLoans
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-
+from django.urls import reverse_lazy
+from employees.models import Person
 
 
 class EmployeeView(View):
     def get(self,request,*args, **kwargs):
         employees = PersonFilter(request.GET,queryset=Person.objects.filter(role = 'employee'))
+        
+        print(employees.qs[0].salary.all())
+        print(hasattr(employees.qs[0], 'salary'))
         employees_data = [{\
                         'id':employee.id \
                         ,'name':employee.name\
@@ -17,7 +21,9 @@ class EmployeeView(View):
                         ,'email': employee.email\
                         ,'city':employee.city \
                         ,'government':employee.government\
-                      
+                        ,'salary': 'not provided' if not hasattr(employee,'salary')
+                        else sum([salary.salry_per_hour * salary.num_of_hours for salary in employee.salary.all() if salary.status == 'not paid'])
+
                             }\
                             for employee in employees.qs]
 
@@ -50,15 +56,6 @@ class EditEmployeeView(View):
     def post(self,request,*args, **kwargs):
 
         data = dict(request.POST)
-        print(data['_method'])
-        id = 0
-        if data['_method'][0] == 'PUT':
-            print(data['_method'][0])
-            try :
-                id = Person.objects.get(id = data['id'][0]).id
-            except:
-                raise Exception('no such user')
-
         if data['_method'][0] == 'POST':
             try:
                 employee = Person.objects.create(name = data['name'][0]\
@@ -71,14 +68,7 @@ class EditEmployeeView(View):
                     )
             except:
                 raise Exception('error')
-            try:
-                salary = Salary.objects.create(
-                        employee = employee\
-                        ,num_of_hours = data['num_of_hours'][0]\
-                        ,salry_per_hour = data['salary_per_hour'][0]\
-                        )
-            except:
-                return redirect('all_employees')
+
 
             return redirect('all_employees')
 
@@ -91,26 +81,6 @@ class EditEmployeeView(View):
             employee.address = data['address'][0]
             employee.city = data['city'][0]
             employee.save()
-
-            try:
-                salary = Salary.objects.get(employee = employee)
-                salary.num_of_hours = data['num_of_hours'][0]
-                salary.salry_per_hour = data['salary_per_hour'][0]
-                salary.save()
-            except:
-                try:
-                    salary = Salary.objects.create(
-                        employee = employee,
-                        num_of_hours = data['num_of_hours'][0],
-                        salry_per_hour = data['salary_per_hour'][0]
-                    )
-                except:
-                    if data['from'][0] == 'all':
-                        return redirect('all_employees')
-                    else :
-                        return redirect('employee_detail' , pk = employee.id)
-
-
 
             if data['from'][0] == 'all':
                 return redirect('all_employees')
@@ -297,4 +267,35 @@ class SalaryView(ListView):
     context_object_name="salary"
     paginate_by=10
     template_name="salary/salary_list.html"
-    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.order_by('-id')
+
+class SalaryUpdate(UpdateView):
+    template_name="salary/salary_list.html"
+    model=Salary
+    fields=["num_of_hours" , "salry_per_hour","status"]
+    def get_success_url(self):
+        return reverse_lazy("all_salary")
+
+class SalaryDelete(DeleteView):
+    template_name="salary/salary_list.html"
+    model=Salary
+    def get_success_url(self):
+        return reverse_lazy("all_salary")
+
+class SalaryCreate(CreateView):
+    fields=["employee",'num_of_hours' ,'salry_per_hour' , "status" ]
+    model=Salary
+    template_name='salary/salary_create.html'
+    success_url=reverse_lazy("all_salary")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["emps"] = Person.objects.filter(role="employee")
+        return context
+
+
+
+
+
