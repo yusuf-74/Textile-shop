@@ -14,6 +14,10 @@ urlpatterns = [
     path('salary/<int:pk>/update' , views.SalaryUpdate.as_view() , name='salary-update'),
     path('salary/<int:pk>/delete' , views.SalaryDelete.as_view() , name='salary-delete'),
     path('salary/create' , views.SalaryCreate.as_view() , name='salary-create'),
+    path('loan/' , views.LoanView.as_view() , name='all_loan'),
+    path('loan/<int:pk>/update' , views.LoanUpdate.as_view() , name='loan-update'),
+    path('loan/create' , views.LoanCreate.as_view() , name='loan-create'),
+    path('loan/<int:pk>/delete' , views.LoanDelete.as_view() , name='loan-delete'),
 
 
 ]
