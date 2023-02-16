@@ -49,8 +49,8 @@ class Salary(models.Model):
     employee = models.ForeignKey(Person, related_name='salary', on_delete=models.CASCADE)
     num_of_hours = models.DecimalField(max_digits=6, decimal_places=2,default=0 )
     salry_per_hour = models.DecimalField(max_digits=6, decimal_places=2,default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
     status=models.CharField(choices=CHOICES_OF_SALARY, max_length=50 , default="not paid")
 
 
