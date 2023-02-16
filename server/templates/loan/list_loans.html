@@ -93,7 +93,7 @@
             <tr style='cursor:pointer'>
                 {% comment %} <td onclick="window.location='#';">
                     <a href="##">
-                        <div class="d-flex align-items-center">{{prod.id}}</div>
+                        <div class="d-flex align-items-center">{{loan.id}}</div>
                     </a>
 
                 </td> {% endcomment %}
@@ -108,7 +108,7 @@
                 </td>
 
                 {% comment %} <td onclick="window.location='#';">
-                    <div class="d-flex align-items-center">{{prod.description}}</div>
+                    <div class="d-flex align-items-center">{{loan.description}}</div>
                 </td> {% endcomment %}
                 <td onclick="window.location='#';">
                     <div class="d-flex align-items-center">{{loan.status}}</div>
@@ -121,12 +121,12 @@
 
                     <!-- Button trigger modal -->
                     <button type="button" style="margin: 8px 4px" class="btn btn-danger" data-mdb-toggle="modal"
-                        data-mdb-target="#editdelete{{prod.id}}">
+                        data-mdb-target="#editdelete{{loan.id}}">
                         <i class="fa-solid fa-trash"></i></i>
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="editdelete{{prod.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    <div class="modal fade" id="editdelete{{loan.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
                         aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
