@@ -7,43 +7,47 @@
   <form  method='GET' style = 'width:60%' action="##">
      <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
-        <input type="text" id="retail_price" name = 'retail_price' class="form-control" />
-        <label class="form-label" for="retail_price">Retail_price</label>
+        <input type="text" id="employee" name = 'employee' class="form-control" />
+        <label class="form-label" for="employee">employee</label>
       </div>
 
     </div>
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
-        <input type="text" id="retail_price__lt" name = 'retail_price__lt' class="form-control" />
-        <label class="form-label" for="retail_price__lt">Retail_price is less than</label>
+        <input type="date" id="created_date" name = 'created_date' class="form-control" />
+        <label class="form-label" for="created_date">created_date</label>
       </div>
 
     </div>
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
-        <input type="text" id="retail_price__gt" name = 'retail_price__gt' class="form-control" />
-        <label class="form-label" for="retail_price__gt"> Retail_price is greater than</label>
+        <input type="date" id="created_date__gt" name = 'created_date__gt' class="form-control" />
+        <label class="form-label" for="created_date__gt">created_date is greater than</label>
       </div>
 
     </div>
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
-        <input type="text" id="wholesale_price" name = 'wholesale_price' class="form-control" />
-        <label class="form-label" for="wholesale_price">Wholesale_price </label>
+        <input type="date" id="created_date__lt" name = 'created_date__lt' class="form-control" />
+        <label class="form-label" for="created_date__lt"> created_date is less than</label>
       </div>
+
     </div>
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
-        <input type="text" id="wholesale_price__gt" name = 'wholesale_price__gt' class="form-control" />
-        <label class="form-label" for="wholesale_price__gt"> Wholesale price is greater than</label>
+        <select class="form-select" aria-label="Default select example" id="status" name= "status">
+          <option selected value=''>choose status</option>
+          <option value="not paid">not paid</option>
+
+          <option value="paid">paid</option>
+
+
+
+        </select>
       </div>
     </div>
-    <div class="input-group" style = 'margin : 8px 0'>
-      <div class="form-outline">
-        <input type="text" id="wholesale_price__lt" name = 'wholesale_price__lt' class="form-control" />
-        <label class="form-label" for="wholesale_price__lt"> Wholesale price is less than</label>
-      </div>
-    </div>
+
+
     {% comment %} {{ filterset.form.as_p }} {% endcomment %}
       <div class="form-outline" style = 'display:flex ; justify-content:space-around;align-items:center;'>
         <button type="submit" class="btn btn-primary" style='width:160px'>
@@ -91,7 +95,7 @@
             <p class="fw-normal mb-1">{{sal.total_salary}}</p>
           </td>
           <td onclick="window.location='#';" >
-            <p class="fw-normal mb-1">{{ sal.created_at|date:"M d, Y" }}</p>
+            <p class="fw-normal mb-1">{{ sal.created_at}}</p>
           </td>
         {% comment %} <td onclick="window.location='#';" >
         <div class="d-flex align-items-center">{{prod.description}}</div>

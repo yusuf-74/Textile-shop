@@ -5,7 +5,7 @@ from .models import Person , Salary, PenaltyOrLoans
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from employees.models import Person
-
+from .filter import SalaryFilter
 
 class EmployeeView(View):
     def get(self,request,*args, **kwargs):
@@ -298,9 +298,15 @@ class SalaryView(ListView):
     context_object_name="salary"
     paginate_by=10
     template_name="salary/salary_list.html"
+    filterset_class=SalaryFilter
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.order_by('-id')
+        print(queryset)
+        print(self.request.GET)
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        print(self.filterset.qs)
+        return self.filterset.qs.distinct()
+
 
 class SalaryUpdate(UpdateView):
     template_name="salary/salary_list.html"
