@@ -3,244 +3,256 @@
 
 
 {% block upside %}
-<div style = 'display:flex; justify-content:space-around;align-items:center; margin : 32px 0 8px 0'>
-  <form  method='GET' style = 'width:60%' action="##">
-     <div class="input-group" style = 'margin : 8px 0'>
-      <div class="form-outline">
-        <input type="text" id="employee" name = 'employee' class="form-control" />
-        <label class="form-label" for="employee">employee</label>
-      </div>
+<div style='display:flex; justify-content:space-around;align-items:center; margin : 32px 0 8px 0'>
+    <form method='GET' style='width:60%' action="##">
+        <div class="input-group" style='margin : 8px 0'>
+            <div class="form-outline">
+                <input type="text" id="employee" name='employee' class="form-control" />
+                <label class="form-label" for="employee">employee</label>
+            </div>
 
-    </div>
-    <div class="input-group" style = 'margin : 8px 0'>
-      <div class="form-outline">
-        <input type="date" id="created_date" name = 'created_date' class="form-control" />
-        <label class="form-label" for="created_date">created_date</label>
-      </div>
-
-    </div>
-    <div class="input-group" style = 'margin : 8px 0'>
-      <div class="form-outline">
-        <input type="date" id="created_date__gt" name = 'created_date__gt' class="form-control" />
-        <label class="form-label" for="created_date__gt">created_date is greater than</label>
-      </div>
-
-    </div>
-    <div class="input-group" style = 'margin : 8px 0'>
-      <div class="form-outline">
-        <input type="date" id="created_date__lt" name = 'created_date__lt' class="form-control" />
-        <label class="form-label" for="created_date__lt"> created_date is less than</label>
-      </div>
-
-    </div>
-    <div class="input-group" style = 'margin : 8px 0'>
-      <div class="form-outline">
-        <select class="form-select" aria-label="Default select example" id="type_of_debt" name= "type_of_debt">
-          <option selected value=''>choose type_of_debt</option>
-          <option value="penalty">penalty</option>
-          <option value="loans">loan</option>
-        </select>
-      </div>
-    </div>
-    <div class="input-group" style = 'margin : 8px 0'>
-        <div class="form-outline">
-          <select class="form-select" aria-label="Default select example" id="status" name= "status">
-            <option selected value=''>choose status</option>
-            <option value="not paid">not paid</option>
-
-            <option value="paid">paid</option>
-
-          </select>
         </div>
-      </div>
+        <div class="input-group" style='margin : 8px 0'>
+            <div class="form-outline">
+                <input type="date" id="created_date" name='created_date' class="form-control" />
+                <label class="form-label" for="created_date">created_date</label>
+            </div>
 
-    {% comment %} {{ filterset.form.as_p }} {% endcomment %}
-      <div class="form-outline" style = 'display:flex ; justify-content:space-around;align-items:center;'>
-        <button type="submit" class="btn btn-primary" style='width:160px'>
-          Search
-        </button>
-    </div>
-  </form>
+        </div>
+        <div class="input-group" style='margin : 8px 0'>
+            <div class="form-outline">
+                <input type="date" id="created_date__gt" name='created_date__gt' class="form-control" />
+                <label class="form-label" for="created_date__gt">created_date is greater than</label>
+            </div>
+
+        </div>
+        <div class="input-group" style='margin : 8px 0'>
+            <div class="form-outline">
+                <input type="date" id="created_date__lt" name='created_date__lt' class="form-control" />
+                <label class="form-label" for="created_date__lt"> created_date is less than</label>
+            </div>
+
+        </div>
+        <div class="input-group" style='margin : 8px 0'>
+            <div class="form-outline">
+                <select class="form-select" aria-label="Default select example" id="type_of_debt" name="type_of_debt">
+                    <option selected value=''>choose type_of_debt</option>
+                    <option value="penalty">penalty</option>
+                    <option value="loans">loan</option>
+                </select>
+            </div>
+        </div>
+        <div class="input-group" style='margin : 8px 0'>
+            <div class="form-outline">
+                <select class="form-select" aria-label="Default select example" id="status" name="status">
+                    <option selected value=''>choose status</option>
+                    <option value="not paid">not paid</option>
+
+                    <option value="paid">paid</option>
+
+                </select>
+            </div>
+        </div>
+
+        {% comment %} {{ filterset.form.as_p }} {% endcomment %}
+        <div class="form-outline" style='display:flex ; justify-content:space-around;align-items:center;'>
+            <button type="submit" class="btn btn-primary" style='width:160px'>
+                Search
+            </button>
+        </div>
+    </form>
 </div>
 {% endblock %}
 
 
 {% block downside %}
 <section style="margin: 0 0 32px 0;min-height:800px;">
-  <div style = "display :flex;">
-    <div style="margin: 32px 0 32px 16px ; flex : 1">Loan</div>
-    <a href = "{% url 'loan-create' %}">
-      <button type="button" style="margin: 32px" class="btn btn-success">Create</button>
-    </a>
+    <div style="display :flex;">
+        <div style="margin: 32px 0 32px 16px ; flex : 1">Loan</div>
+        <a href="{% url 'loan-create' %}">
+            <button type="button" style="margin: 32px" class="btn btn-success">Create</button>
+        </a>
 
 
-  </div>
-  <table class="table align-middle mb-0 bg-white">
-    <thead class="bg-light">
-      <tr>
-        <th>Employee Name</th>
-        <th>amount</th>
-        <th>day_of_debt</th>
-        <th>status</th>
-        <th>type_of_debt</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-     {% for loan in loans %}
+    </div>
+    <table class="table align-middle mb-0 bg-white">
+        <thead class="bg-light">
+            <tr>
+                <th>Employee Name</th>
+                <th>amount</th>
+                <th>day_of_debt</th>
+                <th>status</th>
+                <th>type_of_debt</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for loan in loans %}
 
 
-      <tr style = 'cursor:pointer'>
-        {% comment %} <td onclick="window.location='#';" >
-          <a href="##"><div class="d-flex align-items-center">{{prod.id}}</div></a>
+            <tr style='cursor:pointer'>
+                {% comment %} <td onclick="window.location='#';">
+                    <a href="##">
+                        <div class="d-flex align-items-center">{{prod.id}}</div>
+                    </a>
 
-        </td> {% endcomment %}
-        <td onclick="window.location='#';" >
-          <p class="fw-normal mb-1">{{loan.employee.name}}</p>
-        </td>
-        <td onclick="window.location='#';" >
-            <p class="fw-normal mb-1">{{loan.amount}}</p>
-        </td>
-        <td onclick="window.location='#';" >
-        <p class="fw-normal mb-1">{{ loan.created_at}}</p>
-        </td>
+                </td> {% endcomment %}
+                <td onclick="window.location='#';">
+                    <p class="fw-normal mb-1">{{loan.employee.name}}</p>
+                </td>
+                <td onclick="window.location='#';">
+                    <p class="fw-normal mb-1">{{loan.amount}}</p>
+                </td>
+                <td onclick="window.location='#';">
+                    <p class="fw-normal mb-1">{{ loan.created_at}}</p>
+                </td>
 
-        {% comment %} <td onclick="window.location='#';" >
-        <div class="d-flex align-items-center">{{prod.description}}</div>
-        </td> {% endcomment %}
-        <td onclick="window.location='#';" >
-            <div class="d-flex align-items-center">{{loan.status}}</div>
-          </td>
-        <td onclick="window.location='#';" >
-            <p class="fw-normal mb-1">{{loan.type_of_debt}}</p>
-        </td>
-        <td style="display:flex;">
+                {% comment %} <td onclick="window.location='#';">
+                    <div class="d-flex align-items-center">{{prod.description}}</div>
+                </td> {% endcomment %}
+                <td onclick="window.location='#';">
+                    <div class="d-flex align-items-center">{{loan.status}}</div>
+                </td>
+                <td onclick="window.location='#';">
+                    <p class="fw-normal mb-1">{{loan.type_of_debt}}</p>
+                </td>
+                <td style="display:flex;">
 
 
-            <!-- Button trigger modal -->
-            <button type="button" style="margin: 8px 4px" class="btn btn-danger" data-mdb-toggle="modal" data-mdb-target="#editdelete{{prod.id}}">
-              <i class="fa-solid fa-trash"></i></i>
-            </button>
+                    <!-- Button trigger modal -->
+                    <button type="button" style="margin: 8px 4px" class="btn btn-danger" data-mdb-toggle="modal"
+                        data-mdb-target="#editdelete{{prod.id}}">
+                        <i class="fa-solid fa-trash"></i></i>
+                    </button>
 
-            <!-- Modal -->
-            <div class="modal fade" id="editdelete{{prod.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">salary</h5>
-                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
+                    <!-- Modal -->
+                    <div class="modal fade" id="editdelete{{prod.id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">salary</h5>
+                                    <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
 
-                    <form method = 'POST' action = "{% url 'loan-delete' loan.id %}">
-                      {% csrf_token %}
+                                    <form method='POST' action="{% url 'loan-delete' loan.id %}">
+                                        {% csrf_token %}
+
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-mdb-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-danger">Confirm DELETE</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                            </div>
 
                         </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-danger">Confirm DELETE</button>
+                    </div>
+
+
+                    {% comment %} UPDATE {% endcomment %}
+                    <button type="button" style="margin: 8px 4px" class="btn btn-warning" data-mdb-toggle="modal"
+                        data-mdb-target="#update{{loan.id}}">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="update{{loan.id}}" tabindex="-1"
+                        aria-labelledby="editlable{{loan.id}}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editlable{{loan.id}}">Update data</h5>
+                                    <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div>
+                                        <form method='POST' action="{% url 'loan-update' loan.id %}">
+                                            {% csrf_token %}
+
+                                            <div class="d-flex flex-row align-items-center mb-4">
+                                                <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                                <div class="form-outline flex-fill mb-0">
+                                                    <label style='font-size:12px;' for="amount">amount</label>
+                                                    <input style='border:1px solid black; margin-top:4px;' type="text"
+                                                        id="amount" name="amount" value='{{loan.amount}}'
+                                                        class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-row align-items-center mb-4">
+                                                <i class="fas fa-solid fa-location-dot fa-lg me-3 fa-fw"></i>
+                                                <div class="form-outline flex-fill mb-0">
+                                                    <select class="form-select" aria-label="Default select example"
+                                                        id="status" name="status">
+                                                        {% if loan.status == "paid" %}
+                                                        <option selected value={{loan.status}}>paid</option>
+                                                        <option value="not paid">not paid</option>
+                                                        {% else %}
+                                                        <option selected value={{loan.status}}>not paid</option>
+                                                        <option value="paid">paid</option>
+                                                        {% endif %}
+
+
+                                                    </select>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-mdb-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </form>
-
-                        </div>
-                    </form>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </div>
-
-              {% comment %}  UPDATE  {% endcomment %}
-          <button type="button" style="margin: 8px 4px" class="btn btn-warning" data-mdb-toggle="modal" data-mdb-target="#update{{customer.id}}">
-            <i class="fa-regular fa-pen-to-square"></i>
-          </button>
-
-          <!-- Modal -->
-          <div class="modal fade" id="update{{customer.id}}" tabindex="-1" aria-labelledby="editlable{{customer.id}}" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="editlable{{customer.id}}">Update data</h5>
-                  <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <div>
-                  <form method = 'POST' action = "{% url 'loan-update' loan.id %}">
-                  {% csrf_token %}
-
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <label style = 'font-size:12px;' for="amount">amount</label>
-                      <input style = 'border:1px solid black; margin-top:4px;' type="text" id="amount" name = "amount" value = '{{loan.amount}}' class="form-control" />
-                    </div>
-                  </div>
-                  <div class="d-flex flex-row align-items-center mb-4">
-                      <i class="fas fa-solid fa-location-dot fa-lg me-3 fa-fw"></i>
-                      <div class="form-outline flex-fill mb-0">
-                        <select class="form-select" aria-label="Default select example" id="status" name= "status">
-                          {% if loan.status == "paid" %}
-                          <option selected value={{loan.status}}>paid</option>
-                          <option value="not paid">not paid</option>
-                          {% else %}
-                          <option selected value={{loan.status}}>not paid</option>
-                          <option value="paid">paid</option>
-                          {% endif %}
-
-
-                        </select>
-                      </div>
-
+                        {% comment %} end od modal {% endcomment %}
                     </div>
 
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
-              </div>
-              </div>
-              </div>
-            </div>
-            {% comment %} end od modal {% endcomment %}
-          </div>
+                </td>
+            </tr>
 
-        </td>
-      </tr>
+            {% endfor %}
+        </tbody>
 
-      {% endfor %}
-    </tbody>
+    </table>
+    <nav class="mt-4" aria-label="Page navigation sample">
+        {% if page_obj.has_other_pages%}
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+            {% endif %}
 
-  </table>
-  <nav class="mt-4" aria-label="Page navigation sample">
-    {% if page_obj.has_other_pages%}
-      <ul class="pagination">
-        {% if page_obj.has_previous %}
-        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
-        {% else %}
-        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+            {% for i in page_obj.paginator.page_range %}
+            {% if page_obj.number == i %}
+            <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+            {% else %}
+            <li class="page-item "><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+            {% endif %}
+
+
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+            {% else %}
+            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+            {% endif %}
+        </ul>
         {% endif %}
-
-        {% for i in page_obj.paginator.page_range %}
-        {% if page_obj.number == i %}
-        <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
-        {% else %}
-        <li class="page-item "><a class="page-link" href="?page={{i}}">{{i}}</a></li>
-        {% endif %}
-
-
-        {% endfor %}
-
-        {% if page_obj.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
-        {% else %}
-        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-        {% endif %}
-      </ul>
-      {% endif %}
     </nav>
 </section>
 
 {% endblock %}
-
