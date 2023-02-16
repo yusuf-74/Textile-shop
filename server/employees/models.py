@@ -26,8 +26,6 @@ class Person(models.Model):
     address = models.CharField(max_length=200)
     city = models.CharField(max_length=50)
     government = models.CharField(max_length=50)
-    penalty = models.ForeignKey("employees.PenaltyOrLoans",related_name='penalty',null=True,blank=True, on_delete=models.CASCADE)
-    loans = models.ForeignKey("employees.PenaltyOrLoans",related_name='loan',null=True,blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -36,10 +34,11 @@ class Person(models.Model):
         ordering = ['id']
 
 class PenaltyOrLoans(models.Model):
+    employee = models.ForeignKey(Person, related_name='penalty', on_delete=models.CASCADE)
     type_of_debt=models.CharField(choices=CHOICES_OF_PENALTY, max_length=255)
     amount=models.DecimalField(max_digits=6, decimal_places=2, default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
     status=models.CharField(choices=CHOICES_OF_LOANS, max_length=50 , default="not paid")
 
 

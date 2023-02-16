@@ -5,12 +5,12 @@ from .models import Person , Salary, PenaltyOrLoans
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from employees.models import Person
-from .filter import SalaryFilter
+from .filter import SalaryFilter,LoanFilter
 
 class EmployeeView(View):
     def get(self,request,*args, **kwargs):
         employees = PersonFilter(request.GET,queryset=Person.objects.filter(role = 'employee'))
-        
+
         employees_data = [{\
                         'id':employee.id \
                         ,'name':employee.name\
@@ -269,7 +269,7 @@ class SalaryView(ListView):
         print(self.request.GET)
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         print(self.filterset.qs)
-        return self.filterset.qs.distinct()
+        return self.filterset.qs.order_by('-id').distinct()
 
 
 class SalaryUpdate(UpdateView):
@@ -298,5 +298,38 @@ class SalaryCreate(CreateView):
 
 
 
+class LoanView(ListView):
+    model=PenaltyOrLoans
+    context_object_name="loans"
+    paginate_by=10
+    template_name="loan/list_loans.html"
+    filterset_class=LoanFilter
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        print(self.request.GET)
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        return self.filterset.qs.order_by('-id').distinct()
+
+class LoanUpdate(UpdateView):
+    template_name="loan/list_loans.html"
+    model=PenaltyOrLoans
+    fields=["amount","status"]
+    success_url=reverse_lazy("all_loan")
 
 
+class LoanCreate(CreateView):
+    fields=["employee",'amount' ,'type_of_debt' , "status" ]
+    model=PenaltyOrLoans
+    template_name='loan/loan-create.html'
+    success_url=reverse_lazy("all_loan")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["emps"] = Person.objects.filter(role="employee")
+        return context
+
+class LoanDelete(DeleteView):
+    template_name="loan/list_loans.html"
+    model=PenaltyOrLoans
+    def get_success_url(self):
+        return reverse_lazy("all_loan")

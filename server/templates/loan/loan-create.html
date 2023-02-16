@@ -11,7 +11,7 @@
                         <div class="row justify-content-center">
                             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Create salary</p>
+                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Create Loan</p>
 
 
                                 <form method='POST' class="mx-1 mx-md-4">
@@ -32,25 +32,29 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-solid fa-phone fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="text" id="num_of_hours" name="num_of_hours"
+                                            <input type="text" id="amount" name="amount"
                                                 class="form-control" />
-                                            <label class="form-label" for="num_of_hours">num of hours</label>
+                                            <label class="form-label" for="amount">amount</label>
                                         </div>
                                     </div>
-                                    <div class="d-flex flex-row align-items-center mb-4">
-                                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                                        <div class="form-outline flex-fill mb-0">
-                                            <input type="text" id="salry_per_hour" name="salry_per_hour"
-                                                class="form-control" />
-                                            <label class="form-label" for="salry_per_hour">salry_per_hour</label>
-                                        </div>
-                                    </div>
+
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-solid fa-location-dot fa-lg me-3 fa-fw"></i>
                                             <select class="form-select" aria-label="Default select example" id="status"
                                                 name="status">
                                                 <option value="not paid">not paid</option>
                                                 <option value="paid">paid</option>
+
+                                            </select>
+
+
+                                    </div>
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-solid fa-location-dot fa-lg me-3 fa-fw"></i>
+                                            <select class="form-select" aria-label="Default select example" id="type_of_debt"
+                                                name="type_of_debt">
+                                                <option value="penalty">penalty</option>
+                                                <option value="loans">loan</option>
 
                                             </select>
 
