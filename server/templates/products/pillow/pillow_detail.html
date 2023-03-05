@@ -9,36 +9,48 @@
     <section style="margin: 0 0 32px 0;min-height:800px;">
 <table class="table">
         <tr>
-            <th>Retail Price</th>
             <td>{{ product.retail_price }}</td>
+            <th>سعر التجزئه</th>
+
         </tr>
         <tr>
-            <th>Wholesale Price</th>
             <td>{{ product.wholesale_price }}</td>
+            <th>سعر الجمله</th>
+
         </tr>
         <tr>
-            <th>Quantity</th>
             <td>{{ product.quantity }}</td>
+            <th>الكميه</th>
+
         </tr>
         <tr>
-            <th>Type</th>
-            <td>{{ product.type }}</td>
+
+            {% if prod.type == 'pillow' %}
+            <td>مخده </td>
+            {% else %}
+            <td>خدديه  </td>
+            {% endif %}
+            <th>النوع</th>
         </tr>
         <tr>
-            <th>Description</th>
+
             <td>{{ product.description }}</td>
+            <th>الوصف</th>
         </tr>
         <tr>
-            <th>Fiber</th>
+
             <td>{{ product.fiber }}</td>
+            <th>الفايبر </th>
         </tr>
         <tr>
-            <th>Bag</th>
+
             <td>{{ product.bag }}</td>
+            <th>الكيس</th>
         </tr>
         <tr>
-            <th>Fibric</th>
+
             <td>{{ product.fibric }}</td>
+            <th>القماش</th>
         </tr>
 
     </table>
