@@ -8,38 +8,38 @@
      <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
         <input type="text" id="employee" name = 'employee' class="form-control" />
-        <label class="form-label" for="employee">employee</label>
+        <label class="form-label" for="employee">الموظف </label>
       </div>
 
     </div>
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
         <input type="date" id="created_date" name = 'created_date' class="form-control" />
-        <label class="form-label" for="created_date">created_date</label>
+        <label class="form-label" for="created_date">وقت الانشاء </label>
       </div>
 
     </div>
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
         <input type="date" id="created_date__gt" name = 'created_date__gt' class="form-control" />
-        <label class="form-label" for="created_date__gt">created_date is greater than</label>
+        <label class="form-label" for="created_date__gt">كل التواريخ الاكبر من </label>
       </div>
 
     </div>
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
         <input type="date" id="created_date__lt" name = 'created_date__lt' class="form-control" />
-        <label class="form-label" for="created_date__lt"> created_date is less than</label>
+        <label class="form-label" for="created_date__lt"> كل التواريخ الاقل من </label>
       </div>
 
     </div>
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
         <select class="form-select" aria-label="Default select example" id="status" name= "status">
-          <option selected value=''>choose status</option>
-          <option value="not paid">not paid</option>
+          <option selected value=''>اختر الحاله </option>
+          <option value="not paid">غير مدفوع </option>
 
-          <option value="paid">paid</option>
+          <option value="paid">مدفوع </option>
 
 
 
@@ -51,7 +51,7 @@
     {% comment %} {{ filterset.form.as_p }} {% endcomment %}
       <div class="form-outline" style = 'display:flex ; justify-content:space-around;align-items:center;'>
         <button type="submit" class="btn btn-primary" style='width:160px'>
-          Search
+          بحث
         </button>
     </div>
   </form>
@@ -62,9 +62,9 @@
 {% block downside %}
 <section style="margin: 0 0 32px 0;min-height:800px;">
   <div style = "display :flex;">
-    <div style="margin: 32px 0 32px 16px ; flex : 1">Salary</div>
+    <div style="margin: 32px 0 32px 16px ; flex : 1">المرتب </div>
     <a href = "{% url 'salary-create' %}">
-      <button type="button" style="margin: 32px" class="btn btn-success">Create</button>
+      <button type="button" style="margin: 32px" class="btn btn-success">انشاء</button>
     </a>
 
 
@@ -72,11 +72,11 @@
   <table class="table align-middle mb-0 bg-white">
     <thead class="bg-light">
       <tr>
-        <th>Employee Name</th>
-        <th>salary_per_day</th>
-        <th>day_of_work</th>
-        <th>status</th>
-        <th>Action</th>
+        <th>الموظف </th>
+        <th>السعر في الساعه </th>
+        <th>يوم العمل </th>
+        <th>الحاله </th>
+        <th> حذف او تعديل </th>
       </tr>
     </thead>
     <tbody>
@@ -100,9 +100,15 @@
         {% comment %} <td onclick="window.location='#';" >
         <div class="d-flex align-items-center">{{prod.description}}</div>
         </td> {% endcomment %}
+        {% if sal.status == "paid"  %}
         <td onclick="window.location='#';" >
-            <div class="d-flex align-items-center">{{sal.status}}</div>
+            <div class="d-flex align-items-center">مدفوع   </div>
           </td>
+        {% else %}
+        <td onclick="window.location='#';" >
+          <div class="d-flex align-items-center"> غير مدفوع </div>
+        </td>
+        {% endif %}
           {% comment %} <td onclick="window.location='#';" >
             <div class="d-flex align-items-center">{{prod.quantity}}</div>
           </td> {% endcomment %}
@@ -120,7 +126,7 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">salary</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">المرتب </h5>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
@@ -130,8 +136,8 @@
 
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-danger">Confirm DELETE</button>
+                          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">اغلاق </button>
+                          <button type="submit" class="btn btn-danger">تاكيد الحذف </button>
                         </div>
                     </form>
 
@@ -154,7 +160,7 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="editlable{{customer.id}}">Update data</h5>
+                  <h5 class="modal-title" id="editlable{{customer.id}}">تحديث البيانات </h5>
                   <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -165,7 +171,7 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <label style = 'font-size:12px;' for="num_of_hours">num_of_hours</label>
+                      <label style = 'font-size:12px;' for="num_of_hours">عدد الساعات </label>
                       <input style = 'border:1px solid black; margin-top:4px;' type="text" id="num_of_hours" name = "num_of_hours" value = '{{sal.num_of_hours}}' class="form-control" />
                     </div>
                   </div>
@@ -173,7 +179,7 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-solid fa-phone fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
-                        <label style = 'font-size:12px;' for="salry_per_hour">salry_per_hour</label>
+                        <label style = 'font-size:12px;' for="salry_per_hour">السعر لكل ساعه </label>
                         <input style = 'border:1px solid black; margin-top:4px;' type="text" id="salry_per_hour" name = "salry_per_hour" value = '{{sal.salry_per_hour}}' class="form-control" />
                       </div>
                     </div>
@@ -183,11 +189,11 @@
                       <div class="form-outline flex-fill mb-0">
                         <select class="form-select" aria-label="Default select example" id="status" name= "status">
                           {% if sal.status == "paid" %}
-                          <option selected value={{sal.status}}>paid</option>
-                          <option value="not paid">not paid</option>
+                          <option selected value={{sal.status}}>مدفوع </option>
+                          <option value="not paid">غير مدفوع </option>
                           {% else %}
-                          <option selected value={{sal.status}}>not paid</option>
-                          <option value="paid">paid</option>
+                          <option selected value={{sal.status}}>غير مدفوع </option>
+                          <option value="paid">مدفوع </option>
                           {% endif %}
 
 
@@ -197,8 +203,8 @@
                     </div>
 
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Save changes</button>
+                      <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">اغلاق</button>
+                      <button type="submit" class="btn btn-primary">حفظ المتغيرات </button>
                     </div>
                 </form>
               </div>
@@ -219,9 +225,9 @@
     {% if page_obj.has_other_pages%}
       <ul class="pagination">
         {% if page_obj.has_previous %}
-        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">السابق</a></li>
         {% else %}
-        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item disabled"><a class="page-link" href="#">السابق </a></li>
         {% endif %}
 
         {% for i in page_obj.paginator.page_range %}
@@ -235,9 +241,9 @@
         {% endfor %}
 
         {% if page_obj.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">التالي </a></li>
         {% else %}
-        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+        <li class="page-item disabled"><a class="page-link" href="#">التالي </a></li>
         {% endif %}
       </ul>
       {% endif %}
