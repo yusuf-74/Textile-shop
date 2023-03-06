@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from employees.models import Person
 from .filter import SalaryFilter,LoanFilter
+from django.shortcuts import get_object_or_404
 
 class EmployeeView(View):
     def get(self,request,*args, **kwargs):
@@ -333,3 +334,64 @@ class LoanDelete(DeleteView):
     model=PenaltyOrLoans
     def get_success_url(self):
         return reverse_lazy("all_loan")
+    
+    
+class SalaryDetails(View):
+    
+    def get(self,request):
+        data = dict(request.GET)
+        
+        #getting the important information from the request
+        employee = get_object_or_404(Person,id = data['id'][0])
+        start_date = data['start_date'][0]
+        end_date = data['end_date'][0]
+        
+        #getting the salary and loans during the given period
+        salary_queryset = Salary.objects.filter(employee = employee, created_at__gte = start_date, created_at__lt = end_date, status = 'not paid')
+        penalty_or_loans = PenaltyOrLoans.objects.filter(employee = employee,status = 'not paid' )
+        
+        #calculating the salary and loans
+        employee_total_salary = sum([s.total_salary for s in salary_queryset])
+        employee_total_loans = sum([p.amount for p in penalty_or_loans])
+        
+        context = {
+            'employee' : employee,
+            'employee_total_salary' : employee_total_salary,
+            'employee_total_loans' : employee_total_loans,
+            'start_date' : start_date,
+            'end_date' : end_date
+        }
+        
+        return render(request,'employees/salary.html',context)
+    
+    def post(self,request):
+        data = dict(request.POST)
+        
+        employee = get_object_or_404(Person,id = data['id'][0])
+        start_date = data['start_date'][0]
+        end_date = data['end_date'][0]
+        print(end_date)
+        
+        salary_queryset = Salary.objects.filter(employee = employee, created_at__gte = start_date, created_at__lt = end_date, status = 'not paid')
+        penalty_or_loans = PenaltyOrLoans.objects.filter(employee = employee,status = 'not paid' )
+        
+        for s in salary_queryset:
+            s.status = 'paid'
+            s.save()
+        for p in penalty_or_loans:
+            p.status = 'paid'
+            p.save()
+        return redirect('employee_detail' ,data['id'][0])
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+
+        
+        

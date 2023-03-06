@@ -1,0 +1,30 @@
+{% extends 'admin/dashboard.html' %}
+
+{% block upside %}
+<div class="container mt-5">
+  <h1 class="text-center mb-5">Employee Salary Details</h1>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title"><strong>{{employee}}</strong></h2>
+        </div>
+        <div class="card-body">
+          <p><strong>Salary</strong>: <strong>{{employee_total_salary}}</strong></p>
+          <p><strong>Loans or Penalty</strong>: <strong>{{employee_total_loans}}</strong></p>
+        </div>
+        <div class="card-footer">
+          <form method="post" action="{% url 'salary_detail' %}">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{employee.id}}">
+            <input type="hidden" name="start_date" value="{{start_date}}">
+            <input type="hidden" name="end_date" value="{{end_date}}">
+            <button type="submit" class="btn btn-primary">Pay</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

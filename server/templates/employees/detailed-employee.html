@@ -194,6 +194,19 @@
 
                                     <td>{{employee.salary}}</td>
                                 </tr>
+                                <tr>
+                                    <td>
+                                    <form action="{% url 'salary_detail' %}" method="get">
+                                        {% csrf_token %}
+                                        <label for="start_date"><strong>Start Date:</strong></label>
+                                        <input type="date" name="start_date" required><br><br>
+                                        <label for="end_date"><strong>End Date:</strong></label>
+                                        <input type="date" name="end_date" required><br><br>
+                                        <input type="hidden" name="id" value="{{employee.id}}">
+                                        <button type="submit" class="btn btn-primary">Calculate Salary</button>
+                                    </form>
+                                    </td>
+                                </tr>
 
 
                             </tbody>
@@ -204,4 +217,9 @@
 
         </div>
 </section>
+{% endblock %}
+
+{% block downside %}
+
+  
 {% endblock %}
