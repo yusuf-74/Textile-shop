@@ -3,31 +3,65 @@
 
 
 {% block upside %} 
-<div class='dashboard-analytics-content' style = 'display:flex ;justify-content : space-evenly; overflow:hidden;min-height:800px' >
-    <a href = '#'>
-<div class="card" style="width: 18rem;margin:16px 0">
-    <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea"/>
-    <div class="card-body">
-      <p class="card-text">Fibers</p>
+<div class='dashboard-analytics-content' style='display: flex; justify-content: space-evenly; overflow: hidden; min-height: 800px;'>
+  <a href='#'>
+    <div class="card" style="width: 18rem; margin: 16px;">
+      <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea" style="object-fit: cover; height: 100%;">
+      <div class="card-body">
+        <p class="card-text">Fibers</p>
+      </div>
     </div>
-  </div>
-</a>
-  <a href = '#'>
-  <div class="card" style="width: 18rem;margin:16px 0">
-    <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea"/>
-    <div class="card-body">
-      <p class="card-text">Fiberics</p>
+  </a>
+  <a href='#'>
+    <div class="card" style="width: 18rem; margin: 16px;">
+      <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea" style="object-fit: cover; height: 100%;">
+      <div class="card-body">
+        <p class="card-text">Fiberics</p>
+      </div>
     </div>
-  </div>
-</a>
-    <a href = '#'>
-  <div class="card" style="width: 18rem;margin:16px 0">
-    <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea"/>
-    <div class="card-body">
-      <p class="card-text">Bags</p>
+  </a>
+  <a href='#'>
+    <div class="card" style="width: 18rem; margin: 16px;">
+      <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea" style="object-fit: cover; height: 100%;">
+      <div class="card-body">
+        <p class="card-text">Bags</p>
+      </div>
     </div>
-  </div>
-</a>
+  </a>
+  <a href="{% url 'perishable_list' %}">
+    <div class="card" style="width: 18rem; margin: 16px;">
+      <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/162.webp" class="card-img-top" alt="Sunset Over the Sea" style="object-fit: cover; height: 100%;">
+      <div class="card-body">
+        <p class="card-text">Perishables</p>
+      </div>
+    </div>
+  </a>
+  
+  <style>
+    .dashboard-analytics-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+    }
+    
+    .card {
+      width: calc(33.33% - 32px);
+      margin: 16px;
+    }
+    
+    @media screen and (max-width: 767px) {
+      .card {
+        width: calc(50% - 32px);
+      }
+    }
+    
+    @media screen and (max-width: 480px) {
+      .card {
+        width: 100%;
+      }
+    }
+  </style>
 </div>
+
 {% endblock %}
 

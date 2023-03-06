@@ -36,6 +36,33 @@
     </div>
   </div>
 </a>
+<style>
+  .dashboard-analytics-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+  
+  .card {
+    width: calc(33.33% - 32px);
+    margin: 16px;
+  }
+  .card-img-top{
+    height: 250px;
+  }
+  
+  @media screen and (max-width: 767px) {
+    .card {
+      width: calc(50% - 32px);
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .card {
+      width: 100%;
+    }
+  }
+</style>
 </div>
 {% endblock %}
 
