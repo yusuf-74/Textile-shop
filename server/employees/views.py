@@ -318,7 +318,7 @@ class LoanUpdate(UpdateView):
 
 
 class LoanCreate(CreateView):
-    fields=["employee",'amount' ,'type_of_debt' , "status" ]
+    fields=["employee",'amount' ,'type_of_debt' ]
     model=PenaltyOrLoans
     template_name='loan/loan-create.html'
     success_url=reverse_lazy("all_loan")

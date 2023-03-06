@@ -8,46 +8,46 @@
      <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
         <input type="text" id="retail_price" name = 'retail_price' class="form-control" />
-        <label class="form-label" for="retail_price">Retail_price</label>
+        <label class="form-label" for="retail_price">سعر التجزئه</label>
       </div>
 
     </div>
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
         <input type="text" id="retail_price__lt" name = 'retail_price__lt' class="form-control" />
-        <label class="form-label" for="retail_price__lt">Retail_price is less than</label>
+        <label class="form-label" for="retail_price__lt">كل اسعار التجزئه الاقل من </label>
       </div>
 
     </div>
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
         <input type="text" id="retail_price__gt" name = 'retail_price__gt' class="form-control" />
-        <label class="form-label" for="retail_price__gt"> Retail_price is greater than</label>
+        <label class="form-label" for="retail_price__gt"> كل اسعار التجزئه الاكثر من </label>
       </div>
 
     </div>
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
         <input type="text" id="wholesale_price" name = 'wholesale_price' class="form-control" />
-        <label class="form-label" for="wholesale_price">Wholesale_price </label>
+        <label class="form-label" for="wholesale_price">سعر الجمله  </label>
       </div>
     </div>
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
         <input type="text" id="wholesale_price__gt" name = 'wholesale_price__gt' class="form-control" />
-        <label class="form-label" for="wholesale_price__gt"> Wholesale price is greater than</label>
+        <label class="form-label" for="wholesale_price__gt"> كل اسعار الجمله الاكبر من </label>
       </div>
     </div>
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
         <input type="text" id="wholesale_price__lt" name = 'wholesale_price__lt' class="form-control" />
-        <label class="form-label" for="wholesale_price__lt"> Wholesale price is less than</label>
+        <label class="form-label" for="wholesale_price__lt"> كل اسعار الجمله الاقل من </label>
       </div>
     </div>
     {% comment %} {{ filterset.form.as_p }} {% endcomment %}
       <div class="form-outline" style = 'display:flex ; justify-content:space-around;align-items:center;'>
         <button type="submit" class="btn btn-primary" style='width:160px'>
-          Search
+          بحث
         </button>
     </div>
   </form>
@@ -59,14 +59,14 @@
 <section style="margin: 0 0 32px 0;min-height:800px;">
   <div style = "display :flex;">
     {% if type == 'pillow' %}
-    <div style="margin: 32px 0 32px 16px ; flex : 1">Pillow</div>
+    <div style="margin: 32px 0 32px 16px ; flex : 1">مخده</div>
     <a href = "{% url 'pillow-create' %}">
-      <button type="button" style="margin: 32px" class="btn btn-success">Create</button>
+      <button type="button" style="margin: 32px" class="btn btn-success">انشاء</button>
     </a>
     {% else %}
-    <div style="margin: 32px 0 32px 16px ; flex : 1">Circular Pillow</div>
+    <div style="margin: 32px 0 32px 16px ; flex : 1">خدديه </div>
     <a href = "{% url 'circular-pillow-create' %}">
-      <button type="button" style="margin: 32px" class="btn btn-success">Create</button>
+      <button type="button" style="margin: 32px" class="btn btn-success">انشاء</button>
     </a>
     {% endif %}
 
@@ -74,13 +74,13 @@
   <table class="table align-middle mb-0 bg-white">
     <thead class="bg-light">
       <tr>
-        <th>Pillow ID</th>
-        <th>category</th>
-        <th>retail_price</th>
-        <th>wholesale_price</th>
-        <th>size</th>
-        <th>quantity</th>
-        <th>Action</th>
+        <th>رقم المخده </th>
+        <th>النوع </th>
+        <th>سعر التجزئه</th>
+        <th>سعر الجمله</th>
+        <th>الحجم </th>
+        <th>الكميه</th>
+        <th>مسح او تعديل</th>
       </tr>
     </thead>
     <tbody>
@@ -92,9 +92,15 @@
           <a href="{% url 'pillow-detail' prod.id %}"><div class="d-flex align-items-center">{{prod.id}}</div></a>
 
         </td>
+        {% if prod.type == "pillow" %}
         <td onclick="window.location='#';" >
-          <p class="fw-normal mb-1">{{prod.category}}</p>
+          <p class="fw-normal mb-1">مخده</p>
         </td>
+        {% else %}
+        <td onclick="window.location='#';" >
+          <p class="fw-normal mb-1">خدديه</p>
+        </td>
+        {% endif %}
         <td onclick="window.location='#';" >
             <p class="fw-normal mb-1">{{prod.retail_price}}</p>
           </td>
@@ -135,8 +141,8 @@
                       <input type="hidden" name="id" value="{{employee.id}}">
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-danger">Confirm DELETE</button>
+                          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">اغلاق </button>
+                          <button type="submit" class="btn btn-danger">تاكيد الحذف </button>
                         </div>
                     </form>
 
@@ -159,7 +165,7 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="editlable{{customer.id}}">Update data</h5>
+                  <h5 class="modal-title" id="editlable{{customer.id}}">تحديث البيانات </h5>
                   <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -170,7 +176,7 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <label style = 'font-size:12px;' for="retail_price">retail_price</label>
+                      <label style = 'font-size:12px;' for="retail_price">سعر التجزئه</label>
                       <input style = 'border:1px solid black; margin-top:4px;' type="text" id="retail_price" name = "retail_price" value = '{{prod.retail_price}}' class="form-control" />
                     </div>
                   </div>
@@ -178,29 +184,29 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-solid fa-phone fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
-                        <label style = 'font-size:12px;' for="wholesale_price">wholesale_price</label>
+                        <label style = 'font-size:12px;' for="wholesale_price">سعر الجمله </label>
                         <input style = 'border:1px solid black; margin-top:4px;' type="text" id="wholesale_price" name = "wholesale_price" value = '{{prod.wholesale_price}}' class="form-control" />
                       </div>
                     </div>
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <label style = 'font-size:12px;' for="email">size</label>
+                      <label style = 'font-size:12px;' for="email">الحجم </label>
                       <input style = 'border:1px solid black; margin-top:4px;' type="size" id="size" name= "size" value = "{{prod.size}}" class="form-control" />
                     </div>
                   </div>
                   <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-solid fa-location-dot fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
-                        <label style = 'font-size:12px;' for="address">quantity</label>
+                        <label style = 'font-size:12px;' for="address">الكميه </label>
                         <input style = 'border:1px solid black; margin-top:4px;' type="text" id="quantity" name = "quantity" value = '{{prod.quantity}}' class="form-control" />
                       </div>
 
                     </div>
 
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Save changes</button>
+                      <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">اغلاق </button>
+                      <button type="submit" class="btn btn-primary">حفظ التعديلات</button>
                     </div>
                 </form>
               </div>
@@ -221,9 +227,9 @@
     {% if page_obj.has_other_pages%}
       <ul class="pagination">
         {% if page_obj.has_previous %}
-        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">السابق </a></li>
         {% else %}
-        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item disabled"><a class="page-link" href="#">السابق</a></li>
         {% endif %}
 
         {% for i in page_obj.paginator.page_range %}
@@ -237,9 +243,9 @@
         {% endfor %}
 
         {% if page_obj.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">التالي </a></li>
         {% else %}
-        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+        <li class="page-item disabled"><a class="page-link" href="#">التالي </a></li>
         {% endif %}
       </ul>
       {% endif %}

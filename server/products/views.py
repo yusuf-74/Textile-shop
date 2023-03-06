@@ -132,7 +132,7 @@ class PillowDelete(DeleteView):
         self.object.delete()
         return HttpResponseRedirect(success_url)
 class PillowCreate(CreateView):
-    fields=["retail_price" , "wholesale_price","size" , "quantity" , "description" , "category"]
+    fields=["retail_price" , "wholesale_price","size" , "quantity" , "description"]
     model=Pillow
     template_name='products/pillow/create_pillow.html'
 

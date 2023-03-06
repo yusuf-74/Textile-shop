@@ -5,7 +5,6 @@ import products
 
 
 types_of_pillows = [('pillow', 'pillow'), ('circular pillow', 'circular pillow')]
-categories_of_pillows = [('fabric', 'fabric'), ('bag', 'bag') , ('fiber','fiber')]
 
 
 class FiberBag(models.Model):
@@ -25,7 +24,6 @@ class FiberBag(models.Model):
 
 
 class Pillow(models.Model):
-    category = models.CharField(choices=categories_of_pillows , max_length=100)
     retail_price = models.DecimalField(max_digits=6, decimal_places=2)
     wholesale_price = models.DecimalField(max_digits=6, decimal_places=2)
     type = models.CharField(choices= types_of_pillows , max_length=20)
@@ -40,8 +38,7 @@ class Pillow(models.Model):
 
 
     def __str__(self):
-        return self.size + ' ' + self.type + ' ' + self.category
-
+        return self.size + ' ' + self.type + ' '
     def get_url(self):
         return reverse('product-detail' , args=[self.id])
 
