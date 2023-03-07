@@ -8,7 +8,7 @@
       <div class="input-group" style = 'margin : 8px 0'>
         <div class="form-outline">
           <input type="text" id="search" name = 'q' class="form-control" />
-          <label class="form-label" for="name">Search</label>
+          <label class="form-label" for="name">بحث</label>
         </div>
         
       </div>     
@@ -25,20 +25,20 @@
 {% block downside %}
 <section style="margin: 0 0 32px 0;min-height:800px;">
     <div style="display :flex;">
-        <div style="margin: 32px 0 32px 16px ; flex : 1">Fiber Bags</div>
+        <div style="margin: 32px 0 32px 16px ; flex : 1">مخدات فايبر</div>
         <a href="{% url 'fiberbag_edit' %}">
-            <button type="button" style="margin: 32px" class="btn btn-success">Create</button>
+            <button type="button" style="margin: 32px" class="btn btn-success">اضافة</button>
         </a>
     </div>
     <table class="table align-middle mb-0 bg-white">
         <thead class="bg-light">
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Type</th>
-                <th scope="col">Retail Price</th>
-                <th scope="col">Wholesale Price</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Actions</th>
+                <th scope="col">النوع</th>
+                <th scope="col">سعر المستهلك</th>
+                <th scope="col">سعر الجملة</th>
+                <th scope="col">الكمية</th>
+                <th scope="col">حذف او تعديل</th>
             </tr>
         </thead>
         <tbody>
@@ -62,7 +62,7 @@
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">DELETE FIBER BAG</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">حذف المخدة الفايبر</h5>
                             <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
@@ -72,8 +72,8 @@
                               <input type="hidden" name="id" value="{{fiberbag.pk}}">
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                                  <button type="submit" class="btn btn-danger">Confirm DELETE</button>
+                                  <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">إغلاق</button>
+                                  <button type="submit" class="btn btn-danger">تأكيد الحذف</button>
                                 </div>
                             </form>
                           </div>
@@ -93,7 +93,7 @@
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="editlable{{fiberbag.pk}}">Update data</h5>
+                          <h5 class="modal-title" id="editlable{{fiberbag.pk}}">تحديث البيانات</h5>
                           <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -105,7 +105,7 @@
                           <div class="d-flex flex-row align-items-center mb-4">
                             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
-                              <label style = 'font-size:12px;' for="retail_price">Retail Price</label>
+                              <label style = 'font-size:12px;' for="retail_price">سعر المستهلك</label>
                               <input style = 'border:1px solid black; margin-top:4px;' type="text" class="form-control" id="retail_price" name="retail_price" value="{{fiberbag.retail_price}}">
 
                             </div>
@@ -114,21 +114,21 @@
                           <div class="d-flex flex-row align-items-center mb-4">
                               <i class="fas fa-solid fa-phone fa-lg me-3 fa-fw"></i>
                               <div class="form-outline flex-fill mb-0">
-                                <label style = 'font-size:12px;' for="wholesale_price">Whole Sale Price</label>
+                                <label style = 'font-size:12px;' for="wholesale_price">سعر الجملة</label>
                                 <input style = 'border:1px solid black; margin-top:4px;' type="text" id="wholesale_price" name = "wholesale_price" value = '{{fiberbag.wholesale_price}}' class="form-control" />
                               </div>
                             </div>
                           <div class="d-flex flex-row align-items-center mb-4">
                             <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                             <div class="form-outline flex-fill mb-0">
-                              <label style = 'font-size:12px;' for="Quantity">Quantity</label>
+                              <label style = 'font-size:12px;' for="Quantity">الكمية</label>
                               <input style = 'border:1px solid black; margin-top:4px;' type="text" id="quantity" name= "quantity" value = "{{fiberbag.quantity}}" class="form-control" />
                             </div>
                           </div>  
                           <div class="d-flex flex-row align-items-center mb-4">
                               <i class="fas fa-solid fa-location-dot fa-lg me-3 fa-fw"></i>
                               <div class="form-outline flex-fill mb-0">
-                                <label style = 'font-size:12px;' for="type">type</label>
+                                <label style = 'font-size:12px;' for="type">النوع</label>
                                 <input style = 'border:1px solid black; margin-top:4px;' type="text" id="type" name = "type" value = '{{fiberbag.type}}' class="form-control" />
                               </div>
                               
@@ -136,13 +136,13 @@
                             <div class="d-flex flex-row align-items-center mb-4">
                               <i class="fas fa-solid fa-city fa-lg me-3 fa-fw"></i>
                               <div class="form-outline flex-fill mb-0">
-                                <label style = 'font-size:12px;' for="discription">Discription</label>
+                                <label style = 'font-size:12px;' for="discription">الوصف</label>
                                 <texstyle style = 'border:1px solid black; margin-top:4px;' type="text" id="discription" name = "discription"  class="form-control" /></textarea>
                               </div>
                             </div>
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                              <button type="submit" class="btn btn-primary">Save changes</button>
+                              <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">إغلاق</button>
+                              <button type="submit" class="btn btn-primary">حفظ التغييرات</button>
                             </div>
                         </form>
                       </div>
@@ -171,7 +171,7 @@
                     </li>
                     {% else %}
                     <li class="page-item disabled">
-                        <a class="page-link" href="#">Previous</a>
+                        <a class="page-link" href="#">السابق</a>
                     </li>
                     {% endif %}
 
@@ -228,12 +228,12 @@
                     {% if page_obj.has_next %}
                     <li class="page-item">
                         <a class="page-link"
-                            href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">Next</a>
+                            href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">التالي</a>
 
                     </li>
                     {% else %}
                     <li class="page-item disabled">
-                        <a class="page-link" href="#">Next</a>
+                        <a class="page-link" href="#">التالي</a>
                     </li>
                     {% endif %}
                 </div>
@@ -244,7 +244,7 @@
                 <div class="d-flex">
                     <li class="page-item">&nbsp;</li>
                     <li class="page-item">
-                        <span class="page-link jump-to-label">Jump to:</span>
+                        <span class="page-link jump-to-label">ذهاب الى:</span>
                     </li>
                     <li class="page-item ">
                         <form action="" method="get" class="form-inline d-flex ">
@@ -252,7 +252,7 @@
                             {% if request.GET.q %}
                             <input type="hidden" name="q" value="{{ request.GET.q }}">
                             {% endif %}
-                            <button type="submit" class="btn btn-outline-info">Go</button>
+                            <button type="submit" class="btn btn-outline-info">اذهب</button>
                         </form>
                     </li>
                 </div>

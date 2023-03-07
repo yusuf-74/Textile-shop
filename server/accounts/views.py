@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect
 from django.views import View
 from .models import Account ,Transaction
 from .filters import AccountFilter
-class Test(View):
+from django.contrib.auth.mixins import LoginRequiredMixin
+class Test(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         return render(request,'users/register-login.html')
         
@@ -16,7 +17,7 @@ class Test(View):
     
 ACCOUNT_TYPE = {'Bank': 'Bank', 'e_wallet': 'E-Wallet','postal': 'Postal','bank':'Bank'}
 
-class AccountsView(View):
+class AccountsView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         
         accounts = AccountFilter(request.GET,queryset=Account.objects.all())
@@ -32,12 +33,16 @@ class AccountsView(View):
         return render(request,'accounts/all-accounts.html',{'accounts':accounts_data})
 
 
-class EditAccountView(View):
+class EditAccountView(LoginRequiredMixin,View):
+    login_url= "login"
+    
     def get(self,request,*args, **kwargs):
         return render(request,'accounts/create-account.html')
     
     def post(self,request,*args, **kwargs):
         data = dict(request.POST)
+        
+        
         
         if data['_method'][0] == 'POST':
             try : 
@@ -76,14 +81,14 @@ class EditAccountView(View):
                 return redirect('all_accounts')
             
             
-class AccountDetailView(View):
+class AccountDetailView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         account = Account.objects.get(id=kwargs['pk'])
         transactions = account.transactions.all()
         print(transactions)
         return render(request,'accounts/detailed-account.html',{'account':account , 'transactions':transactions})
     
-class CreateTransactionView(View):
+class CreateTransactionView(LoginRequiredMixin,View):
     def post(self,request,*args, **kwargs):
             data = dict(request.POST)
         # try:

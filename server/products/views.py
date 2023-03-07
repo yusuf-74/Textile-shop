@@ -12,16 +12,17 @@ from django.core import serializers
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from .filters import PillowFilter
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 
-class ProductsView(View):
+class ProductsView(LoginRequiredMixin,View):
 
     def get(self,request,*args, **kwargs):
         return render(request, 'admin/products.html')
 
 
-class FiberbagListView(ListView):
+class FiberbagListView(LoginRequiredMixin,ListView):
     model = FiberBag
     template_name = 'products/fiberbags/fiberbag_list.html'
     context_object_name = 'fiberbags'
@@ -43,7 +44,7 @@ class FiberbagListView(ListView):
         context['page_obj'] = page_obj
         return context
 
-class EditFiberBagView(View):
+class EditFiberBagView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         return render(request,'products/fiberbags/fiberbag_form.html')
 
@@ -80,7 +81,7 @@ class EditFiberBagView(View):
 
         return redirect('fiberbag_list')
 
-class FiberBagDetailView(DetailView):
+class FiberBagDetailView(LoginRequiredMixin,DetailView):
     model = FiberBag
     template_name = 'products/fiberbags/fiberbag_detail.html'
 
@@ -107,12 +108,12 @@ class PillowView(ListView):
         context["type"]=self.kwargs.get('type')
         return context
 
-class PillowDetailView(DetailView):
+class PillowDetailView(LoginRequiredMixin,DetailView):
     template_name='products/pillow/pillow_detail.html'
     context_object_name='product'
     model=Pillow
 
-class PillowUpdate(UpdateView):
+class PillowUpdate(LoginRequiredMixin,UpdateView):
     template_name='products/pillow/pillow.html'
     model=Pillow
     fields=["retail_price" , "wholesale_price","size" , "quantity"]
@@ -120,7 +121,7 @@ class PillowUpdate(UpdateView):
         type=self.get_object().type
         return reverse_lazy("pillow" , kwargs={"type":type})
 
-class PillowDelete(DeleteView):
+class PillowDelete(LoginRequiredMixin,DeleteView):
     template_name='products/pillow/pillow.html'
     model=Pillow
 
@@ -131,7 +132,7 @@ class PillowDelete(DeleteView):
         success_url =reverse_lazy("pillow" , kwargs={"type":type})
         self.object.delete()
         return HttpResponseRedirect(success_url)
-class PillowCreate(CreateView):
+class PillowCreate(LoginRequiredMixin,CreateView):
     fields=["retail_price" , "wholesale_price","size" , "quantity" , "description"]
     model=Pillow
     template_name='products/pillow/create_pillow.html'

@@ -85,6 +85,8 @@ TEMPLATES = [
     },
 ]
 
+
+
 WSGI_APPLICATION = 'textile_shop.wsgi.application'
 
 

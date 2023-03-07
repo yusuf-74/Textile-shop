@@ -7,13 +7,14 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 from datetime import datetime
 from .filters import PerishableFilter
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class MaterialsView(View):
+class MaterialsView(LoginRequiredMixin,View):
     def get(self, request):
         return render(request, 'admin/materials.html')
     
-class PerishableListView(ListView):
+class PerishableListView(LoginRequiredMixin,ListView):
     model = Perishable
     template_name = 'materials/perishables/perishables_list.html'
     context_object_name = 'perishables'
@@ -55,7 +56,7 @@ def perishable_create(request):
     context = {'choices': choices}
     return render(request, 'materials/perishables/perishable_form.html', context)    
 
-class EditPerishableView(View):
+class EditPerishableView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         return render(request,'materials/perishables/perishable_form.html', {'choices': choices})
 

@@ -7,12 +7,12 @@
       <div class="inputs">
         <div class="input-group" style='margin : 8px 0'>
             <div class="form-check">
-                <label class="form-label" for="startDate" ><strong>Date between ______ and now:&emsp;&emsp;&emsp;</strong></label>
+                <label class="form-label" for="startDate" ><strong>التاريخ&emsp;&emsp;&emsp;</strong></label>
                 <input type="date" id="date" name="startDate"  class="form-control p-3 mb-2 bg-info text-dark">               
             </div>
         </div>
         <div class="form-check">
-          <label class="form-label" for="type" ><strong>Type:</strong></label>
+          <label class="form-label" for="type" ><strong>النوع:</strong></label>
           <select id="type" name="type" class="form-control" style="width:280px;%">
               {% for choice in filter.form.type.field.choices %}
                   <option value="{{ choice.0 }}">{{ choice.1 }}</option>
@@ -22,7 +22,7 @@
       </div>
       <div class="form-outline mt-5 pt-2" style='display:flex ; justify-content:space-around;align-items:center;'>
             <button type="submit" class="btn btn-primary" style='width:160px'>
-                Search
+                بحث
             </button>
       </div>
       </div>
@@ -32,7 +32,7 @@
 {% block downside %}
 <section style="margin: 0 0 32px 0;min-height:800px;">
     <div style="display :flex;">
-        <div style="margin: 32px 0 32px 16px ; flex : 1">Perishables</div>
+        <div style="margin: 32px 0 32px 16px ; flex : 1">الهوالك</div>
         <a href="{% url 'perishable_create' %}">
             <button type="button" style="margin: 32px" class="btn btn-success">Create</button>
         </a>
@@ -41,13 +41,13 @@
         <thead class="bg-light">
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Type</th>
-                <th scope="col">Price</th>
-                <th scope="col">Created At</th>
-                <th scope="col">Created By</th>
-                <th scope="col">Last Update At</th>
-                <th scope="col">Last Update By</th>
-                <th scope="col">Actions</th>
+                <th scope="col">النوع</th>
+                <th scope="col">المبلغ</th>
+                <th scope="col">اضيفت بتاريخ</th>
+                <th scope="col">اضيفت بواسطة</th>
+                <th scope="col">اخر تحديث بتاريخ</th>
+                <th scope="col">اخر تحديث تم بواسطة</th>
+                <th scope="col">تعديل او حذف</th>
             </tr>
         </thead>
         <tbody>
@@ -70,7 +70,7 @@
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">DELETE FIBER BAG</h5>
+                              <h5 class="modal-title" id="exampleModalLabel">حذف مخدة فايبر</h5>
                               <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -80,8 +80,8 @@
                                 <input type="hidden" name="id" value="{{perishable.pk}}">
                                   </div>
                                   <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-danger">Confirm DELETE</button>
+                                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">اغلاق</button>
+                                    <button type="submit" class="btn btn-danger">تأكيد الحذف</button>
                                   </div>
                               </form>
                             </div>
@@ -101,7 +101,7 @@
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="editlable{{perishable.pk}}">Update data</h5>
+                          <h5 class="modal-title" id="editlable{{perishable.pk}}">تحديث البيانات</h5>
                           <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -113,19 +113,19 @@
                           <div class="d-flex flex-row align-items-center mb-4">
                             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                             <div class=" flex-fill mb-0">
-                              <label style = 'font-size:12px;' for="type">Type</label>
+                              <label style = 'font-size:12px;' for="type">النوع</label>
                               <select name="type" id="type" class="form-control">
-                                <option value="petrol" {% if perishable.type == 'petrol' %} selected {% endif %}>petrol</option>
-                                <option value="oil" {% if perishable.type == 'oil' %} selected {% endif %}>oil</option>
-                                <option value="water" {% if perishable.type == 'water' %} selected {% endif %}>water</option>
-                                <option value="electricity" {% if perishable.type == 'electricity' %} selected {% endif %}>electricity</option>
-                                <option value="food" {% if perishable.type == 'food' %} selected {% endif %}>food</option>
-                                <option value="delivery" {% if perishable.type == 'delivery' %} selected {% endif %}>delivery</option>
-                                <option value="rent" {% if perishable.type == 'rent' %} selected {% endif %}>rent</option>
-                                <option value="nails" {% if perishable.type == 'nails' %} selected {% endif %}>nails</option>
-                                <option value="string" {% if perishable.type == 'string' %} selected {% endif %}>string</option>
-                                <option value="transport" {% if perishable.type == 'transport' %} selected {% endif %}>transport</option>
-                                <option value="other" {% if perishable.type == 'other' %} selected {% endif %}>other</option>
+                                <option value="petrol" {% if perishable.type == 'petrol' %} selected {% endif %}>بنزين</option>
+                                <option value="oil" {% if perishable.type == 'oil' %} selected {% endif %}>زيت</option>
+                                <option value="water" {% if perishable.type == 'water' %} selected {% endif %}>ماء</option>
+                                <option value="electricity" {% if perishable.type == 'electricity' %} selected {% endif %}>كهرباء</option>
+                                <option value="food" {% if perishable.type == 'food' %} selected {% endif %}>طعام</option>
+                                <option value="delivery" {% if perishable.type == 'delivery' %} selected {% endif %}>توصيل</option>
+                                <option value="rent" {% if perishable.type == 'rent' %} selected {% endif %}>ايجار</option>
+                                <option value="nails" {% if perishable.type == 'nails' %} selected {% endif %}>إبر</option>
+                                <option value="string" {% if perishable.type == 'string' %} selected {% endif %}>خيط</option>
+                                <option value="transport" {% if perishable.type == 'transport' %} selected {% endif %}>نقل</option>
+                                <option value="other" {% if perishable.type == 'other' %} selected {% endif %}>اخر</option>
                               </select>                              
                             </div>
                           </div>
@@ -133,15 +133,15 @@
                           <div class="d-flex flex-row align-items-center mb-4">
                               <i class="fas fa-solid fa-phone fa-lg me-3 fa-fw"></i>
                               <div class=" flex-fill mb-0">
-                                <label style = 'font-size:12px;' for="price">Price</label>
+                                <label style = 'font-size:12px;' for="price">المبلغ</label>
                                 <input style = 'border:1px solid black; margin-top:4px;' type="text" id="price" name = "price" value = '{{perishable.price}}' class="form-control" />
                               </div>
                             </div>
                           
                             
                             <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                              <button type="submit" class="btn btn-primary">Save changes</button>
+                              <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">اغلاق</button>
+                              <button type="submit" class="btn btn-primary">حفظ التغييرات</button>
                             </div>
                         </form>
                       </div>
@@ -166,11 +166,11 @@
                     {% if page_obj.has_previous %}
                     <li class="page-item">
                         <a class="page-link"
-                            href="?{% if filter.form.startDate.value %}startDate={{ filter.form.startDate.value }}&{% endif %}{% if filter.form.type.value %}type={{ filter.form.type.value }}&{% endif %}page={{ page_obj.previous_page_number }}">Previous</a>
+                            href="?{% if filter.form.startDate.value %}startDate={{ filter.form.startDate.value }}&{% endif %}{% if filter.form.type.value %}type={{ filter.form.type.value }}&{% endif %}page={{ page_obj.previous_page_number }}">السابق</a>
                     </li>
                     {% else %}
                     <li class="page-item disabled">
-                        <a class="page-link" href="#">Previous</a>
+                        <a class="page-link" href="#">السابق</a>
                     </li>
                     {% endif %}
 
@@ -224,7 +224,7 @@
                     {% endif %}
                     {% if page_obj.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?{% if filter.form.startDate.value %}startDate={{ filter.form.startDate.value }}&{% endif %}{% if filter.form.type.value %}type={{ filter.form.type.value }}&{% endif %}page={{ page_obj.next_page_number }}">Next</a>
+                        <a class="page-link" href="?{% if filter.form.startDate.value %}startDate={{ filter.form.startDate.value }}&{% endif %}{% if filter.form.type.value %}type={{ filter.form.type.value }}&{% endif %}page={{ page_obj.next_page_number }}">التالي</a>
 
                     </li>
                     {% else %}
@@ -240,7 +240,7 @@
                 <div class="d-flex">
                     <li class="page-item">&nbsp;</li>
                     <li class="page-item">
-                        <span class="page-link jump-to-label">Jump to:</span>
+                        <span class="page-link jump-to-label">ذهاب الى:</span>
                     </li>
                     <li class="page-item ">
                         <form action="" method="get" class="form-inline d-flex ">
@@ -248,7 +248,7 @@
                             {% if request.GET.q %}
                             <input type="hidden" name="q" value="{{ request.GET.q }}">
                             {% endif %}
-                            <button type="submit" class="btn btn-outline-info">Go</button>
+                            <button type="submit" class="btn btn-outline-info">اذهب</button>
                         </form>
                     </li>
                 </div>
@@ -257,9 +257,9 @@
         </nav>
     </div>
     {% if total_filtered == total%}
-    <h1 style="display: inline-block; margin: 32px 0 32px 16px ; flex : 1;" class="p-3 mb-2 bg-info text-dark">&ensp;Total cost is: {{total}}&emsp;</h1>
+    <h1 style="display: inline-block; margin: 32px 0 32px 16px ; flex : 1;" class="p-3 mb-2 bg-info text-dark">&ensp;التكلفة الكلية: {{total}}&emsp;</h1>
     {% else %}
-    <h1 style="display: inline-block; margin: 32px 0 32px 16px ; flex : 1;" class="p-3 mb-2 bg-info text-dark">&ensp;Total cost based on Search is : {{total_filtered}}&emsp;</h1>
+    <h1 style="display: inline-block; margin: 32px 0 32px 16px ; flex : 1;" class="p-3 mb-2 bg-info text-dark">&ensp;التكلفة الكلية بناء على نتيجة البحث : {{total_filtered}}&emsp;</h1>
     {% endif %}
 </section>
 

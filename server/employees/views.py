@@ -7,8 +7,8 @@ from django.urls import reverse_lazy
 from employees.models import Person
 from .filter import SalaryFilter,LoanFilter
 from django.shortcuts import get_object_or_404
-
-class EmployeeView(View):
+from django.contrib.auth.mixins import LoginRequiredMixin
+class EmployeeView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         employees = PersonFilter(request.GET,queryset=Person.objects.filter(role = 'employee'))
 
@@ -28,7 +28,7 @@ class EmployeeView(View):
 
         return render(request,'employees/all-employees.html',{'employees_data':employees_data})
 
-class EmployeeDetailView(View):
+class EmployeeDetailView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         employee_data = []
         try:
@@ -48,7 +48,7 @@ class EmployeeDetailView(View):
         return render(request,'employees/detailed-employee.html',{'employee':employee_data})
 
 
-class EditEmployeeView(View):
+class EditEmployeeView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         return render(request,'employees/create-employee.html')
 
@@ -99,7 +99,7 @@ class EditEmployeeView(View):
 
 
 
-class PersonDetailView(View):
+class PersonDetailView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         person_data = []
         try:
@@ -121,7 +121,7 @@ class PersonDetailView(View):
             return render(request,'suppliers/detailed-supplier.html',{'person':person_data})
 
 
-class CustomerView(View):
+class CustomerView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         customers = PersonFilter(request.GET,queryset=Person.objects.filter(role = 'customer'))
         customers_data = [{\
@@ -137,7 +137,7 @@ class CustomerView(View):
 
         return render(request,'customers/all-customers.html',{'customers_data':customers_data})
 
-class EditCustomerView(View):
+class EditCustomerView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         return render(request,'customers/create-customer.html')
 
@@ -190,7 +190,7 @@ class EditCustomerView(View):
             else :
                 return redirect('_detail')
 
-class SupplierView(View):
+class SupplierView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         suppliers = PersonFilter(request.GET,queryset=Person.objects.filter(role = 'supplier'))
         suppliers_data = [{\
@@ -206,7 +206,7 @@ class SupplierView(View):
 
         return render(request,'suppliers/all-suppliers.html',{'suppliers_data':suppliers_data})
 
-class EditSupplierView(View):
+class EditSupplierView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         return render(request,'suppliers/create-supplier.html')
 
@@ -258,7 +258,7 @@ class EditSupplierView(View):
             else :
                 return redirect('_detail')
 
-class SalaryView(ListView):
+class SalaryView(LoginRequiredMixin,ListView):
     model=Salary
     context_object_name="salary"
     paginate_by=10
@@ -273,20 +273,20 @@ class SalaryView(ListView):
         return self.filterset.qs.order_by('-id').distinct()
 
 
-class SalaryUpdate(UpdateView):
+class SalaryUpdate(LoginRequiredMixin,UpdateView):
     template_name="salary/salary_list.html"
     model=Salary
     fields=["num_of_hours" , "salry_per_hour","status"]
     def get_success_url(self):
         return reverse_lazy("all_salary")
 
-class SalaryDelete(DeleteView):
+class SalaryDelete(LoginRequiredMixin,DeleteView):
     template_name="salary/salary_list.html"
     model=Salary
     def get_success_url(self):
         return reverse_lazy("all_salary")
 
-class SalaryCreate(CreateView):
+class SalaryCreate(LoginRequiredMixin,CreateView):
     fields=["employee",'num_of_hours' ,'salry_per_hour' , "status" ]
     model=Salary
     template_name='salary/salary_create.html'
@@ -299,7 +299,7 @@ class SalaryCreate(CreateView):
 
 
 
-class LoanView(ListView):
+class LoanView(LoginRequiredMixin,ListView):
     model=PenaltyOrLoans
     context_object_name="loans"
     paginate_by=10
@@ -311,14 +311,14 @@ class LoanView(ListView):
         self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
         return self.filterset.qs.order_by('-id').distinct()
 
-class LoanUpdate(UpdateView):
+class LoanUpdate(LoginRequiredMixin,UpdateView):
     template_name="loan/list_loans.html"
     model=PenaltyOrLoans
     fields=["amount","status"]
     success_url=reverse_lazy("all_loan")
 
 
-class LoanCreate(CreateView):
+class LoanCreate(LoginRequiredMixin,CreateView):
     fields=["employee",'amount' ,'type_of_debt' ]
     model=PenaltyOrLoans
     template_name='loan/loan-create.html'
@@ -329,14 +329,14 @@ class LoanCreate(CreateView):
         context["emps"] = Person.objects.filter(role="employee")
         return context
 
-class LoanDelete(DeleteView):
+class LoanDelete(LoginRequiredMixin,DeleteView):
     template_name="loan/list_loans.html"
     model=PenaltyOrLoans
     def get_success_url(self):
         return reverse_lazy("all_loan")
     
     
-class SalaryDetails(View):
+class SalaryDetails(LoginRequiredMixin,View):
     
     def get(self,request):
         data = dict(request.GET)

@@ -11,7 +11,7 @@
             <div class="row justify-content-center">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Create Perishable</p>
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">إضافة هالك</p>
 
                 <form method = 'POST' class="mx-1 mx-md-4">
                   {% csrf_token %}
@@ -20,7 +20,7 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-group">
-                      <label for="type">Type:</label>
+                      <label for="type">النوع:</label>
                       <select name="type" id="type" class="form-control">
                         <option value="">----------</option>
                         {% for choice in choices %}
@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <button type="submit" class="btn btn-primary btn-lg">Create</button>
+                      <button type="submit" class="btn btn-primary btn-lg">إضافة</button>
                     </div>
                 </form>
 

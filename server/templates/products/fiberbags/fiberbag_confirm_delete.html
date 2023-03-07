@@ -23,14 +23,14 @@
       {% csrf_token %}
       <div class="card mx-auto mt-5" style="width: 45%;">
         <div class="card-header text-center">
-          <h3>Are you sure you want to delete the following fiberbag?</h3>
+          <h3>هل انت متأكد انك تريد حذف المنتج؟</h3>
         </div>
         <div class="card-body">
-          <p><strong>Type:</strong><span style="font-size: larger;"> {{ fiberbag.type }}</span></p>
-          <p><strong>Retail Price:</strong><span style="font-size: larger;"> {{ fiberbag.retail_price }}</span></p>
-          <p><strong>Wholesale Price:</strong><span style="font-size: larger;"> {{ fiberbag.wholesale_price }}</span></p>
-          <p><strong>Quantity:</strong><span style="font-size: larger;"> {{ fiberbag.quantity }}</span></p>
-          <p><strong>Description:</strong><span style="font-size: larger;"> {{ fiberbag.description }}</span></p>
+          <p><strong>النوع:</strong><span style="font-size: larger;"> {{ fiberbag.type }}</span></p>
+          <p><strong>سعر المستهك:</strong><span style="font-size: larger;"> {{ fiberbag.retail_price }}</span></p>
+          <p><strong>سعر الجملة:</strong><span style="font-size: larger;"> {{ fiberbag.wholesale_price }}</span></p>
+          <p><strong>الكمية:</strong><span style="font-size: larger;"> {{ fiberbag.quantity }}</span></p>
+          <p><strong>الوصف:</strong><span style="font-size: larger;"> {{ fiberbag.description }}</span></p>
         </div>
         <div class="card-footer">
           <input type="submit" value="Confirm" class="btn btn-danger float-right">
