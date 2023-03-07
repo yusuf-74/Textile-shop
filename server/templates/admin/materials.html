@@ -25,9 +25,42 @@
     <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea"/>
     <div class="card-body">
       <p class="card-text">المخدات</p>
+   </div>
+  </a>
+  <a href="{% url 'perishable_list' %}">
+    <div class="card" style="width: 18rem; margin: 16px;">
+      <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/162.webp" class="card-img-top" alt="Sunset Over the Sea" style="object-fit: cover; height: 100%;">
+      <div class="card-body">
+        <p class="card-text"> الهوالك</p>
+      </div>
     </div>
-  </div>
-</a>
+  </a>
+  
+  <style>
+    .dashboard-analytics-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+    }
+    
+    .card {
+      width: calc(33.33% - 32px);
+      margin: 16px;
+    }
+    
+    @media screen and (max-width: 767px) {
+      .card {
+        width: calc(50% - 32px);
+      }
+    }
+    
+    @media screen and (max-width: 480px) {
+      .card {
+        width: 100%;
+      }
+    }
+  </style>
 </div>
+
 {% endblock %}
 
