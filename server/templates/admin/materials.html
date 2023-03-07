@@ -2,65 +2,70 @@
 
 
 
-{% block upside %} 
+{% block upside %}
 <div class='dashboard-analytics-content' style = 'display:flex ;justify-content : space-evenly; overflow:hidden;min-height:800px' >
-    <a href = '#'>
-<div class="card" style="width: 18rem;margin:16px 0">
-    <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea"/>
-    <div class="card-body">
-      <p class="card-text">الفايبر</p>
-    </div>
-  </div>
-</a>
   <a href = '#'>
-  <div class="card" style="width: 18rem;margin:16px 0">
-    <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea"/>
+<div class="card" style="width: 18rem;margin:16px 0">
+    <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Fiber Image"/>
     <div class="card-body">
-      <p class="card-text">الأقمشة</p>
+      <p class="card-text"> الفايبر</p>
     </div>
   </div>
 </a>
-    <a href = '#'>
+<a href = '#'>
   <div class="card" style="width: 18rem;margin:16px 0">
-    <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Sunset Over the Sea"/>
+    <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Pillow Image"/>
+    <div class="card-body">
+      <p class="card-text">الاقمشة</p>
+    </div>
+  </div>
+</a>
+<a href = '#'>
+  <div class="card" style="width: 18rem;margin:16px 0">
+    <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/182.webp" class="card-img-top" alt="Pillow Image"/>
     <div class="card-body">
       <p class="card-text">المخدات</p>
-   </div>
-  </a>
-  <a href="{% url 'perishable_list' %}">
-    <div class="card" style="width: 18rem; margin: 16px;">
-      <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/162.webp" class="card-img-top" alt="Sunset Over the Sea" style="object-fit: cover; height: 100%;">
-      <div class="card-body">
-        <p class="card-text"> الهوالك</p>
-      </div>
     </div>
-  </a>
+  </div>
+</a>
+<a href="{% url 'perishable_list' %}">
+  <div class="card" style="width: 18rem;margin:16px 0">
+    <img src="https://mdbcdn.b-cdn.net/img/new/standard/nature/162.webp" class="card-img-top" alt="Milton cover"/>
+    <div class="card-body">
+      <p class="card-text">الهوالك</p>
+    </div>
+  </div>
+</a>
+<style>
+  .dashboard-analytics-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
   
-  <style>
-    .dashboard-analytics-content {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-evenly;
-    }
-    
+  .card {
+    width: calc(33.33% - 32px);
+    margin: 16px;
+  }
+  .card-img-top{
+    height: 250px;
+  }
+  
+  @media screen and (max-width: 767px) {
     .card {
-      width: calc(33.33% - 32px);
-      margin: 16px;
+      width: calc(50% - 32px);
     }
-    
-    @media screen and (max-width: 767px) {
-      .card {
-        width: calc(50% - 32px);
-      }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .card {
+      width: 100%;
     }
-    
-    @media screen and (max-width: 480px) {
-      .card {
-        width: 100%;
-      }
-    }
-  </style>
+  }
+</style>
 </div>
-
 {% endblock %}
+
+
+
 
