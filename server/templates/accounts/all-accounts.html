@@ -7,7 +7,7 @@
     <form method='GET' style='width:60%'>
         <div class="input-group" style='margin : 8px 0'>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="bank" name="Bank" id="bank" />
+                <input class="form-check-input" type="checkbox" value="bank" name="bank" id="bank" />
                 <label class="form-check-label" for="bank">بنك</label>
             </div>
         </div>
@@ -88,7 +88,15 @@
                     <div class="d-flex align-items-center">{{account.id}}</div>
                 </td>
                 <td onclick="window.location='{{account.id}}';">
-                    <p class="fw-normal mb-1">{{account.type}}</p>
+                    {% if account.type == 'e_wallet'%}
+                    <p class="fw-normal mb-1">محفظة ذكية</p>
+                    {% elif account.type == 'bank'%}
+                    <p class="fw-normal mb-1">بنك</p>
+                    {% elif account.type == 'postal'%}
+                    <p class="fw-normal mb-1">حساب بريدي</p>
+                    {% else %}
+                    <p class="fw-normal mb-1">اخرى</p>
+                    {% endif %}
                 </td>
                 <td onclick="window.location='{{account.id}}';">
                     <p class="fw-normal mb-1">{{account.service_provider}}</p>

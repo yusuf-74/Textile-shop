@@ -11,7 +11,7 @@ class FiberBag(models.Model):
     retail_price = models.DecimalField(max_digits=6, decimal_places=2)
     wholesale_price = models.DecimalField(max_digits=6, decimal_places=2)
     quantity = models.IntegerField()
-    type = models.CharField(max_length=100 , default="FiberBag") # cotton, jute, etc.
+    type = models.CharField(max_length=100 , default="FiberBag",blank=True) # cotton, jute, etc.
     description = models.TextField(null=True, blank=True)
     fiber = models.OneToOneField('materials.Fiber', null=True , blank=True,on_delete=models.CASCADE)
     bag = models.OneToOneField('materials.Bag', null=True , blank=True,on_delete=models.CASCADE)

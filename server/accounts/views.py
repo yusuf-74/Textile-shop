@@ -15,7 +15,7 @@ class Test(LoginRequiredMixin,View):
         return render(request,'users/register-login.html')
     
     
-ACCOUNT_TYPE = {'Bank': 'Bank', 'e_wallet': 'E-Wallet','postal': 'Postal','bank':'Bank'}
+# ACCOUNT_TYPE = {'Bank': 'Bank', 'e_wallet': 'E-Wallet','postal': 'Postal','bank':'Bank'}
 
 class AccountsView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
@@ -24,7 +24,7 @@ class AccountsView(LoginRequiredMixin,View):
         
         
         accounts_data = [{'id': account.id \
-            ,'type':ACCOUNT_TYPE[account.type] \
+            ,'type':account.type \
             ,'service_provider':account.service_provider \
             , 'account_number': account.account_number \
             , 'balance': account.balance \
