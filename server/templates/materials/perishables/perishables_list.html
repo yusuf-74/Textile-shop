@@ -37,7 +37,7 @@
             <button type="button" style="margin: 32px" class="btn btn-success">Create</button>
         </a>
     </div>
-    <table class="table table-striped align-middle mb-0 bg-white">
+    <table dir = "rtl" class="table table-striped align-middle mb-0 bg-white" >
         <thead class="bg-light">
             <tr>
                 <th scope="col">#</th>
@@ -61,7 +61,6 @@
                 <td>{{ perishable.updated_at }}</td>
                 <td>{{ perishable.updated_by }}</td>
                 <td style="display:flex;"> 
-         
                     <button type="button" style="margin: 8px 4px" class="btn btn-danger" data-mdb-toggle="modal" data-mdb-target="#editdelete{{perishable.pk}}">
                         <i class="fa-solid fa-trash"></i></i>
                       </button>

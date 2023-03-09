@@ -162,7 +162,7 @@ class EditCustomerView(LoginRequiredMixin,View):
             if data['from'][0] == 'all':
                 return redirect('all_customers')
             else :
-                return redirect('_detail')
+                return redirect('person_detail', pk = customer.id)
 
         elif data['_method'][0] == 'PUT':
             data = dict(request.POST)
@@ -178,7 +178,7 @@ class EditCustomerView(LoginRequiredMixin,View):
             if data['from'][0] == 'all':
                 return redirect('all_customers')
             else :
-                return redirect('_detail')
+                return redirect('person_detail', pk = customer.id)
 
         elif data['_method'][0] == 'DELETE':
             data = dict(request.POST)
@@ -188,7 +188,7 @@ class EditCustomerView(LoginRequiredMixin,View):
             if data['from'][0] == 'all':
                 return redirect('all_customers')
             else :
-                return redirect('_detail')
+                return redirect('person_detail', pk = customer.id)
 
 class SupplierView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):

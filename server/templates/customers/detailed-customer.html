@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="card mb-4">
-                    <div class="card-body text-center">
+                    <div class="card-body text-cent er">
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
                             alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
                         <h5 class="my-3">{{person.name}}</h5>
@@ -35,7 +35,7 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form method='POST' action='edit-persons/'>
+                                            <form method='POST' action="{% url 'edit_customers'  %}">
                                                 {% csrf_token %}
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <input type="hidden" name="from" value="detail">
@@ -70,7 +70,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <div>
-                                                <form method='POST' action='edit-persons/'>
+                                                <form method='POST' action="{% url 'edit_customers' %}">
                                                     {% csrf_token %}
                                                     <input type="hidden" name="_method" value="PUT">
                                                     <input type="hidden" name="from" value="detail">
@@ -143,7 +143,7 @@
             <div class="col-lg-8">
                 <div class="card mb-4">
                     <div class="card-body" style='min-height:500px;'>
-                        <table class="table align-middle mb-0 bg-white">
+                        <table dir = "rtl" class="table align-middle mb-0 bg-white">
 
                             <tbody>
                                 <tr>
