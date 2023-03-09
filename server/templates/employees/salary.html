@@ -13,6 +13,9 @@
         <div class="card-body">
           <p><strong>الراتب</strong>: <strong>{{employee_total_salary}}</strong></p>
           <p><strong>القروض او الخصومات</strong>: <strong>{{employee_total_loans}}</strong></p>
+          <p><strong> الباقي </strong>: <strong>{{total}}</strong></p>
+
+          
         </div>
         <div class="card-footer">
           <form method="post" action="{% url 'salary_detail' %}">

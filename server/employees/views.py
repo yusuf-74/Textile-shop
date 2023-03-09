@@ -353,13 +353,15 @@ class SalaryDetails(LoginRequiredMixin,View):
         #calculating the salary and loans
         employee_total_salary = sum([s.total_salary for s in salary_queryset])
         employee_total_loans = sum([p.amount for p in penalty_or_loans])
+        total = employee_total_salary - employee_total_loans
         
         context = {
             'employee' : employee,
             'employee_total_salary' : employee_total_salary,
             'employee_total_loans' : employee_total_loans,
             'start_date' : start_date,
-            'end_date' : end_date
+            'end_date' : end_date,
+            'total' :    total      
         }
         
         return render(request,'employees/salary.html',context)
