@@ -5,12 +5,13 @@ from .models import Person , Salary, PenaltyOrLoans
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from employees.models import Person
-
-
-class EmployeeView(View):
+from .filter import SalaryFilter,LoanFilter
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
+class EmployeeView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         employees = PersonFilter(request.GET,queryset=Person.objects.filter(role = 'employee'))
-        
+
         employees_data = [{\
                         'id':employee.id \
                         ,'name':employee.name\
@@ -27,7 +28,7 @@ class EmployeeView(View):
 
         return render(request,'employees/all-employees.html',{'employees_data':employees_data})
 
-class EmployeeDetailView(View):
+class EmployeeDetailView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         employee_data = []
         try:
@@ -47,7 +48,7 @@ class EmployeeDetailView(View):
         return render(request,'employees/detailed-employee.html',{'employee':employee_data})
 
 
-class EditEmployeeView(View):
+class EditEmployeeView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         return render(request,'employees/create-employee.html')
 
@@ -98,7 +99,7 @@ class EditEmployeeView(View):
 
 
 
-class PersonDetailView(View):
+class PersonDetailView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         person_data = []
         try:
@@ -120,7 +121,7 @@ class PersonDetailView(View):
             return render(request,'suppliers/detailed-supplier.html',{'person':person_data})
 
 
-class CustomerView(View):
+class CustomerView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         customers = PersonFilter(request.GET,queryset=Person.objects.filter(role = 'customer'))
         customers_data = [{\
@@ -136,7 +137,7 @@ class CustomerView(View):
 
         return render(request,'customers/all-customers.html',{'customers_data':customers_data})
 
-class EditCustomerView(View):
+class EditCustomerView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         return render(request,'customers/create-customer.html')
 
@@ -161,7 +162,7 @@ class EditCustomerView(View):
             if data['from'][0] == 'all':
                 return redirect('all_customers')
             else :
-                return redirect('_detail')
+                return redirect('person_detail', pk = customer.id)
 
         elif data['_method'][0] == 'PUT':
             data = dict(request.POST)
@@ -177,7 +178,7 @@ class EditCustomerView(View):
             if data['from'][0] == 'all':
                 return redirect('all_customers')
             else :
-                return redirect('_detail')
+                return redirect('person_detail', pk = customer.id)
 
         elif data['_method'][0] == 'DELETE':
             data = dict(request.POST)
@@ -187,9 +188,9 @@ class EditCustomerView(View):
             if data['from'][0] == 'all':
                 return redirect('all_customers')
             else :
-                return redirect('_detail')
+                return redirect('person_detail', pk = customer.id)
 
-class SupplierView(View):
+class SupplierView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         suppliers = PersonFilter(request.GET,queryset=Person.objects.filter(role = 'supplier'))
         suppliers_data = [{\
@@ -205,7 +206,7 @@ class SupplierView(View):
 
         return render(request,'suppliers/all-suppliers.html',{'suppliers_data':suppliers_data})
 
-class EditSupplierView(View):
+class EditSupplierView(LoginRequiredMixin,View):
     def get(self,request,*args, **kwargs):
         return render(request,'suppliers/create-supplier.html')
 
@@ -257,29 +258,35 @@ class EditSupplierView(View):
             else :
                 return redirect('_detail')
 
-class SalaryView(ListView):
+class SalaryView(LoginRequiredMixin,ListView):
     model=Salary
     context_object_name="salary"
     paginate_by=10
     template_name="salary/salary_list.html"
+    filterset_class=SalaryFilter
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.order_by('-id')
+        print(queryset)
+        print(self.request.GET)
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        print(self.filterset.qs)
+        return self.filterset.qs.order_by('-id').distinct()
 
-class SalaryUpdate(UpdateView):
+
+class SalaryUpdate(LoginRequiredMixin,UpdateView):
     template_name="salary/salary_list.html"
     model=Salary
     fields=["num_of_hours" , "salry_per_hour","status"]
     def get_success_url(self):
         return reverse_lazy("all_salary")
 
-class SalaryDelete(DeleteView):
+class SalaryDelete(LoginRequiredMixin,DeleteView):
     template_name="salary/salary_list.html"
     model=Salary
     def get_success_url(self):
         return reverse_lazy("all_salary")
 
-class SalaryCreate(CreateView):
+class SalaryCreate(LoginRequiredMixin,CreateView):
     fields=["employee",'num_of_hours' ,'salry_per_hour' , "status" ]
     model=Salary
     template_name='salary/salary_create.html'
@@ -292,5 +299,99 @@ class SalaryCreate(CreateView):
 
 
 
+class LoanView(LoginRequiredMixin,ListView):
+    model=PenaltyOrLoans
+    context_object_name="loans"
+    paginate_by=10
+    template_name="loan/list_loans.html"
+    filterset_class=LoanFilter
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        print(self.request.GET)
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        return self.filterset.qs.order_by('-id').distinct()
+
+class LoanUpdate(LoginRequiredMixin,UpdateView):
+    template_name="loan/list_loans.html"
+    model=PenaltyOrLoans
+    fields=["amount","status"]
+    success_url=reverse_lazy("all_loan")
 
 
+class LoanCreate(LoginRequiredMixin,CreateView):
+    fields=["employee",'amount' ,'type_of_debt' ]
+    model=PenaltyOrLoans
+    template_name='loan/loan-create.html'
+    success_url=reverse_lazy("all_loan")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["emps"] = Person.objects.filter(role="employee")
+        return context
+
+class LoanDelete(LoginRequiredMixin,DeleteView):
+    template_name="loan/list_loans.html"
+    model=PenaltyOrLoans
+    def get_success_url(self):
+        return reverse_lazy("all_loan")
+    
+    
+class SalaryDetails(LoginRequiredMixin,View):
+    
+    def get(self,request):
+        data = dict(request.GET)
+        
+        #getting the important information from the request
+        employee = get_object_or_404(Person,id = data['id'][0])
+        start_date = data['start_date'][0]
+        end_date = data['end_date'][0]
+        
+        #getting the salary and loans during the given period
+        salary_queryset = Salary.objects.filter(employee = employee, created_at__gte = start_date, created_at__lt = end_date, status = 'not paid')
+        penalty_or_loans = PenaltyOrLoans.objects.filter(employee = employee,status = 'not paid' )
+        
+        #calculating the salary and loans
+        employee_total_salary = sum([s.total_salary for s in salary_queryset])
+        employee_total_loans = sum([p.amount for p in penalty_or_loans])
+        
+        context = {
+            'employee' : employee,
+            'employee_total_salary' : employee_total_salary,
+            'employee_total_loans' : employee_total_loans,
+            'start_date' : start_date,
+            'end_date' : end_date
+        }
+        
+        return render(request,'employees/salary.html',context)
+    
+    def post(self,request):
+        data = dict(request.POST)
+        
+        employee = get_object_or_404(Person,id = data['id'][0])
+        start_date = data['start_date'][0]
+        end_date = data['end_date'][0]
+        print(end_date)
+        
+        salary_queryset = Salary.objects.filter(employee = employee, created_at__gte = start_date, created_at__lt = end_date, status = 'not paid')
+        penalty_or_loans = PenaltyOrLoans.objects.filter(employee = employee,status = 'not paid' )
+        
+        for s in salary_queryset:
+            s.status = 'paid'
+            s.save()
+        for p in penalty_or_loans:
+            p.status = 'paid'
+            p.save()
+        return redirect('employee_detail' ,data['id'][0])
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+
+        
+        

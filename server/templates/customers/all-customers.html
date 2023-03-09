@@ -8,26 +8,26 @@
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
         <input type="text" id="name" name = 'name' class="form-control" />
-        <label class="form-label" for="name">Name</label>
+        <label class="form-label" for="name">الاسم</label>
       </div>
       
     </div>
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
         <input type="text" id="address" name = 'address' class="form-control" />
-        <label class="form-label" for="address">Address</label>
+        <label class="form-label" for="address">العنوان</label>
       </div>
     </div>
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
         <input type="text" id="phone" name = 'phone' class="form-control" />
-        <label class="form-label" for="phone"> Phone</label>
+        <label class="form-label" for="phone"> رقم التليفون</label>
       </div>
     </div>
     <div class="input-group" style = 'margin : 8px 0'>
       <div class="form-outline">
         <input type="text" id="city" name = 'city' class="form-control" />
-        <label class="form-label" for="city"> City</label>
+        <label class="form-label" for="city"> المدينة</label>
       </div>
     </div>
    
@@ -44,20 +44,20 @@
 {% block downside %}
 <section style="margin: 0 0 32px 0;min-height:800px;">
   <div style = "display :flex;">
-    <div style="margin: 32px 0 32px 16px ; flex : 1">Customers</div>
+    <div style="margin: 32px 0 32px 16px ; flex : 1">العملاء</div>
     <a href = "edit-customers">
-      <button type="button" style="margin: 32px" class="btn btn-success">Create</button>
+      <button type="button" style="margin: 32px" class="btn btn-success">اضافة عميل</button>
     </a>
   </div>
-  <table class="table align-middle mb-0 bg-white">
+  <table dir = "rtl" class="table align-middle mb-0 bg-white">
     <thead class="bg-light">
       <tr>
-        <th>Customer ID</th>
-        <th>Name</th>
-        <th>Address</th>
-        <th>phone</th>
-        <th>city</th>
-        <th>Action</th>
+        <th> ID</th>
+        <th>الاسم</th>
+        <th>العنوان</th>
+        <th>رقم التليفون</th>
+        <th>المدينة</th>
+        <th>جذف او تعديل</th>
       </tr>
     </thead>
     <tbody>
@@ -90,7 +90,7 @@
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">DELETE CUSTOMER</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">حذف العميل</h5>
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
@@ -101,8 +101,8 @@
                       <input type="hidden" name="id" value="{{customer.id}}">
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-danger">Confirm DELETE</button>
+                          <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">اغلاق</button>
+                          <button type="submit" class="btn btn-danger">تأكيد الحذف</button>
                         </div>
                     </form>
                   </div>
@@ -122,7 +122,7 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="editlable{{customer.id}}">Update data</h5>
+                  <h5 class="modal-title" id="editlable{{customer.id}}">تحديث البيانات</h5>
                   <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -135,7 +135,7 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <label style = 'font-size:12px;' for="name">Name</label>
+                      <label style = 'font-size:12px;' for="name">الاسم</label>
                       <input style = 'border:1px solid black; margin-top:4px;' type="text" id="name" name = "name" value = '{{customer.name}}' class="form-control" />
                     </div>
                   </div>
@@ -143,7 +143,7 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-solid fa-phone fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
-                        <label style = 'font-size:12px;' for="phone">Phone</label>
+                        <label style = 'font-size:12px;' for="phone">رقم التليفون</label>
                         <input style = 'border:1px solid black; margin-top:4px;' type="text" id="phone" name = "phone" value = '{{customer.phone}}' class="form-control" />
                       </div>
                     </div>
@@ -157,7 +157,7 @@
                   <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-solid fa-location-dot fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
-                        <label style = 'font-size:12px;' for="address">Address</label>
+                        <label style = 'font-size:12px;' for="address">العنوان</label>
                         <input style = 'border:1px solid black; margin-top:4px;' type="text" id="address" name = "address" value = '{{customer.address}}' class="form-control" />
                       </div>
                       
@@ -165,13 +165,13 @@
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-solid fa-city fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
-                        <label style = 'font-size:12px;' for="city">City</label>
+                        <label style = 'font-size:12px;' for="city">المدينة</label>
                         <input style = 'border:1px solid black; margin-top:4px;' type="text" id="city" name = "city" value = '{{customer.city}}' class="form-control" />
                       </div>
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Save changes</button>
+                      <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">اغلاق</button>
+                      <button type="submit" class="btn btn-primary">حفظ التغييرات</button>
                     </div>
                 </form>
               </div>

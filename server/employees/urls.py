@@ -1,5 +1,6 @@
 from django .urls import path
 from . import views
+
 urlpatterns = [
     path('employees/'      , views.EmployeeView.as_view()     , name = 'all_employees'  ),
     path('employees/<int:pk>', views.EmployeeDetailView.as_view(), name = 'employee_detail'),
@@ -14,6 +15,11 @@ urlpatterns = [
     path('salary/<int:pk>/update' , views.SalaryUpdate.as_view() , name='salary-update'),
     path('salary/<int:pk>/delete' , views.SalaryDelete.as_view() , name='salary-delete'),
     path('salary/create' , views.SalaryCreate.as_view() , name='salary-create'),
+    path('loan/' , views.LoanView.as_view() , name='all_loan'),
+    path('loan/<int:pk>/update' , views.LoanUpdate.as_view() , name='loan-update'),
+    path('loan/create' , views.LoanCreate.as_view() , name='loan-create'),
+    path('loan/<int:pk>/delete' , views.LoanDelete.as_view() , name='loan-delete'),
+    path('salary/details',views.SalaryDetails.as_view(),name = 'salary_detail')
 
 
 ]

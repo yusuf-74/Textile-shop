@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.views import View
 from receipts.models import CustomerReceipt, SuppliersReceipt
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout 
-class DashboardView(View):
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
+class DashboardView(LoginRequiredMixin,View):
     def get(self, request):
         orders_data = [{'orderId' : receipt.id , 'customer':receipt.customer.name , 'price':receipt.total , 'status':'delivered' } for receipt in CustomerReceipt.objects.all().order_by('-date')]
         if len(orders_data) > 5:
@@ -51,7 +52,7 @@ class RegisterView(View):
         
         return render(request, 'admin/analytics.html', {'success': 'User created successfully'})
     
-class LogoutView(View):
+class LogoutView(LoginRequiredMixin,View):
     def get(self, request):
         logout(request)
         return render(request, 'users/register-login.html')

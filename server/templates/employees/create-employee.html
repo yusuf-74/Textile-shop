@@ -11,7 +11,7 @@
               <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
   
-                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Create Employee</p>
+                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">اضافة موظف</p>
   
                   <form method = 'POST' class="mx-1 mx-md-4">
                     {% csrf_token %}
@@ -22,7 +22,7 @@
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
                         <input type="text" id="name" name = "name" class="form-control" />
-                        <label class="form-label" for="name">Name</label>
+                        <label class="form-label" for="name">الاسم</label>
                       </div>
                     </div>
   
@@ -30,7 +30,7 @@
                         <i class="fas fa-solid fa-phone fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                           <input type="text" id="phone" name = "phone" class="form-control" />
-                          <label class="form-label" for="phone">Phone</label>
+                          <label class="form-label" for="phone">رقم التليفون</label>
                         </div>
                       </div>
                     <div class="d-flex flex-row align-items-center mb-4">
@@ -44,7 +44,7 @@
                         <i class="fas fa-solid fa-location-dot fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                           <input type="text" id="address" name = "address" class="form-control" />
-                          <label class="form-label" for="address">Address</label>
+                          <label class="form-label" for="address">العنوان</label>
                         </div>
                         
                       </div>
@@ -52,12 +52,12 @@
                         <i class="fas fa-solid fa-city fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
                           <input type="text" id="city" name = "city" class="form-control" />
-                          <label class="form-label" for="city">City</label>
+                          <label class="form-label" for="city">المدينة</label>
                         </div>
                       </div>
                       
                       <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                        <button type="submit" class="btn btn-primary btn-lg">Create</button>
+                        <button type="submit" class="btn btn-primary btn-lg">إضافة</button>
                       </div>
                   </form>
   

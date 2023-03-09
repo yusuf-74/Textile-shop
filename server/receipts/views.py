@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
 from .models import CustomerReceipt
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class OrdersView(View):
+class OrdersView(LoginRequiredMixin,View):
     
     def get(self ,request,*args, **kwargs):
         data = [{'orderId':receipt.id  \
