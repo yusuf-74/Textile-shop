@@ -3,10 +3,10 @@ from django.contrib.auth import get_user_model
 from django.db.models import Sum
 import threading
 
-choices = [('petrol', 'petrol'), ('oil', 'oil'), ('water', 'water'),\
-                ('electricity', 'electricity'), ('food', 'food'), \
-                ('delivery', 'delivery'), ('rent', 'rent'), ('nails', 'nails'),\
-                ('string', 'string'), ('transport', 'transport'), ('other', 'other'),        
+choices = [('petrol', 'بنزين'), ('oil', 'زيت'), ('water', 'فاتورة مياه'),\
+                ('electricity', 'فاتورة كهرباء'), ('food', 'أكل'), \
+                ('delivery', 'توصيل'), ('rent', 'إيجار'), ('nails', 'مسامير'),\
+                ('string', 'إبر'), ('transport', 'نقل'), ('other', 'اخر'),        
 ]
 
 def get_current_user():
